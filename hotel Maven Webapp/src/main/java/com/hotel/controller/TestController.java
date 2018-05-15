@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hotel.api.service.BaiduMapService;
+import com.hotel.jms.producer.TestProducer;
 import com.hotel.service.TestService;
 
 @Controller
@@ -15,12 +16,15 @@ public class TestController {
 	private TestService testService;
 	@Autowired
 	private BaiduMapService baiduMapService;
+	@Autowired
+	private TestProducer producer;
 @RequestMapping(value="test.json",method=RequestMethod.GET,produces="application/json;charset=utf-8")
 
 	public @ResponseBody String test(){
 	try {
 		int c=testService.test();
 		String city=baiduMapService.getCityByLongitudeAndLatitude(123.0, 45);
+		producer.sendMessage(city);
 		System.out.println(city);
 		System.out.println(c);
 	} catch (Exception e) {

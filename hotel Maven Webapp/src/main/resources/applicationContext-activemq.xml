@@ -47,13 +47,12 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
     <!--Spring JmsTemplate 的消息生产者 end-->
     
      <!-- 消息消费者 start-->
-
+<bean name="topicReceiver1" class="com.hotel.jms.consumer.TestConsumer"></bean>
     <!-- 定义Queue监听器 -->
- <!--    <jms:listener-container destination-type="queue" container-type="default" connection-factory="connectionFactory" acknowledge="auto">
- <jms:listener destination="test.topic" ref="topicReceiver1" method="xxx"/>
-        <jms:listener destination="test.topic" ref="topicReceiver2" method="xxx"/>  
+   <jms:listener-container destination-type="queue" container-type="default" connection-factory="connectionFactory" acknowledge="auto">
+ <jms:listener destination="spring-activemq-queue" ref="topicReceiver1" method="onMessage"/>
     </jms:listener-container>
- -->
+
     <!-- 定义Topic监听器 -->
   <!--   <jms:listener-container destination-type="topic" container-type="default" connection-factory="connectionFactory" acknowledge="auto">
  <jms:listener destination="test.topic" ref="topicReceiver1" method="xxx"/>
