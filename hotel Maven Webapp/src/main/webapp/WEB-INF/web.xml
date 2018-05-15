@@ -14,6 +14,7 @@
   classpath:applicationContext-mybatis.xml;
   classpath:applicationContext-servlet.xml;
   classpath:applicationContext-activemq.xml;
+    classpath:applicationContext-quartz.xml;
    </param-value>
   </context-param>
   
