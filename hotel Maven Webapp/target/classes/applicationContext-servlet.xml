@@ -55,7 +55,8 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 	<mvc:resources location="/css/" mapping="/**/*.css" />
 	<mvc:resources location="/images/" mapping="/images/*"
 		cache-period="360000" />
-
+<mvc:resources location="/images-slider/" mapping="/images-slider/*"
+		cache-period="360000" />
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />

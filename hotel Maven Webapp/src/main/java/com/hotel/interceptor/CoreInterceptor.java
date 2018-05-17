@@ -14,7 +14,11 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hotel.util.PropertiesUtil;
-
+/**
+ * 核心拦截器主要是拦截和管理用户访问资源权限
+ * @author yuanhaohe
+ *
+ */
 public class CoreInterceptor implements HandlerInterceptor{
 private final Logger log=LoggerFactory.getLogger(CoreInterceptor.class);
 private static Map<String,String> anonymous;
@@ -65,7 +69,7 @@ public boolean preHandle(HttpServletRequest request, HttpServletResponse respons
     response.setStatus(HttpStatus.OK.value()); //设置状态码  
 	response.setContentType("application/json;charset=utf-8");
 	response.getWriter().write("{\"code\":400,\"msg\":\"No Aythority\"}");
-	log.debug("实名被拒绝:"+request.getRequestURI());
+	log.debug("访问被拒绝:"+request.getRequestURI());
 	return false;
 }
 }

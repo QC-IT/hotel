@@ -13,21 +13,7 @@ import com.hotel.redis.RedisService;
 
 public class RedisServiceImpl implements RedisService{
 private static final Logger log=LoggerFactory.getLogger(RedisServiceImpl.class);
-
-    public RedisTemplate<Serializable, Object> getRedisTemplate() {
-	return redisTemplate;
-}
-
-public void setRedisTemplate(RedisTemplate<Serializable, Object> redisTemplate) {
-	this.redisTemplate = redisTemplate;
-}
-
-public static Logger getLog() {
-	return log;
-}
-
 	private RedisTemplate<Serializable, Object> redisTemplate;
-
     /**
      * 批量删除对应的value
      * 
@@ -126,6 +112,14 @@ public static Logger getLog() {
     public long increment(final String key , long delta){
          return redisTemplate.opsForValue().increment(key, delta);
     }
+
+    public RedisTemplate<Serializable, Object> getRedisTemplate() {
+	return redisTemplate;
+}
+
+public void setRedisTemplate(RedisTemplate<Serializable, Object> redisTemplate) {
+	this.redisTemplate = redisTemplate;
+}
 
 
 }

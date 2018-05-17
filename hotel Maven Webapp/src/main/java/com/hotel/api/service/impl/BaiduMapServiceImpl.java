@@ -13,7 +13,7 @@ import com.hotel.util.HttpClientUtil;
 /**
  * 
  * @author yuanhaohe
- * 
+ * 百度地图服务
  */
 @Service
 public class BaiduMapServiceImpl implements BaiduMapService{

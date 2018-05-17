@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 public final class HttpClientUtil {
 	  /** 
      * 向指定URL发送GET方法的请求 
-     *  @author  from Internet
+     *  @author  yuanhaohe
      *  
      * @param url 
      *            发送请求的URL 

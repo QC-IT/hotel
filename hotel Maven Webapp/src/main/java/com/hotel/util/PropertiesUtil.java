@@ -17,18 +17,33 @@ public static 	 Map<String,String> getKeyAndValueMap(String filePath){
 }
 	
 public static Map<String,String> getKeyAndValueMap(File file){
+	InputStream in=null;
 try {
-	return getKeyAndValueMap(new FileInputStream(file));
+	 in=new FileInputStream(file);
+	 return getKeyAndValueMap(in);
 } catch (FileNotFoundException e) {
 	// TODO 自动生成的 catch 块
 	e.printStackTrace();
+}finally{
+	
+	if(in!=null){
+		try {
+			in.close();
+		} catch (IOException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+	}
 }
 return null;
+
 }
 
 public static Map<String,String> getKeyAndValueMap(InputStream in){
+	Map<String,String> result=null;
+	if(in!=null){
 	Properties properties=new Properties();
-	Map<String,String> result=new HashMap<String, String>();
+	result=new HashMap<String, String>();
 	try {
 		properties.load(in);
 		Set<Object> keys=properties.keySet();
@@ -52,6 +67,9 @@ public static Map<String,String> getKeyAndValueMap(InputStream in){
 	}
 	}
 	return result;
+	}else {
+		return result;
+		}
 }
 
 }
