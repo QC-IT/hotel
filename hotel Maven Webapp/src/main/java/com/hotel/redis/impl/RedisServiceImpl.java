@@ -122,4 +122,6 @@ public void setRedisTemplate(RedisTemplate<Serializable, Object> redisTemplate) 
 }
 
 
+
+
 }

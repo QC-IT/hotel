@@ -18,7 +18,9 @@
    </param-value>
   </context-param>
   
-  
+  <listener>
+     <listener-class>com.hotel.listener.SessionListener</listener-class>
+  </listener>
   
     <servlet>
     <servlet-name>springMVC</servlet-name>
