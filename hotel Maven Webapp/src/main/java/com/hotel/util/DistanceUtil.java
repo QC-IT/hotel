@@ -39,7 +39,7 @@ public final class DistanceUtil {
     
 	 /**
      * 根据两个位置的经纬度，来计算两地的距离（单位为KM）
-     * 参数为String类型
+     * 参数为double类型
      * @param lat1 用户经度
      * @param lng1 用户纬度
      * @param lat2 商家经度
