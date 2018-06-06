@@ -30,13 +30,12 @@ static {
 @Override
 public void afterCompletion(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, Exception arg3)
 		throws Exception {
-	// TODO 自动生成的方法存根
 	
 }
 @Override
 public void postHandle(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, ModelAndView arg3)
 		throws Exception {
-	// TODO 自动生成的方法存根
+
 	
 }
 /**
@@ -49,7 +48,7 @@ public boolean preHandle(HttpServletRequest request, HttpServletResponse respons
 	Set<String> anonymousKey=anonymous.keySet();
 	//允许匿名用户获取资源
 	for(String key:anonymousKey){
-		if(request.getRequestURI().contains(key)){
+		if(request.getRequestURI().contains(key)&&anonymous.get(key).equals("true")){
 			log.debug("匿名访问:"+request.getRequestURI());
 			return true;
 		}
@@ -57,7 +56,7 @@ public boolean preHandle(HttpServletRequest request, HttpServletResponse respons
 	//允许登录后的用户获取资源
 	Set<String> needLoginKey=needLogin.keySet();
 	for(String key:needLoginKey){
-		if(request.getRequestURI().contains(key)){
+		if(request.getRequestURI().contains(key)&&needLogin.get(key).equals("true")){
 			HttpSession session=request.getSession();
 			String user=(String) session.getAttribute("user");
 			if(user!=null){

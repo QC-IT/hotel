@@ -20,21 +20,45 @@
 
 
 	<dependencies>
+	<dependency>
+            <groupId>org.java-websocket</groupId>
+            <artifactId>Java-WebSocket</artifactId>
+            <version>1.3.0</version>
+        </dependency>
+<dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-websocket</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-messaging</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
 	<dependency> 
     <groupId>org.springframework</groupId>
     <artifactId>spring-jms</artifactId>
     <version>${spring.version}</version>
 </dependency>
-  <dependency>  
-        <groupId>org.springframework.data</groupId>  
-        <artifactId>spring-data-redis</artifactId>  
-        <version>1.0.2.RELEASE</version>  
-    </dependency>  
+<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-redis -->
+<dependency>
+    <groupId>org.springframework.data</groupId>
+    <artifactId>spring-data-redis</artifactId>
+    <version>1.8.4.RELEASE</version>
+</dependency>
+
     <dependency>  
-        <groupId>redis.clients</groupId>  
+        <groupId>redis.clients</groupId>   
         <artifactId>jedis</artifactId>  
-        <version>2.1.0</version>  
+        <version>2.9.0</version>  
     </dependency>  
+<dependency>
+    <groupId>org.springframework.session</groupId>
+    <artifactId>spring-session-data-redis</artifactId>
+    <version>1.3.3.RELEASE</version>
+</dependency>
+           
+
 	<dependency>
     <groupId>org.apache.activemq</groupId>
     <artifactId>activemq-spring</artifactId>
@@ -284,5 +308,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-  </build>
+  </build> 
 </project>
+  

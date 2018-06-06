@@ -6,6 +6,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,7 +88,8 @@ public class CityController {
 	 * @return 错误:"{"code":500}",成功:"{"code":200,"citys":城市列表}"
 	 */
 	@RequestMapping(value = "findHotCity.json", method = RequestMethod.POST, produces = "application/json;charset=utf8")
-	public @ResponseBody String findHotCity() {
+	public @ResponseBody String findHotCity(HttpServletRequest request) {
+		HttpSession session=request.getSession();
 		List<City> citys = null;
 		try {
 			citys = cityService.getHotCityList();
@@ -93,6 +97,7 @@ public class CityController {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
+
 		if (citys != null) {
 			JSONObject json = new JSONObject();
 			json.put("code", 200);

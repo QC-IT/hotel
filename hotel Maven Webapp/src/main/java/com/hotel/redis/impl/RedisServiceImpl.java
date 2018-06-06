@@ -37,7 +37,7 @@ private static final Logger log=LoggerFactory.getLogger(RedisServiceImpl.class);
     }
 
     /**
-     * 删除对应的value
+     * 删除对应的key
      * 
      * @param key
      */

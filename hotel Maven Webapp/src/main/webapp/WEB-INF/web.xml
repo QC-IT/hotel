@@ -3,11 +3,47 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0" id="WebApp_1526376102360">
+         <!-- 自定义防爬虫过滤器 -->
+  <filter>
+<filter-name>defenseCrawlerFilter</filter-name>
+<filter-class>com.hotel.filters.DefenseCrawlerFilter</filter-class>
+<init-param>
+<!-- 设置间隔范围5分钟 -->
+<param-name>rangetime</param-name>
+<param-value>300</param-value>
+</init-param>
+<init-param>
+<!-- 设置锁定时间长度10分钟 -->
+<param-name>locked</param-name>
+<param-value>600</param-value>
+</init-param>
+<init-param>
+<!-- 设置访问次数100次 -->
+<param-name>times</param-name>
+<param-value>100</param-value>
+</init-param>
+</filter>
 
+<filter-mapping>
+<filter-name>defenseCrawlerFilter</filter-name>
+<url-pattern>/*</url-pattern>
+</filter-mapping>
+ <!-- 分布式Session共享Filter -->
+  <filter >
+    <filter-name>springSessionRepositoryFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>springSessionRepositoryFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
 <listener>
 <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 </listener>
-    <context-param>
+
+
+    <context-param id="ParamValue_1528195288652">
   <param-name>contextConfigLocation</param-name>
   <param-value>
   classpath:applicationContext-beans.xml;
@@ -17,12 +53,7 @@
     classpath:applicationContext-quartz.xml;
    </param-value>
   </context-param>
-  
-  <listener>
-     <listener-class>com.hotel.listener.SessionListener</listener-class>
-  </listener>
-  
-    <servlet>
+      <servlet id="Servlet_1528195287896">
     <servlet-name>springMVC</servlet-name>
   <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
   <init-param>
@@ -31,13 +62,19 @@
   </init-param>
   </servlet>
   <!-- 请求以.json结尾 -->
-    <servlet-mapping>
+    <servlet-mapping id="ServletMapping_1528195288081">
   <servlet-name>springMVC</servlet-name>
   <url-pattern>*.json</url-pattern>
   </servlet-mapping>
+
+<!--   <listener>
+     <listener-class>com.hotel.listener.SessionListener</listener-class>
+  </listener> -->
+  
+
   
   <!-- 字符集过滤器 -->
-  <filter>
+  <filter id="Filter_1528195288555">
   <filter-name>characterEncodingFilter</filter-name>
   <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
   <init-param>
@@ -57,12 +94,12 @@
   
   
   
-<context-param>  
+<context-param >  
      <param-name>log4jConfigLocation</param-name>  
-     <param-value>classpath:properties/log4j.properties</param-value>  
+     <param-value>classpath:log4j.properties</param-value>   
     </context-param>     
  
-    <context-param>  
+    <context-param >  
      <param-name>log4jRefreshInterval</param-name>  
       <param-value>3000</param-value>  
     </context-param>  
@@ -70,5 +107,6 @@
  <listener>  
     <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>  
  </listener>
+
 
 </web-app>
