@@ -3,7 +3,6 @@ package com.hotel.websocket.service.impl;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.CloseStatus;
@@ -11,24 +10,19 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-
 import com.hotel.websocket.service.ScaWebSocketHandler;
 
 @Service
 public class ScaWebSocketHandlerImpl extends TextWebSocketHandler implements ScaWebSocketHandler{
 	private static final String flag="sca_connectionid";
-
     //全国在线的等待授权用户集合
     private static final Map<String, Map<String,WebSocketSession>> users;
    private static Logger logger=org.slf4j.LoggerFactory.getLogger(ScaWebSocketHandlerImpl.class);
-
-    static {
-        users = new ConcurrentHashMap<String,Map<String,WebSocketSession>>();
-    }
-
+  static{
+	  users=new ConcurrentHashMap<String,Map<String,WebSocketSession>>();
+  }
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-      
         String cityid = getClientId(session);
         logger.debug("websocket请求连接! cityid="+cityid);
         if (cityid != null) {
@@ -51,9 +45,7 @@ public class ScaWebSocketHandlerImpl extends TextWebSocketHandler implements Sca
 
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) {
-    
 logger.debug("向客户端发送信息:"+message.toString());
-
         WebSocketMessage<String> message1 = message;
         try {
             session.sendMessage(message1);
@@ -73,7 +65,6 @@ logger.debug("向客户端发送信息:"+message.toString());
     	String cityid=tmp[0];
     	String userid=tmp[1];
         if (users.get(cityid) == null||users.get(cityid).get(userid)==null) return false;
-        
         WebSocketSession session = users.get(cityid).get(userid);
        logger.debug("sendMessage to " + session);
         if (!session.isOpen()) return false;
@@ -112,7 +103,7 @@ logger.debug("向客户端发送信息:"+message.toString());
     /**
      * 获取用户标识
      * @param session
-     * @return
+     * @return 从连接session中获取clientId
      */
     private String getClientId(WebSocketSession session) {
         try {

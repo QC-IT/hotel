@@ -1,7 +1,6 @@
 package com.hotel.jms.producer;
 
 import javax.annotation.Resource;
-import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.Session;
@@ -16,6 +15,7 @@ public class TestProducer {
 	@Resource(name="jmsQueueTemplate")
 private JmsTemplate jmsTemplate;
 	public void  sendMessage(String city){
+		
 		MessageCreator creator = new MessageCreator() {  
             @Override  
             public Message createMessage(Session session) throws JMSException {  

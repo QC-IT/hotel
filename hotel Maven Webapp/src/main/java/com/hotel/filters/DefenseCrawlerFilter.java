@@ -27,10 +27,9 @@ import com.hotel.models.Visitor;
 public class DefenseCrawlerFilter implements Filter {
 	private static final Logger logger = LoggerFactory.getLogger(DefenseCrawlerFilter.class);
 	private Map<String, Visitor> map = new ConcurrentHashMap<String, Visitor>();
-	private static int rangetime;
-	private static int locked;
-	private static int times;
-
+	private static long rangetime;
+	private static long locked;
+	private static long times;
 	// 初始化参数 读取web.xml配置的信息
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -69,7 +68,6 @@ public class DefenseCrawlerFilter implements Filter {
 					visitor.setRefuse(true);
 					logger.debug("ip:" + ip + "被锁定 第" + (visitor.getRefuseTimes() + 1) + "次锁定");
 				}
-
 				visitor.setLastVisitTime(System.currentTimeMillis());
 			} else if (visitor.getLastVisitTime() - visitor.getBeginVisitTime() < rangetime
 					&& visitor.getTimes() >= times && visitor.getLastVisitTime() + locked
@@ -98,7 +96,6 @@ public class DefenseCrawlerFilter implements Filter {
 				chain.doFilter(request, response);
 			}
 		}
-
 	}
 
 	@Override

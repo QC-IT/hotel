@@ -29,7 +29,6 @@ public final class HttpClientUtil {
      * @return URL 所代表远程资源的响应结果 
      */  
     public  static String sendGet(String url, String param) {  
-    	
         String result = "";  
         BufferedReader in = null;  
         try {  

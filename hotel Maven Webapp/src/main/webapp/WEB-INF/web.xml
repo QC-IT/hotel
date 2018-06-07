@@ -3,7 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0" id="WebApp_1526376102360">
-         <!-- 自定义防爬虫过滤器 -->
+         
+<!-- 自定义防爬虫过滤器 -->
   <filter>
 <filter-name>defenseCrawlerFilter</filter-name>
 <filter-class>com.hotel.filters.DefenseCrawlerFilter</filter-class>
@@ -23,11 +24,11 @@
 <param-value>100</param-value>
 </init-param>
 </filter>
-
 <filter-mapping>
 <filter-name>defenseCrawlerFilter</filter-name>
 <url-pattern>/*</url-pattern>
 </filter-mapping>
+
  <!-- 分布式Session共享Filter -->
   <filter >
     <filter-name>springSessionRepositoryFilter</filter-name>
@@ -43,7 +44,7 @@
 </listener>
 
 
-    <context-param id="ParamValue_1528195288652">
+    <context-param>
   <param-name>contextConfigLocation</param-name>
   <param-value>
   classpath:applicationContext-beans.xml;
@@ -53,7 +54,7 @@
     classpath:applicationContext-quartz.xml;
    </param-value>
   </context-param>
-      <servlet id="Servlet_1528195287896">
+      <servlet>
     <servlet-name>springMVC</servlet-name>
   <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
   <init-param>
@@ -62,7 +63,7 @@
   </init-param>
   </servlet>
   <!-- 请求以.json结尾 -->
-    <servlet-mapping id="ServletMapping_1528195288081">
+    <servlet-mapping>
   <servlet-name>springMVC</servlet-name>
   <url-pattern>*.json</url-pattern>
   </servlet-mapping>

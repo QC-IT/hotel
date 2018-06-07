@@ -5,10 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.alibaba.fastjson.JSONObject;
 import com.hotel.api.service.BaiduMapService;
 import com.hotel.exceptions.BaiduMapLocationFormatException;
@@ -25,13 +21,12 @@ import com.hotel.models.City;
 import com.hotel.service.CityService;
 
 /**
- * 
  * @author yuanhaohe 处理城市相关的controller
  */
 @Controller
 @RequestMapping("city")
 public class CityController {
-	private final Logger log = LoggerFactory.getLogger(CityController.class);
+	private static final Logger logger = LoggerFactory.getLogger(CityController.class);
 	@Autowired
 	private BaiduMapService baiduMapService;
 	@Autowired
@@ -39,25 +34,22 @@ public class CityController {
 
 	/**
 	 * 根据经纬度获取当前城市位置
-	 * 
 	 * @author yuanhaohe
 	 * @param map
 	 *            经纬度
 	 * @return code 错误:{"code":500} 成功:{"code":200,"city":城市名,"id":城市id}
-	 * 
 	 */
 	@RequestMapping(value = "getLocationCity", method = RequestMethod.POST, produces = "application/json;charset=utf8")
 	public @ResponseBody String getLocationCity(@RequestBody Map<String, String> map) {
 		String latitude = map.get("latitude");
 		String longitude = map.get("longitude");
-		log.debug("latitude:" + latitude + "  longitude:" + longitude);
+		logger.debug("latitude:" + latitude + "  longitude:" + longitude);
 		if (latitude.length() != 0 || longitude.length() != 0) {
 			String city = null;
 			try {
 				city = baiduMapService.getCityByLongitudeAndLatitude(Double.parseDouble(longitude),
 						Double.parseDouble(latitude));
-				
-				log.debug("city:" + city);
+				logger.debug("city:" + city);
 			} catch (NumberFormatException e) {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();
@@ -78,18 +70,16 @@ public class CityController {
 				return "{\"code\":500}";
 		} else
 			return "{\"code\":500}";
-
 	}
 
+	
 	/**
 	 * 查找热门城市 前期先直接读取数据库 后期改为读取redis
-	 * 
 	 * @author yuanhaohe
 	 * @return 错误:"{"code":500}",成功:"{"code":200,"citys":城市列表}"
 	 */
 	@RequestMapping(value = "findHotCity.json", method = RequestMethod.POST, produces = "application/json;charset=utf8")
 	public @ResponseBody String findHotCity(HttpServletRequest request) {
-		HttpSession session=request.getSession();
 		List<City> citys = null;
 		try {
 			citys = cityService.getHotCityList();
@@ -97,7 +87,6 @@ public class CityController {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
-
 		if (citys != null) {
 			JSONObject json = new JSONObject();
 			json.put("code", 200);
@@ -105,12 +94,12 @@ public class CityController {
 			return json.toJSONString();
 		} else
 			return "{\"code\":500}";
-
 	}
 
+	
 	/**
-	 * 
-	 * @return
+	 *获取全部城市信息 
+	 * @return 所有城市
 	 */
 	@RequestMapping(value = "allCity", method = RequestMethod.POST, produces = "application/json;charset=utf8")
 	public @ResponseBody String getAllCity() {
@@ -150,86 +139,86 @@ public class CityController {
 			List<City> Y = new ArrayList<City>();
 			List<City> Z = new ArrayList<City>();
 			for (City city : allcitys) {
-				if (city.getAbbr().charAt(0) == 'A') {
+				String abbr=city.getAbbr();
+				if (abbr.charAt(0) == 'A') {
 					key.add("A");
 					A.add(city);
-				} else if (city.getAbbr().charAt(0) == 'B') {
+				} else if (abbr.charAt(0) == 'B') {
 					key.add("B");
 					B.add(city);
-				} else if (city.getAbbr().charAt(0) == 'C') {
+				} else if (abbr.charAt(0) == 'C') {
 					key.add("C");
 					C.add(city);
-				} else if (city.getAbbr().charAt(0) == 'D') {
+				} else if (abbr.charAt(0) == 'D') {
 					key.add("D");
 					D.add(city);
-				} else if (city.getAbbr().charAt(0) == 'E') {
+				} else if (abbr.charAt(0) == 'E') {
 					key.add("E");
 					E.add(city);
-				} else if (city.getAbbr().charAt(0) == 'F') {
+				} else if (abbr.charAt(0) == 'F') {
 					key.add("F");
 					F.add(city);
-				} else if (city.getAbbr().charAt(0) == 'G') {
+				} else if (abbr.charAt(0) == 'G') {
 					key.add("G");
 					G.add(city);
-				} else if (city.getAbbr().charAt(0) == 'H') {
+				} else if (abbr.charAt(0) == 'H') {
 					key.add("H");
 					H.add(city);
-				} else if (city.getAbbr().charAt(0) == 'I') {
+				} else if (abbr.charAt(0) == 'I') {
 					key.add("I");
 					I.add(city);
-				} else if (city.getAbbr().charAt(0) == 'J') {
+				} else if (abbr.charAt(0) == 'J') {
 					key.add("J");
 					J.add(city);
-				} else if (city.getAbbr().charAt(0) == 'K') {
+				} else if (abbr.charAt(0) == 'K') {
 					key.add("K");
 					K.add(city);
-				} else if (city.getAbbr().charAt(0) == 'L') {
+				} else if (abbr.charAt(0) == 'L') {
 					key.add("L");
 					L.add(city);
-				} else if (city.getAbbr().charAt(0) == 'M') {
+				} else if (abbr.charAt(0) == 'M') {
 					key.add("M");
 					M.add(city);
-				} else if (city.getAbbr().charAt(0) == 'N') {
+				} else if (abbr.charAt(0) == 'N') {
 					key.add("N");
 					N.add(city);
-				} else if (city.getAbbr().charAt(0) == 'O') {
+				} else if (abbr.charAt(0) == 'O') {
 					key.add("O");
 					O.add(city);
-				} else if (city.getAbbr().charAt(0) == 'P') {
+				} else if (abbr.charAt(0) == 'P') {
 					key.add("P");
 					P.add(city);
-				} else if (city.getAbbr().charAt(0) == 'Q') {
+				} else if (abbr.charAt(0) == 'Q') {
 					key.add("Q");
 					Q.add(city);
-				} else if (city.getAbbr().charAt(0) == 'R') {
+				} else if (abbr.charAt(0) == 'R') {
 					key.add("R");
 					R.add(city);
-				} else if (city.getAbbr().charAt(0) == 'S') {
+				} else if (abbr.charAt(0) == 'S') {
 					key.add("S");
 					S.add(city);
-				} else if (city.getAbbr().charAt(0) == 'T') {
+				} else if (abbr.charAt(0) == 'T') {
 					key.add("T");
 					T.add(city);
-				} else if (city.getAbbr().charAt(0) == 'U') {
+				} else if (abbr.charAt(0) == 'U') {
 					key.add("U");
 					U.add(city);
-				} else if (city.getAbbr().charAt(0) == 'V') {
+				} else if (abbr.charAt(0) == 'V') {
 					key.add("V");
 					V.add(city);
-				} else if (city.getAbbr().charAt(0) == 'W') {
+				} else if (abbr.charAt(0) == 'W') {
 					key.add("W");
 					W.add(city);
-				} else if (city.getAbbr().charAt(0) == 'X') {
+				} else if (abbr.charAt(0) == 'X') {
 					key.add("X");
 					X.add(city);
-				} else if (city.getAbbr().charAt(0) == 'Y') {
+				} else if (abbr.charAt(0) == 'Y') {
 					key.add("Y");
 					Y.add(city);
 				} else {
 					key.add("Z");
 					Z.add(city);
 				}
-
 			}
 			JSONObject json = new JSONObject();
 			if (A.size() != 0) {
@@ -315,6 +304,5 @@ public class CityController {
 			return json.toJSONString();
 		} else
 			return "{\"code\":500}";
-
 	}
 }

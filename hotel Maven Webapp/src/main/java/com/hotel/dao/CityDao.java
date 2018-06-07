@@ -10,4 +10,6 @@ public List<City> getHotCity();
 public List<City> getAllCity();
 
 public int getCityIdByName(String name);
+
+public String getCodeByCityName(String cityName);
 }

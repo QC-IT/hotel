@@ -16,7 +16,6 @@ private static final Logger log=LoggerFactory.getLogger(RedisServiceImpl.class);
 	private RedisTemplate<Serializable, Object> redisTemplate;
     /**
      * 批量删除对应的value
-     * 
      * @param keys
      */
     public void remove(final String... keys) {
@@ -26,8 +25,7 @@ private static final Logger log=LoggerFactory.getLogger(RedisServiceImpl.class);
     }
 
     /**
-     * 批量删除key
-     * 
+     * 批量删除value
      * @param pattern
      */
     public void removePattern(final String pattern) {
@@ -37,8 +35,7 @@ private static final Logger log=LoggerFactory.getLogger(RedisServiceImpl.class);
     }
 
     /**
-     * 删除对应的key
-     * 
+     * 删除对应的value
      * @param key
      */
     public void remove(final String key) {
@@ -49,7 +46,6 @@ private static final Logger log=LoggerFactory.getLogger(RedisServiceImpl.class);
 
     /**
      * 判断缓存中是否有对应的value
-     * 
      * @param key
      * @return
      */
@@ -59,7 +55,6 @@ private static final Logger log=LoggerFactory.getLogger(RedisServiceImpl.class);
 
     /**
      * 读取缓存
-     * 
      * @param key
      * @return
      */
@@ -72,7 +67,6 @@ private static final Logger log=LoggerFactory.getLogger(RedisServiceImpl.class);
 
     /**
      * 写入缓存
-     * 
      * @param key
      * @param value
      * @return
@@ -91,7 +85,6 @@ private static final Logger log=LoggerFactory.getLogger(RedisServiceImpl.class);
 
     /**
      * 写入缓存
-     * 
      * @param key
      * @param value
      * @return

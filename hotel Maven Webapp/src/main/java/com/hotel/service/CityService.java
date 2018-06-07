@@ -13,5 +13,5 @@ public interface CityService {
 	
 	public int selectCityIdByName(String name) throws Exception;
 	
-	
+	public String getCodeByCityName(String cityName) throws Exception;
 }

@@ -14,9 +14,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
 private WebSocketHandler handler;
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+    	//scaConnection.json是webSocket连接的地址
         registry.addHandler(handler, "/scaConnection.json").addInterceptors(new ScaWebSocketInterceptor());
     }
-
-  
-
 }

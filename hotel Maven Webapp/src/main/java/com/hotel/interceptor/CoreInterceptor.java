@@ -17,7 +17,6 @@ import com.hotel.util.PropertiesUtil;
 /**
  * 核心拦截器主要是拦截和管理用户访问资源权限
  * @author yuanhaohe
- *
  */
 public class CoreInterceptor implements HandlerInterceptor{
 private final Logger log=LoggerFactory.getLogger(CoreInterceptor.class);
@@ -27,17 +26,20 @@ static {
 	anonymous=PropertiesUtil.getKeyAndValueMap(CoreInterceptor.class.getClassLoader().getResource("/").getFile()+"properties/anonyous.properties");
 	needLogin=PropertiesUtil.getKeyAndValueMap(CoreInterceptor.class.getClassLoader().getResource("/").getFile()+"properties/needlogin.properties");
 }
+
 @Override
 public void afterCompletion(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, Exception arg3)
 		throws Exception {
 	
 }
+
 @Override
 public void postHandle(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, ModelAndView arg3)
 		throws Exception {
 
 	
 }
+
 /**
  * @author yuanhaohe
  * 配置完匿名权限的地址将允许所有用户访问，也可以在needlogin中配置地址（配置后用户需要登录后才能访问，否则返回code 400）配置信息详见properties
@@ -58,9 +60,9 @@ public boolean preHandle(HttpServletRequest request, HttpServletResponse respons
 	for(String key:needLoginKey){
 		if(request.getRequestURI().contains(key)&&needLogin.get(key).equals("true")){
 			HttpSession session=request.getSession();
-			String user=(String) session.getAttribute("user");
-			if(user!=null){
-				log.debug("实名访问:"+request.getRequestURI());
+			String openId=(String) session.getAttribute("openId");
+			if(openId!=null){
+				log.debug("实名访问:"+request.getRequestURI()+"  用户id:"+openId);
 				return true;
 			}
 		}
@@ -71,4 +73,5 @@ public boolean preHandle(HttpServletRequest request, HttpServletResponse respons
 	log.debug("访问被拒绝:"+request.getRequestURI());
 	return false;
 }
+
 }
