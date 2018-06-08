@@ -10,15 +10,15 @@ private String password;
 private String nickName;
 private String headPic;
 private String gender;
-private int age;
+private Integer age;
 private String phoneNumber;
 private String email;
 private String salt;
 private Date createTime;
 private String latitude;
 private String longitude;
-private int state;
-private int level;
+private Integer state;
+private Integer level;
 public String getId() {
 	return id;
 }
@@ -103,16 +103,16 @@ public String getLongitude() {
 public void setLongitude(String longitude) {
 	this.longitude = longitude;
 }
-public int getState() {
+public Integer getState() {
 	return state;
 }
-public void setState(int state) {
+public void setState(Integer state) {
 	this.state = state;
 }
-public int getLevel() {
+public Integer getLevel() {
 	return level;
 }
-public void setLevel(int level) {
+public void setLevel(Integer level) {
 	this.level = level;
 }
 @Override

@@ -29,4 +29,26 @@ public String getCodeByCityName(String cityName) throws Exception {
 	
 	return cityDao.getCodeByCityName(cityName);
 }
+@Transactional
+public void insertCityList(List<City> citys) throws Exception{
+cityDao.addCityList(citys);
+	
+}
+
+@Transactional
+public void deleteCityList(List<String> ids) throws Exception{
+	cityDao.deleteCityList(ids);
+}
+@Transactional
+public void insertCity(City city) throws Exception {
+	if(city.getIshot()==null){
+		city.setIshot("0");
+	}
+	cityDao.addCity(city);
+}
+@Transactional
+public void deleteCity(String id) throws Exception {
+	cityDao.deleteCityById(id);
+	
+}
 }

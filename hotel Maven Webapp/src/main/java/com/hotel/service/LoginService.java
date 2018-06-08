@@ -23,5 +23,5 @@ public String getWeChatOpenIdByCode(String code);
  * @param session session
  * @return 登录后的user对象
  */
-public User loginUser(String openId,String latitude,String longitude,HttpSession session);
+public User loginUser(String openId,String latitude,String longitude,String nickName,HttpSession session);
 }

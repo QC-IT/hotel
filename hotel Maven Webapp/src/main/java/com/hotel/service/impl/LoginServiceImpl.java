@@ -27,7 +27,7 @@ private UserDao userDao;
 	}
 
 	@Transactional
-	public User loginUser(String openId,String latitude,String longitude,HttpSession session) {
+	public User loginUser(String openId,String latitude,String longitude,String nickName,HttpSession session) {
 		String weChatId=(String) session.getAttribute("openId");
 		//若session中没有用户分俩种情况 1是用户没有注册 2是用户已经注册没有登录
 		if(weChatId==null){
@@ -37,21 +37,25 @@ private UserDao userDao;
 			String uuid=UUID.randomUUID().toString();
 			uuid=uuid.replace("-", "");
 			//向数据库中插入openid、id和默认用户名
-			userDao.insertUser(openId, uuid, "新用户");
+			userDao.insertUser(openId, uuid, nickName);
 			userDao.updateUserGpsMsg(openId, latitude, longitude);
 			//得到数据库中的user对象返回给前台
 			User user=userDao.selectUserInfoByOpenId(openId);
 //记录登录状态 用户登录状态由openid维护，但是必须要传入id
+		if(user.getState()==1){
 			session.setAttribute("openId", user.getOpenID());
 			session.setAttribute("id", user.getId());
+		}
 			return user;
 		}else{
 			//如果已经注册 那么更新GPS并查找出返回给前端
 			userDao.updateUserGpsMsg(openId, latitude, longitude); 	
 			User user=userDao.selectUserInfoByOpenId(openId);
 			//记录登录状态 用户登录状态由openid维护，但是必须要传入id
-			session.setAttribute("openId", user.getOpenID());
-			session.setAttribute("id", user.getId());
+			if(user.getState()==1){
+				session.setAttribute("openId", user.getOpenID());
+				session.setAttribute("id", user.getId());
+			}
 			return user;
 		}
 		
@@ -60,8 +64,10 @@ private UserDao userDao;
 		userDao.updateUserGpsMsg(openId, latitude, longitude);
 		User user=userDao.selectUserInfoByOpenId(openId);
 		//记录登录状态 用户登录状态由openid维护，但是必须要传入id
+		if(user.getState()==1){
 		session.setAttribute("openId", user.getOpenID());
 		session.setAttribute("id", user.getId());
+		}
 		return user;
 	}
 		}

@@ -26,6 +26,7 @@
                    <value>classpath:properties/api.properties</value>
                       <value>classpath:properties/activemq.properties</value> 
                        <value>classpath:properties/redis.properties</value> 
+                         <value>classpath:properties/system.properties</value> 
             </list>
         </property>
      

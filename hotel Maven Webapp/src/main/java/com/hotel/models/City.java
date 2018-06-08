@@ -6,9 +6,17 @@ public class City{
 	private String abbr;
 	private String code;
 	private String pinyin;
-	
+	private String ishot;
+	public String getIshot() {
+		return ishot;
+	}
+	public void setIshot(String ishot) {
+		this.ishot = ishot;
+	}
+	@Override
 	public String toString() {
-		return "City [id=" + id + ", name=" + name + ", abbr=" + abbr + ", code=" + code + ", pinyin=" + pinyin + "]";
+		return "City [id=" + id + ", name=" + name + ", abbr=" + abbr + ", code=" + code + ", pinyin=" + pinyin
+				+ ", ishot=" + ishot + "]";
 	}
 	public String getCode() {
 		return code;

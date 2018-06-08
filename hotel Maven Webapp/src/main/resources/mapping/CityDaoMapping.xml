@@ -1,23 +1,124 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper  
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
 <mapper namespace="com.hotel.dao.CityDao">
+	<insert id="addCityList" parameterType="list">
+		insert into city(pinyin,name,abbr,code,ishot) values
+		<foreach collection="list" index="index" item="item"
+			separator=",">
+			(
+			#{item.pinyin},
+			#{item.name},
+			#{item.abbr},
+			#{item.code},
+			#{item.ishot}
+			)
+		</foreach>
+	</insert>
 
-<select id="getHotCity" resultType="City">
-select * from city where ishot=1
-</select>
+	<delete id="deleteCityList" parameterType="list">
+		delete from city where id in
+		<foreach collection="list" index="index" item="item" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
 
-<select id="getAllCity" resultType="City">
-select * from city order by abbr
-</select>
+	<select id="getHotCity" resultType="City">
+		select * from city where
+		ishot=1
+	</select>
 
-<select id="getCityIdByName" parameterType="java.lang.String" resultType="java.lang.Integer">
-select id from city where name=#{name}
-</select>
-<select id="getCodeByCityName" parameterType="java.lang.String" resultType="java.lang.String">
-select code from city where name=#{cityName}
-</select>
+	<select id="getAllCity" resultType="City">
+		select * from city order by
+		abbr
+	</select>
+
+	<select id="getCityIdByName" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		<if test="#{name}!=null">
+			select id from city where name=#{name}
+		</if>
+	</select>
+	<select id="getCodeByCityName" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		<if test="#{cityName}!=null">
+			select code from city where name=#{cityName}
+		</if>
+	</select>
+
+	<insert id="addCity" parameterType="City">
+		insert into city(
+		<if test="#{pingyin}!=null">
+			pingyin,
+		</if>
+
+
+		<if test="#{name}!=null">
+			name,
+		</if>
+
+		<if test="#{abbr}!=null">
+			abbr,
+		</if>
+
+
+		<if test="#{code}!=null">
+			code,
+		</if>
+			ishot
+		)values(
+		<if test="#{pingyin}!=null">
+			#{pingyin},
+		</if>
+
+
+		<if test="#{name}!=null">
+			#{name},
+		</if>
+
+		<if test="#{abbr}!=null">
+			#{abbr},
+		</if>
+
+
+		<if test="#{code}!=null">
+			#{code},
+		</if>
+
+
+		<if test="#{ishot}!=null">
+			#{ishot}
+		</if>
+<if test="#{ishot}==null">
+			'0'
+		</if>
+
+		)
+	</insert>
+
+	<update id="updateCityHot" parameterType="map">
+		update city set
+		ishot=#{hot} where code=#{code}
+	</update>
+
+	<update id="updateCityById" parameterType="City">
+		update city
+		<set>
+			<if test="#{pinyin}!=null">pinyin=#{pinyin},</if>
+		<if test="#{name}!=null">name=#{name},</if>
+		<if test="#{abbr}!=null">abbr=#{abbr},</if>
+		<if test="#{code}!=null">code=#{code},</if>
+		<if test="#{ishot}!=null">ishot=#{ishot}</if>
+		</set>
+			where id=#{id}
+	</update>
+
+	<delete id="deleteCityById" parameterType="java.lang.String">
+		delete from city where id=#{id}
+	</delete>
+
 </mapper> 

@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.alibaba.fastjson.JSONObject;
 import com.hotel.api.service.BaiduMapService;
 import com.hotel.exceptions.BaiduMapLocationFormatException;
@@ -83,17 +86,15 @@ public class CityController {
 		List<City> citys = null;
 		try {
 			citys = cityService.getHotCityList();
-		} catch (Exception e) {
-			// TODO 自动生成的 catch 块
-			e.printStackTrace();
-		}
-		if (citys != null) {
 			JSONObject json = new JSONObject();
 			json.put("code", 200);
 			json.put("citys", citys);
 			return json.toJSONString();
-		} else
-			return "{\"code\":500}";
+		} catch (Exception e) {
+			return "{\"code\":500,\"msg\":\"服务器未知错误\"}";
+		}
+		
+		
 	}
 
 	
@@ -107,7 +108,6 @@ public class CityController {
 		try {
 			allcitys = cityService.getAllCityList();
 		} catch (Exception e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
 		Set<String> key = new TreeSet<String>();
@@ -305,4 +305,38 @@ public class CityController {
 		} else
 			return "{\"code\":500}";
 	}
+	/**
+	 * 添加城市
+	 * @param city 
+	 * @return
+	 */
+	@RequestMapping(value="addCity.json",produces="application/json;charset=utf8")
+	public@ResponseBody
+	String addCityList(@RequestBody City city){
+	//向集合中添加城市
+		try {
+			cityService.insertCity(city);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{\"code\":500,\"msg\":\"服务器异常\"}";
+		}
+		return "{\"code\":200,\"msg\":\"success\"}";
+	}
+	
+	/**
+	 * 通过城市id删除城市
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping(value="deleteCity.json",produces="application/json;charset=utf8")
+	public @ResponseBody
+	String deleteCityList(@RequestBody Map<String,String> map){
+		try {
+			cityService.deleteCity(map.get("id"));
+		} catch (Exception e) {
+			return "{\"code\":500,\"msg\":\"服务器异常\"}";
+		}
+		return "{\"code\":200,\"msg\":\"success\"}";
+	}
+	
 }
