@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="selectHotelByCityCode" parameterType="java.lang.String" resultMap="HotelResultMap">
 	select h.*,hp.id pid,hp.picUrl picUrl,hp.state pstate,hp.hid
 		hid from hotel as h left join hotel_pic as hp on h.id=hp.hid
-		where cityCode=#{cityCode} and h.state=1
+		where cityCode=#{cityCode} and h.state=1 and hp.state =1
 </select>
 
 	<insert id="insertHotelBaseInfo" parameterType="Hotel">
@@ -192,4 +192,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<result column="pstate" property="state" />
 		</collection>
 	</resultMap>
+	<select id="getHotelById" parameterType="java.lang.String" resultType="Hotel">
+	select * from hotel where id=#{id}
+	</select>
 </mapper> 

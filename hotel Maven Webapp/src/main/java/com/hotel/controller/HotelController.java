@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
@@ -32,7 +33,7 @@ public class HotelController {
  *        name longitude latitude
  * @return
  */
-	@RequestMapping(value = "searchHotel.json", produces = "application/json;charset=utf8")
+	@RequestMapping(value = "searchHotel.json", method=RequestMethod.POST,produces = "application/json;charset=utf8")
 	public @ResponseBody String searchHotel(@RequestBody Map<String, String> map) {
 		String name = map.get("name");
 		String longitude = map.get("longitude");
@@ -59,17 +60,22 @@ public class HotelController {
 	}
 	
 /**
- * websocket连接会话的id 城市ID_用户ID
+ * websocket连接会话的id 城市code_用户ID
  * @param session
  * @param map 
  *        socketId
  * @return
  */
-	@RequestMapping(value = "socketContent.json", produces = "application/json;charset=utf8")
+	@RequestMapping(value = "socketContent.json", method=RequestMethod.POST,produces = "application/json;charset=utf8")
 	public @ResponseBody String getSocketContent(HttpSession session, @RequestBody Map<String, String> map) {
 		String socketId = map.get("socketId");
+		if(socketId!=null){
 		session.setAttribute("sca_connectionid", socketId);
-		return "{\"code\":200}";
+		return "{\"code\":200,\"msg\":\"success\"}";
+		}else{
+			return "{\"code\":500,\"msg\":\"没有找到对应的值\"}";
+		}
+
 	}
 	
 /**
@@ -78,7 +84,7 @@ public class HotelController {
  *        cityName longitude latitude
  * @return
  */
-	@RequestMapping(value = "getRecomHotelListByCityName.json", produces = "application/json;charset=utf8")
+	@RequestMapping(value = "getRecomHotelListByCityName.json", method=RequestMethod.POST,produces = "application/json;charset=utf8")
 	public @ResponseBody String getRecomHotelListByCityName(@RequestBody Map<String, String> map) {
 		String cityName = map.get("cityName");
 		String longitude = map.get("longitude");
@@ -106,7 +112,7 @@ public class HotelController {
 	 *        cityCode longitude latitude
 	 * @return
 	 */
-	@RequestMapping(value = "getRecomHotelListByCityCode.json", produces = "application/json;charset=utf8")
+	@RequestMapping(value = "getRecomHotelListByCityCode.json", method=RequestMethod.POST,produces = "application/json;charset=utf8")
 	public @ResponseBody String getRecomHotelListByCityCode(@RequestBody Map<String, String> map) {
 		String cityCode = map.get("cityCode");
 		String longitude = map.get("longitude");
@@ -132,7 +138,8 @@ public class HotelController {
  *        state  id
  * @return
  */
-	@RequestMapping(value = "changeHotelState.json", produces = "application/json;charset=utf8")
+	//在写酒店方小程序时候这里要做权限判断 state 402
+	@RequestMapping(value = "changeHotelState.json", method=RequestMethod.POST,produces = "application/json;charset=utf8")
 	public @ResponseBody String changeHotelState(@RequestBody Map<String, String> map) {
 		String state = map.get("state");
 		String id = map.get("id");
@@ -144,7 +151,7 @@ public class HotelController {
 			} else if (state.equals(HotelService.HOTEL_REST)) {
 				hotelService.restHotel(id);
 			}
-			return "{\"code\":200}";
+			return "{\"code\":200,\"msg\":\"success\"}";
 		} catch (Exception e) {
 			return "{\"code\":500,\"msg\":\"服务器出现未知异常\"}";
 		}
@@ -155,17 +162,18 @@ public class HotelController {
  * @param hotel
  * @return
  */
-	@RequestMapping(value = "updateHotelInfo.json", produces = "application/json;charset=utf8")
+	//在写酒店方小程序时候这里要做权限判断 state 402
+	@RequestMapping(value = "updateHotelInfo.json",method=RequestMethod.POST, produces = "application/json;charset=utf8")
 	public @ResponseBody String updateHotelInfo(@RequestBody Hotel hotel) {
 		try {
 			boolean flag = hotelService.updateHotelBaseInfo(hotel);
 			if (flag) {
 				return "{\"code\":200,\"msg\":\"success\"}";
 			} else {
-				return "{\"code\":203,\"msg\":\"未知原因更新失败\"}";
+				return "{\"code\":500,\"msg\":\"未知原因更新失败\"}";
 			}
 		} catch (Exception e) {
-			return "{\"code\":203,\"msg\":\"未知原因更新失败\"}";
+			return "{\"code\":500,\"msg\":\"未知原因更新失败\"}";
 		}
 	}
 	
@@ -174,6 +182,7 @@ public class HotelController {
  * @param hotel
  * @return
  */
+	//在写酒店方小程序时候这里要做权限判断 state 402
 	@RequestMapping(value = "addHotelInfo.json", produces = "application/json;charset=utf8")
 	public @ResponseBody String insertHotelBaseInfo(@RequestBody Hotel hotel) {
 		try {
@@ -181,10 +190,10 @@ public class HotelController {
 			if (flag) {
 				return "{\"code\":200,\"msg\":\"success\"}";
 			} else {
-				return "{\"code\":203,\"msg\":\"未知原因添加失败\"}";
+				return "{\"code\":500,\"msg\":\"未知原因添加失败\"}";
 			}
 		} catch (Exception e) {
-			return "{\"code\":203,\"msg\":\"未知原因添加失败\"}";
+			return "{\"code\":500,\"msg\":\"未知原因添加失败\"}";
 		}
 	}
 	
@@ -206,7 +215,7 @@ public class HotelController {
 json.put("nearHotel", list);
 return json.toJSONString();
 		} catch (Exception e) {
-		return "{\"code\":203,\"msg\":\"未知错误\"}";
+		return "{\"code\":500,\"msg\":\"未知错误\"}";
 		}
 	}
 

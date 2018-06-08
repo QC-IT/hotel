@@ -67,5 +67,4 @@ public void addCityList(List<City> citys);
  */
 public void deleteCityList(List<String> ids);
 
-
 }

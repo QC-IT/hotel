@@ -178,4 +178,9 @@ public class HotelServiceImpl implements HotelService {
 			return result;
 		}
 	}
+@Override
+public Hotel getHotelById(String id) {
+
+	return hotelDao.getHotelById(id);
+}
 }

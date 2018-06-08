@@ -110,4 +110,11 @@ public interface HotelService {
 	 */
 	public List<Hotel> getNearHotelLimit(String lat, String lng, String index, String amount, HttpSession session)
 			throws Exception;
+	
+	/**
+	 * 通过id查找Hotel
+	 * @param id
+	 * @return
+	 */
+	public Hotel getHotelById(String id);
 }

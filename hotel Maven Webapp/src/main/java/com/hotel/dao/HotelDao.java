@@ -51,4 +51,11 @@ public interface HotelDao {
 	 * @return 酒店列表
 	 */
 	public List<Hotel> selectHotelByCityCode(String cityCode);
+	
+	/**
+	 * 通过酒店的id获取hotel
+	 * @param id 酒店id
+	 * @return
+	 */
+	public Hotel getHotelById(String id);
 }

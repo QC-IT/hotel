@@ -21,7 +21,7 @@ private Integer state;
 private String cityCode;
 private Integer isRecommend;
 private Integer recommendOrderCode;
-private double distance;
+private Double distance;
 private List<HotelPic> picPath;
 public List<HotelPic> getPicPath() {
 	return picPath;
@@ -131,10 +131,10 @@ public Integer getRecommendOrderCode() {
 public void setRecommendOrderCode(int recommendOrderCode) {
 	this.recommendOrderCode = recommendOrderCode;
 }
-public double getDistance() {
+public Double getDistance() {
 	return distance;
 }
-public void setDistance(double distance) {
+public void setDistance(Double distance) {
 	this.distance = distance;
 }
 @Override

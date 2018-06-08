@@ -52,8 +52,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="addCity" parameterType="City">
 		insert into city(
-		<if test="#{pingyin}!=null">
-			pingyin,
+		<if test="#{pinyin}!=null">
+			pinyin,
 		</if>
 
 
@@ -71,8 +71,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 			ishot
 		)values(
-		<if test="#{pingyin}!=null">
-			#{pingyin},
+		<if test="#{pinyin}!=null">
+			#{pinyin},
 		</if>
 
 
