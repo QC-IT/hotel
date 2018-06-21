@@ -3,20 +3,21 @@ package com.hotel.models;
 import java.util.Date;
 
 public class Comment {
+    //评论id
     private Integer id;
-
+    //用户ID
     private String uid;
-
+    //服务id
     private Integer sid;
 
     private Date time;
-
+    //评分 12345星
     private Integer score;
-
+    //评论状态 1正常 2关闭 3删除 4违规
     private Integer state;
-
+    //是否匿名
     private Integer isanonymous;
-
+    //服务内容
     private String content;
 
     public Integer getId() {
