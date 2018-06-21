@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.hotel.service.CityService;
+import com.hotel.service.HotelService;
 
 public class Test {
 	private BeanFactory factory=null;
@@ -16,7 +16,8 @@ public class Test {
 	
 @org.junit.Test
 public void test() throws Exception{
-CityService cityService=factory.getBean(CityService.class);
-System.out.println(cityService.getAllCityList());
+	HotelService service=factory.getBean(HotelService.class);
+
 }
 }
+ 

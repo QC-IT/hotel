@@ -55,6 +55,7 @@ public class HotelServiceImpl implements HotelService {
 	}
 @Transactional
 	public List<Hotel> getRecomHotelListByCityCode(String cityCode) throws Exception {
+	if(cityCode!=null&&!cityCode.trim().equals("")){
 		List<Hotel> list = hotelDao.getRecommendHotelByCity(cityCode);
 		logger.debug("通过" + cityCode + "查找到" + list.size() + "个酒店");
 		list = list.parallelStream().sorted((o1, o2) -> {
@@ -66,9 +67,14 @@ public class HotelServiceImpl implements HotelService {
 				return 0;
 		}).collect(Collectors.toList());
 		return list;
+		}else {
+			return null;
+		}
+	
 	}
 @Transactional
 	public List<Hotel> getRecomHotelListByCityName(String name) throws Exception {
+	if(name!=null&&!name.trim().equals("")){
 		String cityCode = null;
 		try {
 			cityCode = cityService.getCodeByCityName(name);
@@ -80,11 +86,15 @@ public class HotelServiceImpl implements HotelService {
 			return this.getRecomHotelListByCityCode(cityCode);
 		}
 		return null;
+		}else{
+			return null;
+		}
 
 	}
 @Transactional
 	@Override
 	public boolean closeHotel(String id) throws Exception {
+	if(id!=null&&!id.trim().equals("")){
 		try {
 			hotelDao.changeHotelStateById(id, "0");
 			logger.debug("将id为" + id + "的酒店状态变为关闭");
@@ -92,12 +102,15 @@ public class HotelServiceImpl implements HotelService {
 		} catch (Exception e) {
 			return false;
 		}
+		}else{
+			return false;
+		}
 
 	}
 
 @Transactional
-	@Override
 	public boolean openHotel(String id) throws Exception {
+	if(id!=null&&!id.trim().equals("")){
 		try {
 			hotelDao.changeHotelStateById(id, "1");
 			logger.debug("将id为" + id + "的酒店状态变为营业");
@@ -105,10 +118,13 @@ public class HotelServiceImpl implements HotelService {
 		} catch (Exception e) {
 			return false;
 		}
+		}else {
+			return false;
+		}
 	}
 @Transactional
-	@Override
 	public boolean restHotel(String id) throws Exception {
+	if(id!=null&&!id.trim().equals("")){
 		try {
 			logger.debug("将id为" + id + "的酒店状态变为未营业");
 			hotelDao.changeHotelStateById(id, "2");
@@ -116,33 +132,40 @@ public class HotelServiceImpl implements HotelService {
 		} catch (Exception e) {
 			return false;
 		}
+		}else {
+			return false;
+		}
 	}
 
 @Transactional
-	@Override
 	public boolean updateHotelBaseInfo(Hotel hotel) throws Exception {
+	if(hotel!=null){
 		try {
 			hotelDao.updateHotelBaseInfo(hotel);
 			return true;
 		} catch (Exception e) {
 			return false;
 		}
-
+	}else {
+		return false;
+	}
 	}
 
 @Transactional
-	@Override
 	public boolean insertHotelBaseInfo(Hotel hotel) throws Exception {
+	if(hotel!=null){
 		try {
 			hotelDao.insertHotelBaseInfo(hotel);
 			return true;
 		} catch (Exception e) {
 			return false;
 		}
+		}else {
+			return false;
+		}
 	}
 
 @Transactional
-	@Override
 	public List<Hotel> getNearHotelLimit(String lat, String lng, String index, String amount, HttpSession session)
 			throws Exception {
 		@SuppressWarnings("unchecked")
@@ -153,7 +176,6 @@ public class HotelServiceImpl implements HotelService {
 		List<Hotel> list=hotelDao.selectHotelByCityCode(cityCode);
 		list.forEach(s->{s.setDistance(DistanceUtil.getDistance(s.getLatitude(), s.getLongitude(), lat, lng));});
 		list=list.parallelStream().sorted(new Comparator<Hotel>() {
-			@Override
 			public int compare(Hotel o1, Hotel o2) {
 				if(o1.getDistance()>o2.getDistance()){
 					return 1;
@@ -180,7 +202,10 @@ public class HotelServiceImpl implements HotelService {
 	}
 @Override
 public Hotel getHotelById(String id) {
-
+if(id!=null&&!id.trim().equals("")){
 	return hotelDao.getHotelById(id);
+	}else {
+		return null;
+	}
 }
 }

@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateUserStateByOpenId" parameterType="map">
 		uodate user
 		<set>
-			<if test="#{state}!=null">
+			<if test="state!=null">
 				state=#{state}
 			</if>
 		</set>

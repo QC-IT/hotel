@@ -22,7 +22,7 @@ public interface CityService {
 	/**
 	 * 通过城市名查找城市id
 	 * @param name 城市名
-	 * @return 城市id
+	 * @return 城市id 查不到返回0
 	 * @throws Exception
 	 */
 	public int selectCityIdByName(String name) throws Exception;

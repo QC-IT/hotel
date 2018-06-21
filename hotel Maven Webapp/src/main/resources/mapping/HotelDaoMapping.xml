@@ -11,87 +11,87 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="insertHotelBaseInfo" parameterType="Hotel">
 		insert into hotel (
-		<if test="#{name}!=null">
+		<if test="name!=null">
 			name,
 		</if>
-		<if test="#{address}!=null">
+		<if test="address!=null">
 			address,
 		</if>
-		<if test="#{longitude}!=null">
+		<if test="longitude!=null">
 			longitude,
 		</if>
-		<if test="#{latitude}!=null">
+		<if test="latitude!=null">
 			latitude,
 		</if>
-		<if test="#{administrator}!=null">
+		<if test="administrator!=null">
 			administrator,
 		</if>
-		<if test="#{phoneNumber}!=null">
+		<if test="phoneNumber!=null">
 			phoneNumber,
 		</if>
-		<if test="#{startLevel}!=null">
+		<if test="startLevel!=null">
 			startLevel,
 		</if>
-		<if test="#{officialURL}!=null">
+		<if test="officialURL!=null">
 			officialURL,
 		</if>
-		<if test="#{headPicURL}!=null">
+		<if test="headPicURL!=null">
 			headPicURL,
 		</if>
-		<if test="#{type}!=null">
+		<if test="type!=null">
 			type,
 		</if>
-		<if test="#{level}!=null">
+		<if test="level!=null">
 			level,
 		</if>
 		createTime,
-		<if test="#{state}!=null">
+		<if test="state!=null">
 			state,
 		</if>
-		<if test="#{cityCode}!=null">
+		<if test="cityCode!=null">
 			cityCode,
 		</if>
-		<if test="#{isRecommend}!=null">
+		<if test="isRecommend!=null">
 			isRecommend,
 		</if>
 		recommendOrderCode
 		)values (
-		<if test="#{name}!=null">
+		<if test="name!=null">
 			#{name},
 		</if>
-		<if test="#{address}!=null">
+		<if test="address!=null">
 			#{address},
 		</if>
-		<if test="#{longitude}!=null">
+		<if test="longitude!=null">
 			#{longitude},
 		</if>
-		<if test="#{latitude}!=null">
+		<if test="latitude!=null">
 			#{latitude},
 		</if>
-		<if test="#{administrator}!=null">
+		<if test="administrator!=null">
 			#{administrator},
 		</if>
-		<if test="#{phoneNumber}!=null">
+		<if test="phoneNumber!=null">
 			#{phoneNumber},
 		</if>
-		<if test="#{startLevel}!=null">
+		<if test="startLevel!=null">
 			#{startLevel},
 		</if>
-		<if test="#{officialURL}!=null">
+		<if test="officialURL!=null">
 			#{officialURL},
 		</if>
-		<if test="#{headPicURL}!=null">
+		<if test="headPicURL!=null">
 			#{headPicURL},
 		</if>
-		<if test="#{type}!=null">#{type},</if>
-		<if test="#{level}!=null">#{level},</if>
-		<if test="#{createTime}!=null">#{createTime},</if>
-		<if test="#{createTime}==null">now(),</if>
-		<if test="#{state}!=null">#{state},</if>
-		<if test="#{cityCode}!=null">#{cityCode},</if>
-		<if test="#{isRecommend}!=null">#{isRecommend},</if>
-		<if test="#{recommendOrderCode}!=null">#{recommendOrderCode}</if>
-		<if test="#{recommendOrderCode}==null">'0'</if>
+		<if test="type!=null">#{type},</if>
+		<if test="level!=null">#{level},</if>
+		<if test="createTime!=null">#{createTime},</if>
+		<if test="createTime==null">now(),</if>
+		<if test="state!=null">#{state},</if>
+		<if test="cityCode!=null">#{cityCode},</if>
+		<if test="isRecommend!=null">#{isRecommend},</if>
+		<if test="recommendOrderCode!=null">#{recommendOrderCode}</if>
+		<if test="recommendOrderCode==null">'0'</if>
 		)
 
 	</insert>
@@ -118,49 +118,49 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateHotelBaseInfo" parameterType="Hotel">
 		update hotel
 		<set>
-		<if test="#{name}!=null">
+		<if test="name!=null">
 			name=#{name},
 		</if>
-		<if test="#{address}!=null">
+		<if test="address!=null">
 			address=#{address},
 		</if>
-		<if test="#{longitude}!=null">
+		<if test="longitude!=null">
 			longitude=#{longitude},
 		</if>
-		<if test="#{latitude}!=null">
+		<if test="latitude!=null">
 			latitude=#{latitude},
 		</if>
-		<if test="#{administrator}!=null">
+		<if test="administrator!=null">
 			administrator=#{administrator},
 		</if>
-		<if test="#{phoneNumber}!=null">
+		<if test="phoneNumber!=null">
 			phoneNumber=#{phoneNumber},
 		</if>
-		<if test="#{startLevel}!=null">
+		<if test="startLevel!=null">
 			startLevel=#{startLevel},
 		</if>
-		<if test="#{officialURL}!=null">
+		<if test="officialURL!=null">
 			officialURL=#{officialURL},
 		</if>
-		<if test="#{headPicURL}!=null">
+		<if test="headPicURL!=null">
 			headPicURL=#{headPicURL},
 		</if>
-		<if test="#{type}!=null">
+		<if test="type!=null">
 			type=#{type},
 		</if>
-		<if test="#{level}!=null">
+		<if test="level!=null">
 			level=#{level},
 		</if>
-		<if test="#{state}!=null">
+		<if test="state!=null">
 			state=#{state},
 		</if>
-		<if test="#{cityCode}!=null">
+		<if test="cityCode!=null">
 			cityCode=#{cityCode},
 		</if>
-		<if test="#{isRecommend}!=null">
+		<if test="isRecommend!=null">
 			isRecommend=#{isRecommend},
 		</if>
-		<if test="#{recommendOrderCode}!=null">
+		<if test="recommendOrderCode!=null">
 			recommendOrderCode=#{recommendOrderCode},
 		</if>
 		</set>
