@@ -37,7 +37,6 @@
     <bean id="redisHttpSessionConfiguration" class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
         <!-- sesson 过期时间-->
         <property name="maxInactiveIntervalInSeconds" value="1800"/> 
-   
       </bean>
         
   <bean id="redisService" class="com.hotel.redis.impl.RedisServiceImpl">
