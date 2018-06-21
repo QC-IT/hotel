@@ -23,6 +23,7 @@ public class Result{
     public Result(Integer code,String msg,Object date){
         this.code = code;
         this.msg = msg;
+        this.date = date;
     }
 
     /**
