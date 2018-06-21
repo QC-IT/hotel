@@ -26,13 +26,13 @@ public List<City> getAllCity();
  * @param name
  * @return
  */
-public int getCityIdByName(String name);
+public Integer getCityIdByName(@Param("name")String name);
 /**
  * 通过城市名称得到code
  * @param cityName
  * @return
  */
-public String getCodeByCityName(String cityName);
+public String getCodeByCityName(@Param("cityName")String cityName);
 
 /**
  * 添加城市
@@ -54,7 +54,7 @@ public void updateCityById(City city);
  * 删除一条城市信息
  * @param id
  */
-public void deleteCityById(String id);
+public void deleteCityById(@Param("id")String id);
 /**
  * 批量添加城市信息
  * @param citys

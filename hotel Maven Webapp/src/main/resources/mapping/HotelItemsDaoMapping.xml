@@ -15,52 +15,52 @@ update service set state=#{state} where id=#{id}
 		beginTime and state=1
 	</select>
 <update id="updateItems" parameterType="Items">
-update service <set> <if test="#{items}!=null">items=#{items},</if>
-<if test="#{needLevel}!=null">needLevel=#{needLevel},</if>
-<if test="#{detailContent}!=null">detailContent=#{detailContent},</if>
-<if test="#{picUrl}!=null">picUrl=#{picUrl},</if>
-<if test="#{beginTime}!=null">beginTime=#{beginTime},</if>
-<if test="#{endTime}!=null">endTime=#{endTime},</if>
+update service <set> <if test="items!=null">items=#{items},</if>
+<if test="needLevel!=null">needLevel=#{needLevel},</if>
+<if test="detailContent!=null">detailContent=#{detailContent},</if>
+<if test="picUrl!=null">picUrl=#{picUrl},</if>
+<if test="beginTime!=null">beginTime=#{beginTime},</if>
+<if test="endTime!=null">endTime=#{endTime},</if>
 </set>
 where id=#{id}
 </update>
 
 	<insert id="insertItems" parameterType="Items">
 		insert into service(
-		<if test="#{hid}!=null">hid,</if>
-		<if test="#{item}!=null">item,</if>
-		<if test="#{needLevel}!=null">needLevel,</if>
-		<if test="#{detailContent}!=null">detailContent,</if>
-		<if test="#{picUrl}!=null">picUrl,</if>
-		<if test="#{beginTime}!=null">beginTime,</if>
-		<if test="#{endTime}!=null">endTime,</if>
-		<if test="#{createTime}!=null">createTime</if>
+		<if test="hid!=null">hid,</if>
+		<if test="item!=null">item,</if>
+		<if test="needLevel!=null">needLevel,</if>
+		<if test="detailContent!=null">detailContent,</if>
+		<if test="picUrl!=null">picUrl,</if>
+		<if test="beginTime!=null">beginTime,</if>
+		<if test="endTime!=null">endTime,</if>
+	createTime
 		)values(
-		<if test="#{hid}!=null">
+		<if test="hid!=null">
 			#{hid},
 		</if>
-		<if test="#{item}!=null">
+		<if test="item!=null">
 			#{item},
 		</if>
-		<if test="#{needLevel}!=null">
+		<if test="needLevel!=null">
 			#{needLevel},
 		</if>
-		<if test="#{detailContent}!=null">
+		<if test="detailContent!=null">
 			#{detailContent},
 		</if>
-		<if test="#{picUrl}!=null">
+		<if test="picUrl!=null">
 			#{hid},
 		</if>
-		<if test="#{beginTime}!=null">
+		<if test="beginTime!=null">
 			#{beginTime},
 		</if>
-		<if test="#{endTime}!=null">
+		<if test="endTime!=null">
 			#{endTime},
 		</if>
-		<if test="#{createTime}!=null">
+		<if test="createTime!=null">
 			#{createTime}
 		</if>
-		<if test="#{createTime}==null">
+		<if test="createTime==null">
 			now()
 		</if>
 		)
