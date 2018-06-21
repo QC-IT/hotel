@@ -5,6 +5,14 @@ public class Result{
     private static final Integer SUCCESS = 200;
     //失败状态码
     private static final Integer FAIL = 500;
+    @SuppressWarnings("unused")
+	private static final Integer NO_ACCESS_TO_RESOURCES=400;
+    @SuppressWarnings("unused")
+    private static final Integer ACCESS_DENIED=401;
+    @SuppressWarnings("unused")
+    private static final Integer NO_AUTHORITY=402;
+    @SuppressWarnings("unused")
+    private static final Integer SERVER_EXCEPTION=502;
 
 
     // 响应业务状态
