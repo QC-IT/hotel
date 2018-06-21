@@ -48,10 +48,7 @@
   <param-name>contextConfigLocation</param-name>
   <param-value>
   classpath:applicationContext-beans.xml;
-  classpath:applicationContext-mybatis.xml;
-  classpath:applicationContext-servlet.xml;
-  classpath:applicationContext-activemq.xml;
-    classpath:applicationContext-quartz.xml;
+classpath:applicationContext-servlet.xml;
    </param-value>
   </context-param>
       <servlet>

@@ -14,9 +14,10 @@
      http://www.springframework.org/schema/aop
      http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
    <import resource="applicationContext-redis.xml"/>
-     <!-- spring核心配置文件，在factory中添加的bean在这里配置（主要是业务逻辑层） -->
-       
-     <!-- 开启注解扫描service层 -->
+<import resource="applicationContext-activemq.xml" />
+       <import resource="applicationContext-mybatis.xml" />
+        <import resource="applicationContext-quartz.xml" />
+             <!-- spring核心配置文件，在factory中添加的bean在这里配置（主要是业务逻辑层） -->
       <context:component-scan base-package="com.hotel*"></context:component-scan>
       <!-- 将properties装配到配置文件工厂让spring统一管理(可以在成员变量上通过@value("${name}")的方式注入 )-->
      <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
