@@ -1,6 +1,9 @@
 package com.hotel.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hotel.dao.CommentDao;
+import com.hotel.models.Comment;
 import com.hotel.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,27 +16,42 @@ public class CommentServiceImpl implements CommentService {
     private CommentDao commentDao;
 
     @Override
-    public List<com.hotel.models.Comment> getAllCommentByHotelId(Integer hotelId) {
-        return commentDao.getAllCommentByHotelId(hotelId);
+    public PageInfo<Comment> getAllCommentByHotelId(String hotelId,int page,int rows) {
+        PageHelper.startPage(page,rows);
+        List<Comment> list = commentDao.getAllCommentByHotelId(hotelId);
+        PageInfo<Comment> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 
     @Override
-    public List<com.hotel.models.Comment> getCommentByHotelIdAndScore(Integer hotelId, Integer score) {
-        return commentDao.getCommentByHotelIdAndScore(hotelId,score);
+    public PageInfo<Comment> getCommentByHotelIdAndScore(String hotelId, Integer score,int page,int rows) {
+        PageHelper.startPage(page,rows);
+        List<Comment> list = commentDao.getCommentByHotelIdAndScore(hotelId, score);
+        PageInfo<Comment> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 
     @Override
-    public List<com.hotel.models.Comment> getCommectByHotelIdAndState(Integer hotelId, Integer state) {
-        return commentDao.getCommentByHotelIdAndScore(hotelId,state);
+    public PageInfo<Comment> getCommectByHotelIdAndState(String hotelId, Integer state,int page,int rows) {
+        PageHelper.startPage(page,rows);
+        List<Comment> list = commentDao.getCommentByHotelIdAndScore(hotelId,state);
+        PageInfo<Comment> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 
     @Override
-    public List<com.hotel.models.Comment> getCommectByUid(String uid) {
-        return commentDao.getCommectByUid(uid);
+    public PageInfo<Comment> getCommectByUid(String uid,int page,int rows) {
+        PageHelper.startPage(page,rows);
+        List<Comment> list = commentDao.getCommectByUid(uid);
+        PageInfo<Comment> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 
     @Override
-    public List<com.hotel.models.Comment> getCommectBySid(Integer sid) {
-        return commentDao.getCommectBySid(sid);
+    public PageInfo<Comment> getCommectBySid(Integer sid,int page,int rows) {
+        PageHelper.startPage(page,rows);
+        List<Comment> list = commentDao.getCommectBySid(sid);
+        PageInfo<Comment> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 }

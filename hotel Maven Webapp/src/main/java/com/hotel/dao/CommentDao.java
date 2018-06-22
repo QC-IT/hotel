@@ -14,7 +14,7 @@ public interface CommentDao {
      * @param hotelId 酒店id
      * @return
      */
-    public List<Comment> getAllCommentByHotelId(@Param("hotelId") Integer hotelId);
+    public List<Comment> getAllCommentByHotelId(@Param("hotelId")String hotelId);
 
     /**
      * 根据酒店ID，评分查看评论
@@ -22,7 +22,7 @@ public interface CommentDao {
      * @param score
      * @return
      */
-    public List<Comment> getCommentByHotelIdAndScore(@Param("hotelId")Integer hotelId,@Param("score")Integer score);
+    public List<Comment> getCommentByHotelIdAndScore(@Param("hotelId")String hotelId,@Param("score")Integer score);
 
     /**
      * 根据酒店ID，评论状态查看评论
@@ -30,7 +30,7 @@ public interface CommentDao {
      * @param state
      * @return
      */
-    public List<Comment> getCommectByHotelIdAndState(@Param("hotelId")Integer hotelId,@Param("state")Integer state);
+    public List<Comment> getCommectByHotelIdAndState(@Param("hotelId")String hotelId,@Param("state")Integer state);
 
     /**
      * 根据用户id查看评论
