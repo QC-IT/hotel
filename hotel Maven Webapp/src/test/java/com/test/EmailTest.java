@@ -1,24 +1,15 @@
 package com.test;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.hotel.email.service.EmailService;
+import com.hotel.util.HttpClientUtil;
 
 public class EmailTest {
-	private BeanFactory factory;
-	@Before
-public void before(){
-	factory=new ClassPathXmlApplicationContext("classpath:applicationContext-beans.xml");
-		
-}
-	
+
+
 	@Test
-	public void test(){
-		EmailService es=factory.getBean(EmailService.class);
-		es.sendHtmlTextEmailTo("523076835@qq.com", "<h1> hello </h1>", "1+超级会员");
+	public void test() {
+String json=HttpClientUtil.sendPostJSON("http://localhost:8080/hotel/hotel/searchHotel.json", "{\"latitude\":\"46.2\",\"longitude\":\"123\",\"name\":\"春天\"}");
+System.out.println(json);
 	}
 }
- 

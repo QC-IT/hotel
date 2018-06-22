@@ -6,7 +6,7 @@ package com.hotel.util;
  * @author yuanhaohe
  *
  */
-public final class DistanceUtil {
+public final class DistanceUtil	 {
 
 	private static double EARTH_RADIUS = 6378.137;
 
