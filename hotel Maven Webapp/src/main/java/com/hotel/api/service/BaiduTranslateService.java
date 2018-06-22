@@ -3,7 +3,7 @@ package com.hotel.api.service;
 /**
  * 
  * @author yuanhaohe
- *
+ *百度翻译接口
  */
 public interface BaiduTranslateService {
 	public static final String CHINESE = "zh";

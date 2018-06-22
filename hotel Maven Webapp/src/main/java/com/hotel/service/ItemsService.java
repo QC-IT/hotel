@@ -2,9 +2,6 @@ package com.hotel.service;
 
 import com.github.pagehelper.PageInfo;
 import com.hotel.models.Items;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * 服务项目service 所有查询均已分页实现,page为当前页码，rows为每页的数量

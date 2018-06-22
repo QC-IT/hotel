@@ -5,35 +5,35 @@
 <mapper namespace="com.hotel.dao.CommentDao">
 
 
-    <select id="getAllCommentByHotelId" parameterType="java.lang.Integer" resultType="Comment">
+    <select id="getAllCommentByHotelId" parameterType="java.lang.String" resultType="Comment">
         select comment.* from comment,hotel,service
         where comment.sid = service.id
         and service.id = hotel.id
-        and hotel.id = #{hotelId};
+        and hotel.id = '${hotelId}'
     </select>
 
     <select id="getCommentByHotelIdAndScore" parameterType="map" resultType="Comment">
         select comment.* from comment,hotel,service
         where comment.sid = service.id
         and service.id = hotel.id
-        and hotel.id = #{hotelId}
-        and comment.score = #{score};
+        and hotel.id = '${hotelId}'
+        and comment.score = #{score}
     </select>
 
     <select id="getCommectByHotelIdAndState" parameterType="map" resultType="Comment">
         select comment.* from comment,hotel,service
         where comment.sid = service.id
         and service.id = hotel.id
-        and hotel.id = #{hotelId}
-        and comment.state = #{state};
+        and hotel.id = '${hotelId}'
+        and comment.state = #{state}
     </select>
 
     <select id="getCommectByUid" parameterType="java.lang.String" resultType="Comment">
-       select * from comment where uid = #{uid};
+       select * from comment where uid = #{uid}
     </select>
 
     <select id="getCommectBySid" parameterType="java.lang.Integer" resultType="Comment">
-       select * from comment where sid = #{sid};
+       select * from comment where sid = #{sid}
     </select>
     
 </mapper>

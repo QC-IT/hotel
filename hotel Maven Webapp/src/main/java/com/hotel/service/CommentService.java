@@ -1,17 +1,16 @@
 package com.hotel.service;
 
+import com.github.pagehelper.PageInfo;
 import com.hotel.models.Comment;
 
-import java.util.List;
-
 public interface CommentService {
-    List<Comment> getAllCommentByHotelId(Integer hotelId);
+	 public PageInfo<Comment> getAllCommentByHotelId(String hotelId,int page,int rows);
 
-    List<Comment> getCommentByHotelIdAndScore(Integer hotelId,Integer score);
+	 public PageInfo<Comment> getCommentByHotelIdAndScore(String hotelId, Integer score,int page,int rows);
 
-    List<Comment> getCommectByHotelIdAndState(Integer hotelId,Integer state);
+	 public PageInfo<Comment> getCommectByHotelIdAndState(String hotelId, Integer state,int page,int rows);
 
-    List<Comment> getCommectByUid(String uid);
+	 public PageInfo<Comment> getCommectByUid(String uid,int page,int rows);
 
-    List<Comment> getCommectBySid(Integer sid);
+	 public PageInfo<Comment> getCommectBySid(Integer sid,int page,int rows) ;
 }

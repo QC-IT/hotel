@@ -40,7 +40,7 @@ public class CityController {
 	 * @author yuanhaohe
 	 * @param map
 	 *            经纬度
-	 * @return code 错误:{\"code\":500,\"msg\":\"获取城市失败\"}; 成功:{"code":200,"city":城市名,"citycode":城市code}
+	 * @return 
 	 */
 	@RequestMapping(value = "getLocationCity.json", produces = "application/json;charset=utf8")
 	public @ResponseBody String getLocationCity(@RequestBody Map<String, String> map) {
@@ -85,7 +85,7 @@ public class CityController {
 	/**
 	 * 查找热门城市 前期先直接读取数据库 后期改为读取redis
 	 * @author yuanhaohe
-	 * @return 错误:{\"code\":500,\"msg\":\"服务器未知错误\"},成功:"{"code":200,"citys":城市列表}"
+	 * @return 
 	 */
 	@RequestMapping(value = "findHotCity.json", produces = "application/json;charset=utf8")
 	public @ResponseBody String findHotCity(HttpServletRequest request) {
