@@ -1,9 +1,13 @@
 package com.hotel.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ServiceJoin {
-    private Integer id;
+public class ServiceJoin implements Serializable{
+ 
+	private static final long serialVersionUID = -3983858386039575369L;
+
+	private Integer id;
 
     private String hid;
 

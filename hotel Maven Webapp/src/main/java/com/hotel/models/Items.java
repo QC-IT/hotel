@@ -1,8 +1,11 @@
 package com.hotel.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Items {
+public class Items implements Serializable{
+
+	private static final long serialVersionUID = -7891397881526377600L;
 private int id;
 private String hid;
 private String item;

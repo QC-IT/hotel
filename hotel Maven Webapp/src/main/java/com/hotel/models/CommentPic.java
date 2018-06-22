@@ -1,7 +1,12 @@
 package com.hotel.models;
 
-public class CommentPic {
-    private Integer id;
+import java.io.Serializable;
+
+public class CommentPic implements Serializable{
+
+	private static final long serialVersionUID = -8228562581848269735L;
+
+	private Integer id;
 
     private String cid;
 

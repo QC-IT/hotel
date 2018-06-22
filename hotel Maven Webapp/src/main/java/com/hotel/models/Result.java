@@ -1,7 +1,11 @@
 package com.hotel.models;
 
-public class Result{
-    //成功状态码
+import java.io.Serializable;
+
+public class Result implements Serializable{
+  
+	private static final long serialVersionUID = 4410530307868900145L;
+	//成功状态码
     private static final Integer SUCCESS = 200;
     //失败状态码
     private static final Integer FAIL = 500;

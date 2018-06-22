@@ -1,6 +1,9 @@
 package com.hotel.models;
 
-public class HotelPic {
+import java.io.Serializable;
+
+public class HotelPic implements Serializable{
+	private static final long serialVersionUID = -8454334573830669875L;
 private int id;
 private String hid;
 private String picUrl;

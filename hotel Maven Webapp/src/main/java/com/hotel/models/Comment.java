@@ -1,9 +1,13 @@
 package com.hotel.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Comment {
-    private Integer id;
+public class Comment implements Serializable{
+
+	private static final long serialVersionUID = -3966041605531689762L;
+
+	private Integer id;
 
     private String uid;
 

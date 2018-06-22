@@ -1,11 +1,16 @@
 package com.hotel.models;
+
+import java.io.Serializable;
+
 /**
  * 过滤器访问拦截防爬虫的用户model
  * @author yuanhaohe
  *
  */
-public class Visitor {
-	//访问ip
+public class Visitor implements Serializable{
+
+	private static final long serialVersionUID = -3680450563031521440L;
+//访问ip
 private String ip;
 //访问开始时间
 private long beginVisitTime;
