@@ -2,6 +2,7 @@ package com.hotel.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +39,10 @@ public class HotelItemsController {
 			list = hotelItemsService.getHotelItems(hotelId);
 			JSONObject json=new JSONObject();
 			json.put("code", 200);
-			json.put("services", list);
+			
+			Map<String,Object> data=new HashMap<String,Object>();
+			data.put("services", list);
+			json.put("data", data);
 			return json.toJSONString();
 		} catch (Exception e) {
 			return "{\"code\":\"500\",\"msg\":\"未知错误\"}";

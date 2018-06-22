@@ -1,6 +1,7 @@
 package com.hotel.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +34,7 @@ public class HotelController {
  *        name longitude latitude
  * @return
  */
-	@RequestMapping(value = "searchHotel.json", method=RequestMethod.POST,produces = "application/json;charset=utf8")
+	@RequestMapping(value = "searchHotel.json",produces = "application/json;charset=utf8")
 	public @ResponseBody String searchHotel(@RequestBody Map<String, String> map) {
 		String name = map.get("name");
 		String longitude = map.get("longitude");
@@ -51,7 +52,9 @@ public class HotelController {
 				h.setDistance(DistanceUtil.getDistance(latitude, longitude, h.getLatitude(), h.getLongitude()));
 			});
 			logger.debug("search hotels list size :" + result.size());
-			json.put("hotels", result);
+			Map<String,Object> data=new HashMap<String,Object>();
+			data.put("hotels", result);
+			json.put("data", data);
 			return json.toJSONString();
 		} catch (Exception e) {
 			return "{\"code\":500,\"msg\":\"服务器出现未知异常\"}";
@@ -66,7 +69,7 @@ public class HotelController {
  *        socketId
  * @return
  */
-	@RequestMapping(value = "socketContent.json", method=RequestMethod.POST,produces = "application/json;charset=utf8")
+	@RequestMapping(value = "socketContent.json",produces = "application/json;charset=utf8")
 	public @ResponseBody String getSocketContent(HttpSession session, @RequestBody Map<String, String> map) {
 		String socketId = map.get("socketId");
 		if(socketId!=null){
@@ -84,7 +87,7 @@ public class HotelController {
  *        cityName longitude latitude
  * @return
  */
-	@RequestMapping(value = "getRecomHotelListByCityName.json", method=RequestMethod.POST,produces = "application/json;charset=utf8")
+	@RequestMapping(value = "getRecomHotelListByCityName.json", produces = "application/json;charset=utf8")
 	public @ResponseBody String getRecomHotelListByCityName(@RequestBody Map<String, String> map) {
 		String cityName = map.get("cityName");
 		String longitude = map.get("longitude");
@@ -96,8 +99,10 @@ public class HotelController {
 				h.setDistance(DistanceUtil.getDistance(latitude, longitude, h.getLatitude(), h.getLongitude()));
 			});
 			JSONObject json = new JSONObject();
+			Map<String,Object> data=new HashMap<String,Object>();
+			data.put("hotels", list);
 			json.put("code", "200");
-			json.put("hotels", list);
+			json.put("data", data);
 			return json.toJSONString();
 		} catch (Exception e) {
 			return "{\"code\":500,\"msg\":\"服务器出现未知异常\"}";
@@ -112,7 +117,7 @@ public class HotelController {
 	 *        cityCode longitude latitude
 	 * @return
 	 */
-	@RequestMapping(value = "getRecomHotelListByCityCode.json", method=RequestMethod.POST,produces = "application/json;charset=utf8")
+	@RequestMapping(value = "getRecomHotelListByCityCode.json",produces = "application/json;charset=utf8")
 	public @ResponseBody String getRecomHotelListByCityCode(@RequestBody Map<String, String> map) {
 		String cityCode = map.get("cityCode");
 		String longitude = map.get("longitude");
@@ -125,7 +130,9 @@ public class HotelController {
 			});
 			JSONObject json = new JSONObject();
 			json.put("code", "200");
-			json.put("hotels", list);
+			Map<String,Object> data=new HashMap<String,Object>();
+			data.put("hotels", list);
+			json.put("data", data);
 			return json.toJSONString();
 		} catch (Exception e) {
 			return "{\"code\":500,\"msg\":\"服务器出现未知异常\"}";
@@ -163,7 +170,7 @@ public class HotelController {
  * @return
  */
 	//在写酒店方小程序时候这里要做权限判断 state 402
-	@RequestMapping(value = "updateHotelInfo.json",method=RequestMethod.POST, produces = "application/json;charset=utf8")
+	@RequestMapping(value = "updateHotelInfo.json", produces = "application/json;charset=utf8")
 	public @ResponseBody String updateHotelInfo(@RequestBody Hotel hotel) {
 		try {
 			boolean flag = hotelService.updateHotelBaseInfo(hotel);
@@ -212,7 +219,9 @@ public class HotelController {
 			List<Hotel> list=hotelService.getNearHotelLimit(map.get("latitude"), map.get("longitude"), map.get("index"), map.get("amount"), session);
 			JSONObject json=new JSONObject();
 			json.put("code", 200);
-json.put("nearHotel", list);
+			Map<String,Object> data=new HashMap<String,Object>();
+			data.put("nearHotel", list);
+json.put("data", data);
 return json.toJSONString();
 		} catch (Exception e) {
 		return "{\"code\":500,\"msg\":\"未知错误\"}";

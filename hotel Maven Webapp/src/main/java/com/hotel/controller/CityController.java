@@ -1,6 +1,7 @@
 package com.hotel.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -14,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
@@ -42,7 +42,7 @@ public class CityController {
 	 *            经纬度
 	 * @return code 错误:{\"code\":500,\"msg\":\"获取城市失败\"}; 成功:{"code":200,"city":城市名,"citycode":城市code}
 	 */
-	@RequestMapping(value = "getLocationCity.json", method = RequestMethod.POST, produces = "application/json;charset=utf8")
+	@RequestMapping(value = "getLocationCity.json", produces = "application/json;charset=utf8")
 	public @ResponseBody String getLocationCity(@RequestBody Map<String, String> map) {
 		String latitude = map.get("latitude");
 		String longitude = map.get("longitude");
@@ -68,7 +68,13 @@ public class CityController {
 					// TODO 自动生成的 catch 块
 					e.printStackTrace();
 				}
-				return "{\"code\":200,\"city\":\"" + city.substring(0, city.length() - 1) + "\",\"citycode\":"+code+"}";
+				JSONObject json=new JSONObject();
+				json.put("code", "200");
+				Map<String,String> data=new HashMap<String,String>();
+				data.put("city", city.substring(0, city.length() - 1));
+				data.put("citycode",code);
+				json.put("data", data);
+				return json.toJSONString();
 			} else
 				return "{\"code\":500,\"msg\":\"获取城市失败\"}";
 		} else
@@ -81,14 +87,16 @@ public class CityController {
 	 * @author yuanhaohe
 	 * @return 错误:{\"code\":500,\"msg\":\"服务器未知错误\"},成功:"{"code":200,"citys":城市列表}"
 	 */
-	@RequestMapping(value = "findHotCity.json", method = RequestMethod.POST, produces = "application/json;charset=utf8")
+	@RequestMapping(value = "findHotCity.json", produces = "application/json;charset=utf8")
 	public @ResponseBody String findHotCity(HttpServletRequest request) {
 		List<City> citys = null;
 		try {
 			citys = cityService.getHotCityList();
 			JSONObject json = new JSONObject();
 			json.put("code", 200);
-			json.put("citys", citys);
+			Map<String,Object> data=new HashMap<String, Object>();
+			data.put("citys", citys);
+			json.put("data", data);
 			return json.toJSONString();
 		} catch (Exception e) {
 			return "{\"code\":500,\"msg\":\"服务器未知错误\"}";
@@ -102,7 +110,7 @@ public class CityController {
 	 *获取全部城市信息 
 	 * @return 所有城市
 	 */
-	@RequestMapping(value = "allCity.json", method = RequestMethod.POST, produces = "application/json;charset=utf8")
+	@RequestMapping(value = "allCity.json", produces = "application/json;charset=utf8")
 	public @ResponseBody String getAllCity() {
 		List<City> allcitys = null;
 		try {
@@ -135,6 +143,7 @@ public class CityController {
 				List<City> X = new ArrayList<City>();
 				List<City> Y = new ArrayList<City>();
 				List<City> Z = new ArrayList<City>();
+				Map<String,Object> data=new HashMap<String, Object>();
 				for (City city : allcitys) {
 					String abbr=city.getAbbr();
 					if (abbr.charAt(0) == 'A') {
@@ -219,91 +228,92 @@ public class CityController {
 				}
 				JSONObject json = new JSONObject();
 				if (A.size() != 0) {
-					json.put("A", A);
+					data.put("A", A);
 				} 
 				if (B.size() != 0) {
-					json.put("B", B);
+					data.put("B", B);
 				} 
 				if (C.size() != 0) {
-					json.put("C", C);
+					data.put("C", C);
 				} 
 				if (D.size() != 0) {
-					json.put("D", D);
+					data.put("D", D);
 				} 
 				if (E.size() != 0) {
-					json.put("E", E);
+					data.put("E", E);
 				} 
 				if (F.size() != 0) {
-					json.put("F", F);
+					data.put("F", F);
 				} 
 				if (G.size() != 0) {
-					json.put("G", G);
+					data.put("G", G);
 				} 
 				if (H.size() != 0) {
-					json.put("H", H);
+					data.put("H", H);
 				} 
 				if (I.size() != 0) {
-					json.put("I", I);
+					data.put("I", I);
 				} 
 				if (J.size() != 0) {
-					json.put("J", J);
+					data.put("J", J);
 				} 
 				if (K.size() != 0) {
-					json.put("K", K);
+					data.put("K", K);
 				} 
 				if (L.size() != 0) {
-					json.put("L", L);
+					data.put("L", L);
 				} 
 				if (M.size() != 0) {
-					json.put("M", M);
+					data.put("M", M);
 				} 
 				if (N.size() != 0) {
-					json.put("N", N);
+					data.put("N", N);
 				} 
 				if (O.size() != 0) {
-					json.put("O", O);
+					data.put("O", O);
 				} 
 				if (P.size() != 0) {
-					json.put("P", P);
+					data.put("P", P);
 				} 
 				if (Q.size() != 0) {
-					json.put("Q", Q);
+					data.put("Q", Q);
 				} 
 				if (R.size() != 0) {
-					json.put("R", R);
+					data.put("R", R);
 				} 
 				if (S.size() != 0) {
-					json.put("S", S);
+					data.put("S", S);
 				} 
 				if (T.size() != 0) {
-					json.put("T", T);
+					data.put("T", T);
 				} 
 				if (U.size() != 0) {
-					json.put("U", U);
+					data.put("U", U);
 				} 
 				if (V.size() != 0) {
-					json.put("V", V);
+					data.put("V", V);
 				} 
 				if (W.size() != 0) {
-					json.put("W", W);
+					data.put("W", W);
 				} 
 				if (X.size() != 0) {
-					json.put("X", X);
+					data.put("X", X);
 				} 
 				if (Y.size() != 0) {
-					json.put("Y", Y);
+					data.put("Y", Y);
 				} 
 				if (Z.size() != 0) {
-					json.put("Z", Z);
+					data.put("Z", Z);
 				}
 				json.put("code", 200);
-				json.put("key", key);
+				data.put("key", key);
+				json.put("data", data);
 				return json.toJSONString();
 				}else{
-					return "{\"code\":500，\"获取城市列表失败\"}";
+					return "{\"code\":500,\"msg\":\"获取城市列表失败\"}";
 				}
 		} catch (Exception e) {
-			return "{\"code\":500，\"获取城市列表失败\"}";
+			return "{\"code\":500,\"msg\"\"获取城市列表失败\"}";
 		}
 		
 		
@@ -314,7 +324,7 @@ public class CityController {
 	 * @param city 
 	 * @return
 	 */
-	@RequestMapping(value="addCity.json",method=RequestMethod.POST,produces="application/json;charset=utf8")
+	@RequestMapping(value="addCity.json",produces="application/json;charset=utf8")
 	public@ResponseBody
 	String addCityList(@RequestBody City city){
 	//向集合中添加城市
@@ -332,7 +342,7 @@ public class CityController {
 	 * @param map
 	 * @return
 	 */
-	@RequestMapping(value="deleteCity.json",method=RequestMethod.POST,produces="application/json;charset=utf8")
+	@RequestMapping(value="deleteCity.json",produces="application/json;charset=utf8")
 	public @ResponseBody
 	String deleteCityList(@RequestBody Map<String,String> map){
 		try {
