@@ -19,7 +19,7 @@
 	</properties>
 
 
-	<dependencies>
+	<dependencies> 
 	<dependency>
             <groupId>org.java-websocket</groupId>
             <artifactId>Java-WebSocket</artifactId>
