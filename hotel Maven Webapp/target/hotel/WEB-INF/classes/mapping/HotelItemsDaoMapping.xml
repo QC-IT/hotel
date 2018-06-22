@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hotel.dao.HotelItemsDao">
+<update id="updateItemsState" parameterType="map">
+update service set state=#{state} where id=#{id}
+</update>
+	<select id="getHotelItemsListByHotelId" resultType="Items"
+		parameterType="java.lang.String">
+		select * from service where hid=#{hid} and endTime >
+		now() and now() >
+		beginTime and state=1
+	</select>
+<update id="updateItems" parameterType="Items">
+update service <set> <if test="items!=null">items=#{items},</if>
+<if test="needLevel!=null">needLevel=#{needLevel},</if>
+<if test="detailContent!=null">detailContent=#{detailContent},</if>
+<if test="picUrl!=null">picUrl=#{picUrl},</if>
+<if test="beginTime!=null">beginTime=#{beginTime},</if>
+<if test="endTime!=null">endTime=#{endTime},</if>
+</set>
+where id=#{id}
+</update>
+
+	<insert id="insertItems" parameterType="Items">
+		insert into service(
+		<if test="hid!=null">hid,</if>
+		<if test="item!=null">item,</if>
+		<if test="needLevel!=null">needLevel,</if>
+		<if test="detailContent!=null">detailContent,</if>
+		<if test="picUrl!=null">picUrl,</if>
+		<if test="beginTime!=null">beginTime,</if>
+		<if test="endTime!=null">endTime,</if>
+	createTime
+		)values(
+		<if test="hid!=null">
+			#{hid},
+		</if>
+		<if test="item!=null">
+			#{item},
+		</if>
+		<if test="needLevel!=null">
+			#{needLevel},
+		</if>
+		<if test="detailContent!=null">
+			#{detailContent},
+		</if>
+		<if test="picUrl!=null">
+			#{hid},
+		</if>
+		<if test="beginTime!=null">
+			#{beginTime},
+		</if>
+		<if test="endTime!=null">
+			#{endTime},
+		</if>
+		<if test="createTime!=null">
+			#{createTime}
+		</if>
+		<if test="createTime==null">
+			now()
+		</if>
+		)
+
+	</insert>
+</mapper> 

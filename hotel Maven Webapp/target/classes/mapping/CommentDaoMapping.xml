@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hotel.dao.CommentDao">
+
+
+    <select id="getAllCommentByHotelId" parameterType="java.lang.Integer" resultType="Comment">
+        select comment.* from comment,hotel,service
+        where comment.sid = service.id
+        and service.id = hotel.id
+        and hotel.id = #{hotelId};
+    </select>
+
+    <select id="getCommentByHotelIdAndScore" parameterType="map" resultType="Comment">
+        select comment.* from comment,hotel,service
+        where comment.sid = service.id
+        and service.id = hotel.id
+        and hotel.id = #{hotelId}
+        and comment.score = #{score};
+    </select>
+
+    <select id="getCommectByHotelIdAndState" parameterType="map" resultType="Comment">
+        select comment.* from comment,hotel,service
+        where comment.sid = service.id
+        and service.id = hotel.id
+        and hotel.id = #{hotelId}
+        and comment.state = #{state};
+    </select>
+
+    <select id="getCommectByUid" parameterType="java.lang.String" resultType="Comment">
+       select * from comment where uid = #{uid};
+    </select>
+
+    <select id="getCommectBySid" parameterType="java.lang.Integer" resultType="Comment">
+       select * from comment where sid = #{sid};
+    </select>
+    
+</mapper>

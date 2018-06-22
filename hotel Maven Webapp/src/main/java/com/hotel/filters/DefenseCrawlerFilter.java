@@ -43,6 +43,7 @@ public class DefenseCrawlerFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
+		long begin=System.currentTimeMillis();
 		// 获取ip地址
 		String ip = this.getRemortIP((HttpServletRequest) request);
 		logger.debug("ip:" + ip + "被防御爬虫过滤器拦截");
@@ -96,6 +97,8 @@ public class DefenseCrawlerFilter implements Filter {
 				chain.doFilter(request, response);
 			}
 		}
+		long end=System.currentTimeMillis();
+		logger.debug(end-begin+"ms");
 	}
 
 	@Override

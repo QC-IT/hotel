@@ -22,6 +22,7 @@ public class CoreInterceptor implements HandlerInterceptor{
 private final Logger log=LoggerFactory.getLogger(CoreInterceptor.class);
 private static Map<String,String> anonymous;
 private static Map<String,String> needLogin;
+
 static {
 	anonymous=PropertiesUtil.getKeyAndValueMap(CoreInterceptor.class.getClassLoader().getResource("/").getFile()+"properties/anonyous.properties");
 	needLogin=PropertiesUtil.getKeyAndValueMap(CoreInterceptor.class.getClassLoader().getResource("/").getFile()+"properties/needlogin.properties");

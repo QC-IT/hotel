@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hotel.dao.HotelDao">
+<select id="selectHotelByCityCode" parameterType="java.lang.String" resultMap="HotelResultMap">
+	select h.*,hp.id pid,hp.picUrl picUrl,hp.state pstate,hp.hid
+		hid from hotel as h left join hotel_pic as hp on h.id=hp.hid
+		where cityCode=#{cityCode} and h.state=1 and hp.state =1
+</select>
+
+	<insert id="insertHotelBaseInfo" parameterType="Hotel">
+		insert into hotel (
+		<if test="name!=null">
+			name,
+		</if>
+		<if test="address!=null">
+			address,
+		</if>
+		<if test="longitude!=null">
+			longitude,
+		</if>
+		<if test="latitude!=null">
+			latitude,
+		</if>
+		<if test="administrator!=null">
+			administrator,
+		</if>
+		<if test="phoneNumber!=null">
+			phoneNumber,
+		</if>
+		<if test="startLevel!=null">
+			startLevel,
+		</if>
+		<if test="officialURL!=null">
+			officialURL,
+		</if>
+		<if test="headPicURL!=null">
+			headPicURL,
+		</if>
+		<if test="type!=null">
+			type,
+		</if>
+		<if test="level!=null">
+			level,
+		</if>
+		createTime,
+		<if test="state!=null">
+			state,
+		</if>
+		<if test="cityCode!=null">
+			cityCode,
+		</if>
+		<if test="isRecommend!=null">
+			isRecommend,
+		</if>
+		recommendOrderCode
+		)values (
+		<if test="name!=null">
+			#{name},
+		</if>
+		<if test="address!=null">
+			#{address},
+		</if>
+		<if test="longitude!=null">
+			#{longitude},
+		</if>
+		<if test="latitude!=null">
+			#{latitude},
+		</if>
+		<if test="administrator!=null">
+			#{administrator},
+		</if>
+		<if test="phoneNumber!=null">
+			#{phoneNumber},
+		</if>
+		<if test="startLevel!=null">
+			#{startLevel},
+		</if>
+		<if test="officialURL!=null">
+			#{officialURL},
+		</if>
+		<if test="headPicURL!=null">
+			#{headPicURL},
+		</if>
+		<if test="type!=null">#{type},</if>
+		<if test="level!=null">#{level},</if>
+		<if test="createTime!=null">#{createTime},</if>
+		<if test="createTime==null">now(),</if>
+		<if test="state!=null">#{state},</if>
+		<if test="cityCode!=null">#{cityCode},</if>
+		<if test="isRecommend!=null">#{isRecommend},</if>
+		<if test="recommendOrderCode!=null">#{recommendOrderCode}</if>
+		<if test="recommendOrderCode==null">'0'</if>
+		)
+
+	</insert>
+
+	<select id="getHotelInfoByCityCodeAndName" parameterType="map"
+		resultType="Hotel">
+		select id,latitude,longitude,address,name from hotel where
+		name like ${name} limit 0,10
+	</select>
+
+	<select id="getRecommendHotelByCity" parameterType="java.lang.String"
+		resultMap="HotelResultMap">
+		select h.*,hp.id pid,hp.picUrl picUrl,hp.state pstate,hp.hid hid from hotel
+		as h left join hotel_pic as hp on h.id=hp.hid
+		where
+		cityCode=#{cityCode} and h.state=1 and h.isRecommend=1
+	</select>
+
+	<update id="changeHotelStateById" parameterType="map">
+		update hotel set
+		state=#{state} where id=#{id}
+	</update>
+
+	<update id="updateHotelBaseInfo" parameterType="Hotel">
+		update hotel
+		<set>
+		<if test="name!=null">
+			name=#{name},
+		</if>
+		<if test="address!=null">
+			address=#{address},
+		</if>
+		<if test="longitude!=null">
+			longitude=#{longitude},
+		</if>
+		<if test="latitude!=null">
+			latitude=#{latitude},
+		</if>
+		<if test="administrator!=null">
+			administrator=#{administrator},
+		</if>
+		<if test="phoneNumber!=null">
+			phoneNumber=#{phoneNumber},
+		</if>
+		<if test="startLevel!=null">
+			startLevel=#{startLevel},
+		</if>
+		<if test="officialURL!=null">
+			officialURL=#{officialURL},
+		</if>
+		<if test="headPicURL!=null">
+			headPicURL=#{headPicURL},
+		</if>
+		<if test="type!=null">
+			type=#{type},
+		</if>
+		<if test="level!=null">
+			level=#{level},
+		</if>
+		<if test="state!=null">
+			state=#{state},
+		</if>
+		<if test="cityCode!=null">
+			cityCode=#{cityCode},
+		</if>
+		<if test="isRecommend!=null">
+			isRecommend=#{isRecommend},
+		</if>
+		<if test="recommendOrderCode!=null">
+			recommendOrderCode=#{recommendOrderCode},
+		</if>
+		</set>
+		where id=#{id}
+	</update>
+
+	<resultMap type="com.hotel.models.Hotel" id="HotelResultMap">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="address" property="address" />
+		<result column="longitude" property="longitude" />
+		<result column="latitude" property="latitude" />
+		<result column="administrator" property="administrator" />
+		<result column="phoneNumber" property="phoneNumber" />
+		<result column="startLevel" property="startLevel" />
+		<result column="officialURL" property="officialURL" />
+		<result column="headPicURL" property="headPicURL" />
+		<result column="type" property="type" />
+		<result column="level" property="level" />
+		<result column="createTime" property="createTime" />
+		<result column="state" property="state" />
+		<result column="cityCode" property="cityCode" />
+		<result column="isRecommend" property="isRecommend" />
+		<result column="recommendOrderCode" property="recommendOrderCode" />
+		<collection property="picPath" ofType="com.hotel.models.HotelPic">
+			<id column="pid" property="id" />
+			<result column="hid" property="hid" />
+			<result column="picUrl" property="picUrl" />
+			<result column="pstate" property="state" />
+		</collection>
+	</resultMap>
+	<select id="getHotelById" parameterType="java.lang.String" resultType="Hotel">
+	select * from hotel where id=#{id}
+	</select>
+</mapper> 
