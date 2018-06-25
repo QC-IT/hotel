@@ -21,7 +21,7 @@
         <!-- 指定job的分组 -->
         <property name="group" value="hw_group"/>
         <!-- 指定具体的job类 -->
-        <property name="jobClass" value="com.hotel.quartz.TestQuartz"/>
+        <property name="jobClass" value="com.hotel.quartz.AutoQuartz" />
         <!-- 必须设置为true，如果为false，当没有活动的触发器与之关联时会在调度器中会删除该任务  -->
         <property name="durability" value="true"/>
         <!-- 指定spring容器的key，如果不设定在job中的jobmap中是获取不到spring容器的 -->
@@ -42,7 +42,6 @@
         指定Trigger的重复次数
         <property name="repeatCount" value="5"/>
     </bean> -->
-
     <!-- 2.2：定义触发器的bean，定义一个Cron的Trigger，一个触发器只能和一个任务进行绑定 -->
     <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <!-- 指定Trigger的名称 -->
@@ -52,9 +51,8 @@
         <!-- 指定Tirgger绑定的Job -->
         <property name="jobDetail" ref="hwJob"/>
         <!-- 指定Cron 的表达式 ，当前是每隔1s运行一次 -->
-        <property name="cronExpression" value="0/100000 * * * * ?" />
+        <property name="cronExpression" value="0/10000 * * * * ?" />
     </bean>
-
 
     <!-- 3.定义调度器，并将Trigger注册到调度器中 -->
     <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">

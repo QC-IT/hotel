@@ -16,7 +16,8 @@ public class ItemsServiceImpl implements ItemsService {
     @Autowired
     private ItemsDao itemsDao;
 
-    @Override
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
     public PageInfo<Items> getItemsByHotelId(String hid,int page, int rows) {
         //start之后 所有的查询都为分页
         PageHelper.startPage(page,rows);
@@ -35,6 +36,7 @@ public class ItemsServiceImpl implements ItemsService {
     }
 
     @Override
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public PageInfo<Items> getItemsByItem(String item, int page, int rows) {
         PageHelper.startPage(page,rows);
         List<Items> list = itemsDao.getItemsByItem(item);
@@ -43,6 +45,7 @@ public class ItemsServiceImpl implements ItemsService {
     }
 
     @Override
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public PageInfo<Items> getItemsByState(Integer state, int page, int rows) {
         PageHelper.startPage(page,rows);
         List<Items> list = itemsDao.getItemsByState(state);
@@ -51,6 +54,7 @@ public class ItemsServiceImpl implements ItemsService {
     }
 
     @Override
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public PageInfo<Items> getItemsByNeedLevel(Integer needLevel, int page, int rows) {
         PageHelper.startPage(page,rows);
         List<Items> list = itemsDao.getItemsByNeedLevel(needLevel);

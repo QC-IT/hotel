@@ -22,6 +22,13 @@ private String latitude;
 private String longitude;
 private Integer state;
 private Integer level;
+private Integer integral;
+public void setIntegral(Integer integral){
+	this.integral=integral;
+}
+public Integer getIntegral(){
+	return integral;
+}
 public String getId() {
 	return id;
 }
@@ -123,7 +130,7 @@ public String toString() {
 	return "User [id=" + id + ", openID=" + openID + ", userName=" + userName + ", password=" + password + ", nickName="
 			+ nickName + ", headPic=" + headPic + ", gender=" + gender + ", age=" + age + ", phoneNumber=" + phoneNumber
 			+ ", email=" + email + ", salt=" + salt + ", createTime=" + createTime + ", latitude=" + latitude
-			+ ", longitude=" + longitude + ", state=" + state + ", level=" + level + "]";
+			+ ", longitude=" + longitude + ", state=" + state + ", level=" + level + ", integral=" + integral + "]";
 }
 
 

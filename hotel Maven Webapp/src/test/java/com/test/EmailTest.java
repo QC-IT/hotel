@@ -1,15 +1,18 @@
 package com.test;
 
 import org.junit.Test;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.hotel.util.HttpClientUtil;
+import com.hotel.service.QuartzService;
 
 public class EmailTest {
 
 
 	@Test
 	public void test() {
-String json=HttpClientUtil.sendPostJSON("http://localhost:8080/hotel/hotel/searchHotel.json", "{\"latitude\":\"46.2\",\"longitude\":\"123\",\"name\":\"春天\"}");
-System.out.println(json);
+BeanFactory factory=new ClassPathXmlApplicationContext("classpath:applicationContext-beans.xml");
+QuartzService service=factory.getBean(QuartzService.class);
+service.autoComment();
 	}
 }
