@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.hotel.service.QuartzService;
+import com.hotel.redis.impl.RedisServiceImpl;
 
 public class EmailTest {
 
@@ -12,7 +12,8 @@ public class EmailTest {
 	@Test
 	public void test() {
 BeanFactory factory=new ClassPathXmlApplicationContext("classpath:applicationContext-beans.xml");
-QuartzService service=factory.getBean(QuartzService.class);
-service.autoComment();
+RedisServiceImpl service=factory.getBean(RedisServiceImpl.class);
+service.set("map", 111);
+System.out.println(service.get("map"));
 	}
 }
