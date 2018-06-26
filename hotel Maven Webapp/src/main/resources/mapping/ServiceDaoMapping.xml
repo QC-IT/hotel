@@ -5,7 +5,7 @@
 
 	<select id="getItemsByHotelId" parameterType="java.lang.String"
 		resultType="items">
-		select * from service where hid = '${hid}'
+		select * from service where hid = #{hid}
 	</select>
 	
 	<select id="selectSericeIdByUserIdAndNoComment" parameterType="java.lang.String" resultType="java.lang.Integer">
@@ -25,19 +25,19 @@
 		select * from service where id = #{id}
 	</select>
 
-	<select id="getItemsByItem" parameterType="java.lang.String"
+	<select id="getItemsByHotelIdAndItem" parameterType="java.lang.String"
 		resultType="Items">
-		select * from service where item = '${item}'
+		select * from service where hid = #{hid} and item = #{item}
 	</select>
 
-	<select id="getItemsByState" parameterType="java.lang.Integer"
+	<select id="getItemsByHotelIdAndState" parameterType="java.lang.String"
 		resultType="Items">
-		select * from service where state = #{state}
+		select * from service where hid = #{hid} and state = #{state}
 	</select>
 
-	<select id="getItemsByNeedLevel" parameterType="java.lang.Integer"
+	<select id="getItemsByHotelIdAndNeedLevel" parameterType="java.lang.Integer"
 		resultType="Items">
-		select * from service where needLevel = #{needLevel}
+		select * from service where hid = #{hid} and needLevel = #{needLevel}
 	</select>
 
 	<insert id="addItems" parameterType="Items">
