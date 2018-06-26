@@ -54,19 +54,17 @@ public class CityController {
 						Double.parseDouble(latitude));
 				logger.debug("city:" + city);
 			} catch (NumberFormatException e) {
-				// TODO 自动生成的 catch 块
-				e.printStackTrace();
+			logger.info("日期格式转换异常!longitude:"+longitude+" latitude"+latitude);
+			
 			} catch (BaiduMapLocationFormatException e) {
-				// TODO 自动生成的 catch 块
-				e.printStackTrace();
+				logger.info("百度地图格式转换异常!");
 			}
 			if (city != null) {
 				String code=null;
 				try {
 					 code=cityService.getCodeByCityName(city.substring(0, city.length() - 1));
 				} catch (Exception e) {
-					// TODO 自动生成的 catch 块
-					e.printStackTrace();
+					logger.info("查询城市code异常! city:"+city);
 				}
 				JSONObject json=new JSONObject();
 				json.put("code", "200");
