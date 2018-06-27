@@ -44,7 +44,7 @@ public class LoginController {
 		JSONObject json=new JSONObject();
 		json.put("code", 200);
 		json.put("data", data);
-		logger.debug("获取openId:" + openId);
+		logger.debug(json.toJSONString());
 		return json.toJSONString();
 	}
 
@@ -76,6 +76,7 @@ public class LoginController {
 			data.put("msg", "用户违规禁止登录");
 		}
 		json.put("data", data);
+		logger.debug(json.toJSONString());
 		return json.toJSONString();
 	}
 

@@ -5,7 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,7 @@ public class HotelItemsController {
 	private HotelItemsService hotelItemsService;
 	@Value("${system_dataformat}")
 	private String dataFormat;
-	
+	private final Logger logger=LoggerFactory.getLogger(HotelItemsController.class);
 	/**
 	 * 获取当前城市的服务
 	 * @param map
@@ -43,8 +44,10 @@ public class HotelItemsController {
 			Map<String,Object> data=new HashMap<String,Object>();
 			data.put("services", list);
 			json.put("data", data);
+			logger.debug(json.toJSONString());
 			return json.toJSONString();
 		} catch (Exception e) {
+			logger.debug("{\"code\":\"500\",\"msg\":\"未知错误\"}");
 			return "{\"code\":\"500\",\"msg\":\"未知错误\"}";
 		}
 	}
@@ -69,24 +72,29 @@ public class HotelItemsController {
 		try {
 			items.setBeginTime(format.parse(beginTime));
 		} catch (ParseException e) {
+			logger.debug( "{\"code\":501,\"msg\":\"日期格式有误\"}");
 			return "{\"code\":501,\"msg\":\"日期格式有误\"}";
 		}
 		try {
 			items.setCreateTime(format.parse(createTime));
 		} catch (ParseException e) {
+			logger.debug("{\"code\":501,\"msg\":\"日期格式有误\"}");
 			return "{\"code\":501,\"msg\":\"日期格式有误\"}";
 		}
 		items.setDetailContent(map.get("detailContent"));
 		try {
 			items.setEndTime(format.parse(endTime));
 		} catch (ParseException e) {
+			logger.debug("{\"code\":501,\"msg\":\"日期格式有误\"}");
 			return "{\"code\":501,\"msg\":\"日期格式有误\"}";
 		}
 		items.setItem(map.get("items"));
 		try {
 			hotelItemsService.insertItems(items);
+			logger.debug("{\"code\":200,\"msg\":\"success\"}");
 			return "{\"code\":200,\"msg\":\"success\"}";
 		} catch (Exception e) {
+			logger.debug("{\"code\":500,\"msg\":\"未知错误\"}");
 	return "{\"code\":500,\"msg\":\"未知错误\"}";
 		}
 

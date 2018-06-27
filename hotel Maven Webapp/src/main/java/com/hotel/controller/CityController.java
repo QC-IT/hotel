@@ -37,10 +37,11 @@ public class CityController {
 
 	/**
 	 * 根据经纬度获取当前城市位置
+	 * 
 	 * @author yuanhaohe
 	 * @param map
 	 *            经纬度
-	 * @return 
+	 * @return
 	 */
 	@RequestMapping(value = "getLocationCity.json", produces = "application/json;charset=utf8")
 	public @ResponseBody String getLocationCity(@RequestBody Map<String, String> map) {
@@ -52,38 +53,45 @@ public class CityController {
 			try {
 				city = baiduMapService.getCityByLongitudeAndLatitude(Double.parseDouble(longitude),
 						Double.parseDouble(latitude));
-				logger.debug("city:" + city);
+				logger.debug("getLocationcity:" + city);
 			} catch (NumberFormatException e) {
-			logger.info("日期格式转换异常!longitude:"+longitude+" latitude"+latitude);
-			
+				logger.debug("日期格式转换异常!longitude:" + longitude + " latitude" + latitude);
+
 			} catch (BaiduMapLocationFormatException e) {
-				logger.info("百度地图格式转换异常!");
+				logger.debug("百度地图格式转换异常!");
 			}
 			if (city != null) {
-				String code=null;
+				String code = null;
 				try {
-					 code=cityService.getCodeByCityName(city.substring(0, city.length() - 1));
+					code = cityService.getCodeByCityName(city.substring(0, city.length() - 1));
 				} catch (Exception e) {
-					logger.info("查询城市code异常! city:"+city);
+					logger.debug("查询城市code异常! city:" + city);
 				}
-				JSONObject json=new JSONObject();
+				JSONObject json = new JSONObject();
 				json.put("code", "200");
-				Map<String,String> data=new HashMap<String,String>();
+				Map<String, String> data = new HashMap<String, String>();
 				data.put("city", city.substring(0, city.length() - 1));
-				data.put("citycode",code);
+				data.put("citycode", code);
 				json.put("data", data);
+				logger.debug(json.toJSONString());
 				return json.toJSONString();
-			} else
+			} else {
+				logger.debug("{\"code\":500,\"msg\":\"获取城市失败\"}");
 				return "{\"code\":500,\"msg\":\"获取城市失败\"}";
-		} else
+			}
+
+		} else {
+			logger.debug("{\"code\":500,\"msg\":\"获取城市失败\"}");
 			return "{\"code\":500,\"msg\":\"获取城市失败\"}";
+		}
+
 	}
 
-	
 	/**
 	 * 查找热门城市 前期先直接读取数据库 后期改为读取redis
+	 * 
 	 * @author yuanhaohe
-	 * @return 
+	 * @return
 	 */
 	@RequestMapping(value = "findHotCity.json", produces = "application/json;charset=utf8")
 	public @ResponseBody String findHotCity(HttpServletRequest request) {
@@ -92,20 +100,21 @@ public class CityController {
 			citys = cityService.getHotCityList();
 			JSONObject json = new JSONObject();
 			json.put("code", 200);
-			Map<String,Object> data=new HashMap<String, Object>();
+			Map<String, Object> data = new HashMap<String, Object>();
 			data.put("citys", citys);
 			json.put("data", data);
+			logger.debug(json.toJSONString());
 			return json.toJSONString();
 		} catch (Exception e) {
+			logger.debug("{\"code\":500,\"msg\":\"服务器未知错误\"}");
 			return "{\"code\":500,\"msg\":\"服务器未知错误\"}";
 		}
-		
-		
+
 	}
 
-	
 	/**
-	 *获取全部城市信息 
+	 * 获取全部城市信息
+	 * 
 	 * @return 所有城市
 	 */
 	@RequestMapping(value = "allCity.json", produces = "application/json;charset=utf8")
@@ -141,9 +150,9 @@ public class CityController {
 				List<City> X = new ArrayList<City>();
 				List<City> Y = new ArrayList<City>();
 				List<City> Z = new ArrayList<City>();
-				Map<String,Object> data=new HashMap<String, Object>();
+				Map<String, Object> data = new HashMap<String, Object>();
 				for (City city : allcitys) {
-					String abbr=city.getAbbr();
+					String abbr = city.getAbbr();
 					if (abbr.charAt(0) == 'A') {
 						key.add("A");
 						A.add(city);
@@ -227,128 +236,132 @@ public class CityController {
 				JSONObject json = new JSONObject();
 				if (A.size() != 0) {
 					data.put("A", A);
-				} 
+				}
 				if (B.size() != 0) {
 					data.put("B", B);
-				} 
+				}
 				if (C.size() != 0) {
 					data.put("C", C);
-				} 
+				}
 				if (D.size() != 0) {
 					data.put("D", D);
-				} 
+				}
 				if (E.size() != 0) {
 					data.put("E", E);
-				} 
+				}
 				if (F.size() != 0) {
 					data.put("F", F);
-				} 
+				}
 				if (G.size() != 0) {
 					data.put("G", G);
-				} 
+				}
 				if (H.size() != 0) {
 					data.put("H", H);
-				} 
+				}
 				if (I.size() != 0) {
 					data.put("I", I);
-				} 
+				}
 				if (J.size() != 0) {
 					data.put("J", J);
-				} 
+				}
 				if (K.size() != 0) {
 					data.put("K", K);
-				} 
+				}
 				if (L.size() != 0) {
 					data.put("L", L);
-				} 
+				}
 				if (M.size() != 0) {
 					data.put("M", M);
-				} 
+				}
 				if (N.size() != 0) {
 					data.put("N", N);
-				} 
+				}
 				if (O.size() != 0) {
 					data.put("O", O);
-				} 
+				}
 				if (P.size() != 0) {
 					data.put("P", P);
-				} 
+				}
 				if (Q.size() != 0) {
 					data.put("Q", Q);
-				} 
+				}
 				if (R.size() != 0) {
 					data.put("R", R);
-				} 
+				}
 				if (S.size() != 0) {
 					data.put("S", S);
-				} 
+				}
 				if (T.size() != 0) {
 					data.put("T", T);
-				} 
+				}
 				if (U.size() != 0) {
 					data.put("U", U);
-				} 
+				}
 				if (V.size() != 0) {
 					data.put("V", V);
-				} 
+				}
 				if (W.size() != 0) {
 					data.put("W", W);
-				} 
+				}
 				if (X.size() != 0) {
 					data.put("X", X);
-				} 
+				}
 				if (Y.size() != 0) {
 					data.put("Y", Y);
-				} 
+				}
 				if (Z.size() != 0) {
 					data.put("Z", Z);
 				}
 				json.put("code", 200);
 				data.put("key", key);
 				json.put("data", data);
+				logger.debug(json.toJSONString());
 				return json.toJSONString();
-				}else{
-					return "{\"code\":500,\"msg\":\"获取城市列表失败\"}";
-				}
+			} else {
+				logger.debug("{\"code\":500,\"msg\":\"获取城市列表失败\"}");
+				return "{\"code\":500,\"msg\":\"获取城市列表失败\"}";
+			}
 		} catch (Exception e) {
+			logger.debug("{\"code\":500,\"msg\":\"获取城市列表失败\"}");
 			return "{\"code\":500,\"msg\"\"获取城市列表失败\"}";
 		}
-		
-		
-		
+
 	}
+
 	/**
 	 * 添加城市
-	 * @param city 
+	 * 
+	 * @param city
 	 * @return
 	 */
-	@RequestMapping(value="addCity.json",produces="application/json;charset=utf8")
-	public@ResponseBody
-	String addCityList(@RequestBody City city){
-	//向集合中添加城市
+	@RequestMapping(value = "addCity.json", produces = "application/json;charset=utf8")
+	public @ResponseBody String addCityList(@RequestBody City city) {
 		try {
 			cityService.insertCity(city);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.debug("{\"code\":500,\"msg\":\"服务器异常\"}");
 			return "{\"code\":500,\"msg\":\"服务器异常\"}";
 		}
+		logger.debug("{\"code\":200,\"msg\":\"success\"}");
 		return "{\"code\":200,\"msg\":\"success\"}";
 	}
-	
+
 	/**
 	 * 通过城市id删除城市
+	 * 
 	 * @param map
 	 * @return
 	 */
-	@RequestMapping(value="deleteCity.json",produces="application/json;charset=utf8")
-	public @ResponseBody
-	String deleteCityList(@RequestBody Map<String,String> map){
+	@RequestMapping(value = "deleteCity.json", produces = "application/json;charset=utf8")
+	public @ResponseBody String deleteCityList(@RequestBody Map<String, String> map) {
 		try {
 			cityService.deleteCity(map.get("id"));
 		} catch (Exception e) {
+			logger.debug("{\"code\":500,\"msg\":\"服务器异常\"}");
 			return "{\"code\":500,\"msg\":\"服务器异常\"}";
 		}
+		logger.debug("{\"code\":200,\"msg\":\"success\"}");
 		return "{\"code\":200,\"msg\":\"success\"}";
 	}
-	
+
 }

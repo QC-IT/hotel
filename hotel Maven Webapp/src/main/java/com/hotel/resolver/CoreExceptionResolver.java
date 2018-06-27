@@ -27,11 +27,12 @@ private final Logger log=LoggerFactory.getLogger(CoreExceptionResolver.class);
           response.setCharacterEncoding("UTF-8"); //避免乱码  
           response.setHeader("Cache-Control", "no-cache, must-revalidate");  
           try {  
+        	  log.debug("{\"code\":502,\"msg\":\"" + ex.getMessage() + "\"}");
               response.getWriter().write("{\"code\":502,\"msg\":\"" + ex.getMessage() + "\"}");  
           } catch (IOException e) {  
             log.debug("发生异常:"+ex.getMessage());
           }  
-
+ex.printStackTrace();
           return mv;  
 	}
 

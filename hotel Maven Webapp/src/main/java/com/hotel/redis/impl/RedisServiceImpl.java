@@ -12,7 +12,7 @@ import org.springframework.data.redis.core.ValueOperations;
 import com.hotel.redis.RedisService;  
 
 public class RedisServiceImpl implements RedisService{
-private static final Logger log=LoggerFactory.getLogger(RedisServiceImpl.class);
+private static final Logger logger=LoggerFactory.getLogger(RedisServiceImpl.class);
 	private RedisTemplate<Serializable, Object> redisTemplate;
     /**
      * 批量删除对应的value
@@ -20,6 +20,7 @@ private static final Logger log=LoggerFactory.getLogger(RedisServiceImpl.class);
      */
     public void remove(final String... keys) {
         for (String key : keys) {
+        	logger.debug("redis remove "+key);
             remove(key);
         }
     }
@@ -40,6 +41,7 @@ private static final Logger log=LoggerFactory.getLogger(RedisServiceImpl.class);
      */
     public void remove(final String key) {
         if (exists(key)) {
+        	logger.debug("redis remove "+key);
             redisTemplate.delete(key);
         }
     }
@@ -50,7 +52,10 @@ private static final Logger log=LoggerFactory.getLogger(RedisServiceImpl.class);
      * @return
      */
     public boolean exists(final String key) {
-        return redisTemplate.hasKey(key);
+    	 boolean flag=redisTemplate.hasKey(key);
+  
+    		logger.debug("redis not exists "+flag);
+        return flag;
     }
 
     /**
@@ -62,6 +67,7 @@ private static final Logger log=LoggerFactory.getLogger(RedisServiceImpl.class);
         Object result = null;
         ValueOperations<Serializable, Object> operations = redisTemplate.opsForValue();
         result = operations.get(key);
+        logger.debug("get redis key:"+key+" value:"+result);
         return result;
     }
 
@@ -77,8 +83,9 @@ private static final Logger log=LoggerFactory.getLogger(RedisServiceImpl.class);
             ValueOperations<Serializable, Object> operations = redisTemplate.opsForValue();
             operations.set(key, value);
             result = true;
+            logger.debug("set redis key:"+key+" value:"+value);
         } catch (Exception e) {
-        	log.error("set cache error", e);
+        	logger.error("set cache error", e);
         }
         return result;
     }
@@ -96,8 +103,9 @@ private static final Logger log=LoggerFactory.getLogger(RedisServiceImpl.class);
             operations.set(key, value);
             redisTemplate.expire(key, expireTime, TimeUnit.SECONDS);
             result = true;
+            logger.debug("set redis key:"+key+" value:"+value+" expireTime:"+expireTime);
         } catch (Exception e) {
-        	log.error("set cache error", e);
+        	logger.error("set cache error", e);
         }
         return result;
     }

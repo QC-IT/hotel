@@ -1,19 +1,21 @@
 package com.test;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.hotel.redis.impl.RedisServiceImpl;
+import com.hotel.controller.CityController;
 
 public class EmailTest {
-
-
+private BeanFactory factory;
+@Before
+public void before(){
+	factory=new ClassPathXmlApplicationContext("classpath:applicationContext-beans.xml");
+}
 	@Test
 	public void test() {
-BeanFactory factory=new ClassPathXmlApplicationContext("classpath:applicationContext-beans.xml");
-RedisServiceImpl service=factory.getBean(RedisServiceImpl.class);
-service.set("map", 111);
-System.out.println(service.get("map"));
+		CityController controller=factory.getBean(CityController.class);
+		System.out.println(controller.getAllCity());
 	}
 }

@@ -55,8 +55,10 @@ public class HotelController {
 			Map<String,Object> data=new HashMap<String,Object>();
 			data.put("hotels", result);
 			json.put("data", data);
+		logger.debug(json.toJSONString());
 			return json.toJSONString();
 		} catch (Exception e) {
+			logger.debug("{\"code\":500,\"msg\":\"服务器出现未知异常\"}");
 			return "{\"code\":500,\"msg\":\"服务器出现未知异常\"}";
 		}
 	
@@ -74,8 +76,10 @@ public class HotelController {
 		String socketId = map.get("socketId");
 		if(socketId!=null){
 		session.setAttribute("sca_connectionid", socketId);
+		logger.debug("{\"code\":200,\"msg\":\"success\"}");
 		return "{\"code\":200,\"msg\":\"success\"}";
 		}else{
+			logger.debug("{\"code\":500,\"msg\":\"没有找到对应的值\"}");
 			return "{\"code\":500,\"msg\":\"没有找到对应的值\"}";
 		}
 
@@ -103,8 +107,10 @@ public class HotelController {
 			data.put("hotels", list);
 			json.put("code", "200");
 			json.put("data", data);
+			logger.debug(json.toJSONString());
 			return json.toJSONString();
 		} catch (Exception e) {
+			logger.debug("{\"code\":500,\"msg\":\"服务器出现未知异常\"}");
 			return "{\"code\":500,\"msg\":\"服务器出现未知异常\"}";
 		}
 	
@@ -133,8 +139,10 @@ public class HotelController {
 			Map<String,Object> data=new HashMap<String,Object>();
 			data.put("hotels", list);
 			json.put("data", data);
+			logger.debug(json.toJSONString());
 			return json.toJSONString();
 		} catch (Exception e) {
+			logger.debug("{\"code\":500,\"msg\":\"服务器出现未知异常\"}");
 			return "{\"code\":500,\"msg\":\"服务器出现未知异常\"}";
 		}
 
@@ -158,8 +166,10 @@ public class HotelController {
 			} else if (state.equals(HotelService.HOTEL_REST)) {
 				hotelService.restHotel(id);
 			}
+			logger.debug("{\"code\":200,\"msg\":\"success\"}");
 			return "{\"code\":200,\"msg\":\"success\"}";
 		} catch (Exception e) {
+			logger.debug("{\"code\":500,\"msg\":\"服务器出现未知异常\"}");
 			return "{\"code\":500,\"msg\":\"服务器出现未知异常\"}";
 		}
 	}
@@ -175,11 +185,14 @@ public class HotelController {
 		try {
 			boolean flag = hotelService.updateHotelBaseInfo(hotel);
 			if (flag) {
+				logger.debug("{\"code\":200,\"msg\":\"success\"}");
 				return "{\"code\":200,\"msg\":\"success\"}";
 			} else {
+				logger.debug("{\"code\":500,\"msg\":\"未知原因更新失败\"}");
 				return "{\"code\":500,\"msg\":\"未知原因更新失败\"}";
 			}
 		} catch (Exception e) {
+			logger.debug("{\"code\":500,\"msg\":\"未知原因更新失败\"}");
 			return "{\"code\":500,\"msg\":\"未知原因更新失败\"}";
 		}
 	}
@@ -195,11 +208,14 @@ public class HotelController {
 		try {
 			boolean flag = hotelService.insertHotelBaseInfo(hotel);
 			if (flag) {
+				logger.debug("{\"code\":200,\"msg\":\"success\"}");
 				return "{\"code\":200,\"msg\":\"success\"}";
 			} else {
+				logger.debug("{\"code\":500,\"msg\":\"未知原因添加失败\"}");
 				return "{\"code\":500,\"msg\":\"未知原因添加失败\"}";
 			}
 		} catch (Exception e) {
+			logger.debug("{\"code\":500,\"msg\":\"未知原因添加失败\"}");
 			return "{\"code\":500,\"msg\":\"未知原因添加失败\"}";
 		}
 	}
@@ -222,8 +238,10 @@ public class HotelController {
 			Map<String,Object> data=new HashMap<String,Object>();
 			data.put("nearHotel", list);
 json.put("data", data);
+logger.debug(json.toJSONString());
 return json.toJSONString();
 		} catch (Exception e) {
+			logger.debug("{\"code\":500,\"msg\":\"未知错误\"}");
 		return "{\"code\":500,\"msg\":\"未知错误\"}";
 		}
 	}

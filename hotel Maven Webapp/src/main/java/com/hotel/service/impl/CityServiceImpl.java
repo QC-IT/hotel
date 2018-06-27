@@ -1,9 +1,11 @@
 package com.hotel.service.impl;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.hotel.dao.CityDao;
 import com.hotel.models.City;
 import com.hotel.service.CityService;
@@ -15,6 +17,7 @@ public class CityServiceImpl implements CityService {
 
 	@Transactional
 	public List<City> getHotCityList() throws Exception {
+
 		return cityDao.getHotCity();
 	}
 
@@ -25,7 +28,7 @@ public class CityServiceImpl implements CityService {
 
 	@Transactional
 	public int selectCityIdByName(String name) throws Exception {
-		if (name != null &&!name.trim().equals("")) {
+		if (name != null && !name.trim().equals("")) {
 			Integer result = cityDao.getCityIdByName(name);
 			if (result == null) {
 				return 0;
@@ -39,9 +42,9 @@ public class CityServiceImpl implements CityService {
 
 	@Transactional
 	public String getCodeByCityName(String cityName) throws Exception {
-if(cityName!=null&&!cityName.trim().equals("")){
-		return cityDao.getCodeByCityName(cityName);
-		}else {
+		if (cityName != null && !cityName.trim().equals("")) {
+			return cityDao.getCodeByCityName(cityName);
+		} else {
 			return null;
 		}
 	}
