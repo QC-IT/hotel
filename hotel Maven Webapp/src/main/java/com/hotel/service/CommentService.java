@@ -8,11 +8,17 @@ public interface CommentService {
 
 	 public PageInfo<Comment> getCommentByHotelIdAndScore(String hotelId, Integer score,int page,int rows);
 
-	 public PageInfo<Comment> getCommectByHotelIdAndState(String hotelId, Integer state,int page,int rows);
+	 public PageInfo<Comment> getCommentByHotelIdAndState(String hotelId, Integer state,int page,int rows);
 
 	 public PageInfo<Comment> getCommectByUid(String uid,int page,int rows);
 
 	 public PageInfo<Comment> getCommectBySid(Integer sid,int page,int rows) ;
 	 
-		public boolean autoComment(String uid);
+	 public boolean autoComment(String uid);
+
+	 public void addComment(Comment comment);
+
+	 public void deleteCommentByIds(Integer[] id);
+
+	 public Comment getCommentById(Integer id);
 }

@@ -30,26 +30,25 @@ public interface CommentDao {
      * @param state
      * @return
      */
-    public List<Comment> getCommectByHotelIdAndState(@Param("hotelId")String hotelId,@Param("state")Integer state);
+    public List<Comment> getCommentByHotelIdAndState(@Param("hotelId")String hotelId,@Param("state")Integer state);
 
     /**
      * 根据用户id查看评论
      * @param uid
      * @return
      */
-    public List<Comment> getCommectByUid(@Param("uid")String uid);
+    public List<Comment> getCommentByUid(@Param("uid")String uid);
 
     /**
      * 根据服务ID查看评论
      * @param sid
      * @return
      */
-    public List<Comment> getCommectBySid(@Param("sid") Integer sid);
-    
-    /**
-     * 添加评论
-     * @param comment
-     */
-	public void addComment(Comment comment);
+    public List<Comment> getCommentBySid(@Param("sid") Integer sid);
 
+    public void addComment(Comment comment);
+
+    public Comment getCommentById(@Param("id") Integer id);
+
+    public void delteCommentById(@Param("id") Integer id);
 }
