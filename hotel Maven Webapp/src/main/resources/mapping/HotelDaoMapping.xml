@@ -3,6 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hotel.dao.HotelDao">
+<cache/>
 <select id="selectHotelByCityCode" parameterType="java.lang.String" resultMap="HotelResultMap">
 	select h.*,hp.id pid,hp.picUrl picUrl,hp.state pstate,hp.hid
 		hid from hotel as h left join hotel_pic as hp on h.id=hp.hid

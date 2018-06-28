@@ -36,5 +36,11 @@ public interface HotelItemsDao {
 	 * @param items
 	 */
 	public void updateItems(Items items);
+	/**
+	 * 通过id得到items
+	 * @param id
+	 * @return
+	 */
+	public Items getItemsByItemsId(String id);
 	
 }

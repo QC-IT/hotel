@@ -7,7 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hotel.dao.CommentExtendsDao;
+import com.hotel.dao.CommentDao;
 import com.hotel.dao.ServiceDao;
 import com.hotel.models.Comment;
 import com.hotel.service.QuartzService;
@@ -17,7 +17,7 @@ public class QuartzServiceImpl implements QuartzService{
 	@Autowired
 private ServiceDao serviceDao;
 	@Autowired
-private CommentExtendsDao commentDao;
+private CommentDao commentDao;
 	@Override
 	public boolean autoComment() {
 		try{

@@ -48,7 +48,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
     
      <!-- 消息消费者 start-->
 <bean name="topicReceiver1" class="com.hotel.jms.consumer.ScanConsumer"></bean>
-    <!-- 定义Queue监听器 -->
+    <!-- 定义Queue监听器 --> 
    <jms:listener-container destination-type="queue" container-type="default" connection-factory="connectionFactory" acknowledge="auto" >
  <jms:listener destination="scan-queue" ref="topicReceiver1" method="onMessage"/>
     </jms:listener-container>

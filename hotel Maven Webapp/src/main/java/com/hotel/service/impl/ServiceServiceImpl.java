@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
@@ -34,6 +35,7 @@ public class ServiceServiceImpl implements ServiceService {
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
+	@Transactional
     public PageInfo<Items> getItemsByHotelId(String hid,int page, int rows) {
         String key = REDIS_ITEMS_PRE+":"+hid+","+page+","+rows;
         String json = (String) redisService.get(key);
@@ -51,6 +53,7 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
+    @Transactional
     public Items getItemsById(Integer id) {
         String key = REDIS_ITEMS_PRE+":"+id;
         String json = (String)redisService.get(key);
@@ -65,6 +68,7 @@ public class ServiceServiceImpl implements ServiceService {
 
     @Override
     @SuppressWarnings({ "unchecked", "rawtypes" })
+    @Transactional
     public PageInfo<Items> getItemsByHotelIdAndItem(String hid,String item, int page, int rows) {
         String key = REDIS_ITEMS_PRE+":"+hid+","+item;
         String json = (String)redisService.get(key);
@@ -81,6 +85,7 @@ public class ServiceServiceImpl implements ServiceService {
 
     @Override
     @SuppressWarnings({ "unchecked", "rawtypes" })
+    @Transactional
     public PageInfo<Items> getItemsByHotelIdAndState(String hid,Integer state, int page, int rows) {
         String key = REDIS_ITEMS_PRE+":"+hid+","+state+","+page+","+rows;
         String json = (String) redisService.get(key);
@@ -97,6 +102,7 @@ public class ServiceServiceImpl implements ServiceService {
 
     @Override
     @SuppressWarnings({ "unchecked", "rawtypes" })
+    @Transactional
     public PageInfo<Items> getItemsByHotelIdAndNeedLevel(String hid,Integer needLevel, int page, int rows) {
         String key = REDIS_ITEMS_PRE+":"+hid+","+needLevel+","+page+","+rows;
         String json = (String) redisService.get(key);
@@ -112,18 +118,21 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
+    @Transactional
     public void addItems(Items items) {
         redisService.removePattern(REDIS_ITEMS_PRE+":"+items.getHid()+"*");
         serviceDao.addItems(items);
     }
 
     @Override
+    @Transactional
     public void updateItems(Items items) {
         redisService.removePattern(REDIS_ITEMS_PRE+":"+items.getHid()+"*");
         serviceDao.updateItems(items);
     }
 
     @Override
+    @Transactional
     public void deleteItems(Integer[] ids) {
         Items items = serviceDao.getItemsById(ids[0]);
         redisService.removePattern(REDIS_ITEMS_PRE+":"+items.getHid()+"*");

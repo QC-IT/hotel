@@ -5,6 +5,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 <mapper namespace="com.hotel.dao.HotelItemsDao">
+<select id="getItemsByItemsId" parameterType="java.lang.String" resultType="Items">
+select * from service where id=#{id}
+</select>
 <update id="updateItemsState" parameterType="map">
 update service set state=#{state} where id=#{id}
 </update>

@@ -45,5 +45,11 @@ public interface CommentDao {
      * @return
      */
     public List<Comment> getCommectBySid(@Param("sid") Integer sid);
+    
+    /**
+     * 添加评论
+     * @param comment
+     */
+	public void addComment(Comment comment);
 
 }

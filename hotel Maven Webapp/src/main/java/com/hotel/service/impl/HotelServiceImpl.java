@@ -15,7 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hotel.api.service.BaiduMapService;
 import com.hotel.dao.HotelDao;
+import com.hotel.dao.HotelItemsDao;
 import com.hotel.models.Hotel;
+import com.hotel.models.Items;
+import com.hotel.redis.RedisService;
 import com.hotel.service.CityService;
 import com.hotel.service.HotelService;
 import com.hotel.util.DistanceUtil;
@@ -28,6 +31,10 @@ public class HotelServiceImpl implements HotelService {
 	private CityService cityService;
 	@Autowired
 	private BaiduMapService baiduMapService;
+	@Autowired
+	private RedisService redisService;
+	@Autowired
+	private HotelItemsDao hotelItemsDao;
 	
 	private final static Logger logger = LoggerFactory.getLogger(HotelServiceImpl.class);
 
@@ -53,25 +60,34 @@ public class HotelServiceImpl implements HotelService {
 
 		return list;
 	}
+	
+@SuppressWarnings("unchecked")
 @Transactional
 	public List<Hotel> getRecomHotelListByCityCode(String cityCode) throws Exception {
 	if(cityCode!=null&&!cityCode.trim().equals("")){
-		List<Hotel> list = hotelDao.getRecommendHotelByCity(cityCode);
-		logger.debug("通过" + cityCode + "查找到" + list.size() + "个酒店");
-		list = list.parallelStream().sorted((o1, o2) -> {
-			if (o1.getRecommendOrderCode() > o2.getRecommendOrderCode()) {
-				return 1;
-			} else if (o1.getRecommendOrderCode() < o2.getRecommendOrderCode()) {
-				return -1;
-			} else
-				return 0;
-		}).collect(Collectors.toList());
-		return list;
+		if(redisService.exists("recomHotelList-cityCode-"+cityCode)){
+			return (List<Hotel>) redisService.get("recomHotelList-cityCode-"+cityCode);
+		}else{
+			List<Hotel> list = hotelDao.getRecommendHotelByCity(cityCode);
+			logger.debug("通过" + cityCode + "查找到" + list.size() + "个酒店");
+			list = list.parallelStream().sorted((o1, o2) -> {
+				if (o1.getRecommendOrderCode() > o2.getRecommendOrderCode()) {
+					return 1;
+				} else if (o1.getRecommendOrderCode() < o2.getRecommendOrderCode()) {
+					return -1;
+				} else
+					return 0;
+			}).collect(Collectors.toList());
+		
+			redisService.set("recomHotelList-cityCode-"+cityCode, list,24*60*60l);
+			return list;
+		}
 		}else {
 			return null;
 		}
 	
 	}
+
 @Transactional
 	public List<Hotel> getRecomHotelListByCityName(String name) throws Exception {
 	if(name!=null&&!name.trim().equals("")){
@@ -97,6 +113,18 @@ public class HotelServiceImpl implements HotelService {
 	if(id!=null&&!id.trim().equals("")){
 		try {
 			hotelDao.changeHotelStateById(id, "0");
+			Hotel hotel=hotelDao.getHotelById(id);
+			if(hotel.getRecommendOrderCode()==1){
+				if(redisService.exists("recomHotelList-cityCode-"+hotel.getCityCode())){
+				redisService.remove("recomHotelList-cityCode-"+hotel.getCityCode());
+				}
+			}
+			List<Items> list=hotelItemsDao.getHotelItemsListByHotelId(hotel.getId());
+			for(Items items:list){
+				if(redisService.exists("hotel-items-hotel-" + items.getHid())){
+					redisService.remove("hotel-items-hotel-" + items.getHid());
+				}
+			}
 			logger.debug("将id为" + id + "的酒店状态变为关闭");
 			return true;
 		} catch (Exception e) {
@@ -128,6 +156,18 @@ public class HotelServiceImpl implements HotelService {
 		try {
 			logger.debug("将id为" + id + "的酒店状态变为未营业");
 			hotelDao.changeHotelStateById(id, "2");
+			Hotel hotel=hotelDao.getHotelById(id);
+			if(hotel.getRecommendOrderCode()==1){
+				if(redisService.exists("recomHotelList-cityCode-"+hotel.getCityCode())){
+				redisService.remove("recomHotelList-cityCode-"+hotel.getCityCode());
+				}
+			}
+			List<Items> list=hotelItemsDao.getHotelItemsListByHotelId(id);
+			for(Items items:list){
+				if(redisService.exists("hotel-items-hotel-" + items.getHid())){
+					redisService.remove("hotel-items-hotel-" + items.getHid());
+				}
+			}
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -201,6 +241,7 @@ public class HotelServiceImpl implements HotelService {
 		}
 	}
 @Override
+@Transactional
 public Hotel getHotelById(String id) {
 if(id!=null&&!id.trim().equals("")){
 	return hotelDao.getHotelById(id);

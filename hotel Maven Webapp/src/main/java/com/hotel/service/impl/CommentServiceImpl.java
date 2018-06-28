@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.hotel.dao.CommentExtendsDao;
+import com.hotel.dao.CommentDao;
 import com.hotel.dao.ServiceDao;
 import com.hotel.models.Comment;
 import com.hotel.service.CommentService;
@@ -18,7 +18,7 @@ public class CommentServiceImpl implements CommentService {
 	@Autowired
 private ServiceDao serviceDao;
 	@Autowired
-private CommentExtendsDao commentDao;
+private CommentDao commentDao;
 
     @Override
     public PageInfo<Comment> getAllCommentByHotelId(String hotelId,int page,int rows) {
