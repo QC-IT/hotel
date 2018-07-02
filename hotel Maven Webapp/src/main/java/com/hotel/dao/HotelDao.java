@@ -27,9 +27,14 @@ public interface HotelDao {
 	 * 
 	 * @param cityCode
 	 *            城市code
+	 * @param page
+	 *            页码
+	 * 
+	 * @param count
+	 *            数量
 	 * @return 推荐城市信息
 	 */
-	public List<Hotel> getRecommendHotelByCity(String cityCode);
+	public List<Hotel> getRecommendHotelByCity(@Param("cityCode")String cityCode, @Param("index")int index, @Param("count")int count);
 
 	/**
 	 * 根据酒店ID和状态码将酒店状态改变
@@ -68,7 +73,7 @@ public interface HotelDao {
 	 * 
 	 * @param id
 	 *            酒店id
-	 * @return 
+	 * @return
 	 */
 	public Hotel getHotelById(String id);
 }

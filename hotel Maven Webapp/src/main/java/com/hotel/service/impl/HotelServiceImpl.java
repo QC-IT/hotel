@@ -63,12 +63,12 @@ public class HotelServiceImpl implements HotelService {
 	
 @SuppressWarnings("unchecked")
 @Transactional
-	public List<Hotel> getRecomHotelListByCityCode(String cityCode) throws Exception {
+	public List<Hotel> getRecomHotelListByCityCode(String cityCode,String page,String count) throws Exception {
 	if(cityCode!=null&&!cityCode.trim().equals("")){
-		if(redisService.exists("recomHotelList-cityCode-"+cityCode)){
-			return (List<Hotel>) redisService.get("recomHotelList-cityCode-"+cityCode);
+		if(redisService.exists("recomHotelList-cityCode-"+cityCode+"-"+page)){
+			return (List<Hotel>) redisService.get("recomHotelList-cityCode-"+cityCode+"-"+page);
 		}else{
-			List<Hotel> list = hotelDao.getRecommendHotelByCity(cityCode);
+			List<Hotel> list = hotelDao.getRecommendHotelByCity(cityCode,(Integer.parseInt(page)-1)*Integer.parseInt(count),Integer.parseInt(count));
 			logger.debug("通过" + cityCode + "查找到" + list.size() + "个酒店");
 			list = list.parallelStream().sorted((o1, o2) -> {
 				if (o1.getRecommendOrderCode() > o2.getRecommendOrderCode()) {
@@ -79,7 +79,7 @@ public class HotelServiceImpl implements HotelService {
 					return 0;
 			}).collect(Collectors.toList());
 		
-			redisService.set("recomHotelList-cityCode-"+cityCode, list,24*60*60l);
+			redisService.set("recomHotelList-cityCode-"+cityCode+"-"+page, list,24*60*60l);
 			return list;
 		}
 		}else {
@@ -89,7 +89,7 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 @Transactional
-	public List<Hotel> getRecomHotelListByCityName(String name) throws Exception {
+	public List<Hotel> getRecomHotelListByCityName(String name,String page,String count) throws Exception {
 	if(name!=null&&!name.trim().equals("")){
 		String cityCode = null;
 		try {
@@ -99,7 +99,7 @@ public class HotelServiceImpl implements HotelService {
 		}
 
 		if (cityCode != null) {
-			return this.getRecomHotelListByCityCode(cityCode);
+			return this.getRecomHotelListByCityCode( cityCode, page, count);
 		}
 		return null;
 		}else{

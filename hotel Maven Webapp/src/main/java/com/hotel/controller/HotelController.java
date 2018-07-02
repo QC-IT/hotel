@@ -31,7 +31,9 @@ public class HotelController {
 /**
  * 通过查询名称模糊搜索酒店信息
  * @param map 
- *        name longitude latitude
+ *        name 查询酒店名称
+ *        longitude 经度
+ *        latitude 纬度
  * @return
  */
 	@RequestMapping(value = "searchHotel.json",produces = "application/json;charset=utf8")
@@ -96,9 +98,11 @@ public class HotelController {
 		String cityName = map.get("cityName");
 		String longitude = map.get("longitude");
 		String latitude = map.get("latitude");
+		String page=map.get("page");
+		String count=map.get("count");
 		List<Hotel> list = null;
 		try {
-			list = hotelService.getRecomHotelListByCityName(cityName);
+			list = hotelService.getRecomHotelListByCityName(cityName,page,count);
 			list.forEach(h -> {
 				h.setDistance(DistanceUtil.getDistance(latitude, longitude, h.getLatitude(), h.getLongitude()));
 			});
@@ -128,9 +132,11 @@ public class HotelController {
 		String cityCode = map.get("cityCode");
 		String longitude = map.get("longitude");
 		String latitude = map.get("latitude");
+		String page=map.get("page");
+		String count=map.get("count");
 		List<Hotel> list;
 		try {
-			list = hotelService.getRecomHotelListByCityCode(cityCode);
+			list = hotelService.getRecomHotelListByCityCode(cityCode,page,count);
 			list.forEach(h -> {
 				h.setDistance(DistanceUtil.getDistance(latitude, longitude, h.getLatitude(), h.getLongitude()));
 			});

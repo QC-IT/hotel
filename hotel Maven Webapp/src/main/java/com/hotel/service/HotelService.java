@@ -34,17 +34,22 @@ public interface HotelService {
 	 * @return 推荐城市列表
 	 * @throws Exception
 	 */
-	public List<Hotel> getRecomHotelListByCityCode(String cityCode) throws Exception;
+	public List<Hotel> getRecomHotelListByCityCode(String cityCode, String page, String count) throws Exception;
 
 	/**
 	 * 通过城市名查找当前城市的推荐酒店
 	 * 
 	 * @param name
 	 *            城市名称(不能以市，区等结尾)
+	 * @param page
+	 *            页数
+	 * @param count
+	 *            数量
+	 * 
 	 * @return 推荐城市列表
 	 * @throws Exception
 	 */
-	public List<Hotel> getRecomHotelListByCityName(String name) throws Exception;
+	public List<Hotel> getRecomHotelListByCityName(String name, String page, String count) throws Exception;
 
 	/**
 	 * 将酒店状态转换为关闭
@@ -110,9 +115,10 @@ public interface HotelService {
 	 */
 	public List<Hotel> getNearHotelLimit(String lat, String lng, String index, String amount, HttpSession session)
 			throws Exception;
-	
+
 	/**
 	 * 通过id查找Hotel
+	 * 
 	 * @param id
 	 * @return
 	 */

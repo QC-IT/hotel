@@ -3,10 +3,7 @@
 
 <mapper namespace="com.hotel.dao.ServiceDao">
 
-	<select id="getItemsByHotelId" parameterType="java.lang.String"
-		resultType="items">
-		select * from service where hid = #{hid}
-	</select>
+
 	
 	<select id="selectSericeIdByUserIdAndNoComment" parameterType="java.lang.String" resultType="java.lang.Integer">
 		select sid from service_join where uid=#{uid} and
@@ -76,7 +73,10 @@
 		</set>
 		where id = #{id}
 	</insert>
-
+	<select id="getItemsByHotelId" parameterType="java.lang.String"
+		resultType="Items">
+		select * from service where hid = #{hid}
+	</select>
 	<delete id="deleteItems" parameterType="java.lang.Integer">
 		delete from service where
 		id = #{id}

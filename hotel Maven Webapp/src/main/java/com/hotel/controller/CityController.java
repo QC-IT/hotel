@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -118,7 +119,7 @@ public class CityController {
 	 * @return 所有城市
 	 */
 	@RequestMapping(value = "allCity.json", produces = "application/json;charset=utf8")
-	public @ResponseBody String getAllCity() {
+	public @ResponseBody String getAllCity(HttpSession session) {
 		List<City> allcitys = null;
 		try {
 			allcitys = cityService.getAllCityList();

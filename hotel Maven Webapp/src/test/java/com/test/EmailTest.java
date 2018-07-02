@@ -13,9 +13,5 @@ private BeanFactory factory;
 public void before(){
 	factory=new ClassPathXmlApplicationContext("classpath:applicationContext-beans.xml");
 }
-	@Test
-	public void test() {
-		CityController controller=factory.getBean(CityController.class);
-		System.out.println(controller.getAllCity());
-	}
+	
 }

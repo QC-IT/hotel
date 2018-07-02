@@ -41,6 +41,7 @@ public class LoginController {
 		String openId = loginService.getWeChatOpenIdByCode(code);
 		Map<String,Object> data=new HashMap<String,Object>();
 		data.put("openId", openId);
+		data.put("SESSION", session.getId());
 		JSONObject json=new JSONObject();
 		json.put("code", 200);
 		json.put("data", data);

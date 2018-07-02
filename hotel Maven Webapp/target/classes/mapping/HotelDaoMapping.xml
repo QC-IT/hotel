@@ -103,12 +103,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		name like ${name} limit 0,10
 	</select>
 
-	<select id="getRecommendHotelByCity" parameterType="java.lang.String"
+	<select id="getRecommendHotelByCity" parameterType="map"
 		resultMap="HotelResultMap">
 		select h.*,hp.id pid,hp.picUrl picUrl,hp.state pstate,hp.hid hid from hotel
 		as h left join hotel_pic as hp on h.id=hp.hid
 		where
-		cityCode=#{cityCode} and h.state=1 and h.isRecommend=1
+		cityCode=#{cityCode} and h.state=1 and h.isRecommend=1 limit #{index},#{count}
 	</select>
 
 	<update id="changeHotelStateById" parameterType="map">
