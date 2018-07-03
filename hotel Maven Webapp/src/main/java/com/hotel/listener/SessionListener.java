@@ -1,24 +1,23 @@
 package com.hotel.listener;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
-import com.hotel.redis.RedisService;
-import com.hotel.redis.impl.RedisServiceImpl;
-
 public class SessionListener implements HttpSessionListener{
-private static RedisService redisService=new RedisServiceImpl();
+private static AtomicInteger activeUser;
 
 	public void sessionCreated(HttpSessionEvent se) {
-		
+		activeUser.getAndIncrement();
 		
 	}
 
 	public void sessionDestroyed(HttpSessionEvent se) {
-		String id=se.getSession().getId();
-		if(redisService.exists(id)){
-		redisService.remove();
-		}
+	activeUser.getAndDecrement();
 	}
+public int getActiveUserNum(){
+	return activeUser.intValue();
+}
 
 }

@@ -13,7 +13,7 @@ private String longitude;
 private String latitude;
 private String administrator;
 private String phoneNumber;
-private Integer startLevel;
+private Integer starLevel;
 private String officialURL;
 private String headPicURL;
 private Integer type;
@@ -74,10 +74,10 @@ public void setPhoneNumber(String phoneNumber) {
 	this.phoneNumber = phoneNumber;
 }
 public Integer getStartLevel() {
-	return startLevel;
+	return starLevel;
 }
-public void setStartLevel(int startLevel) {
-	this.startLevel = startLevel;
+public void setStartLevel(int starLevel) {
+	this.starLevel = starLevel;
 }
 public String getOfficialURL() {
 	return officialURL;
@@ -142,8 +142,8 @@ public void setDistance(Double distance) {
 @Override
 public String toString() {
 	return "Hotel [id=" + id + ", name=" + name + ", address=" + address + ", longitude=" + longitude + ", latitude="
-			+ latitude + ", administrator=" + administrator + ", phoneNumber=" + phoneNumber + ", startLevel="
-			+ startLevel + ", officialURL=" + officialURL + ", headPicURL=" + headPicURL + ", type=" + type + ", level="
+			+ latitude + ", administrator=" + administrator + ", phoneNumber=" + phoneNumber + ", starLevel="
+			+ starLevel + ", officialURL=" + officialURL + ", headPicURL=" + headPicURL + ", type=" + type + ", level="
 			+ level + ", createTime=" + createTime + ", state=" + state + ", cityCode=" + cityCode + ", isRecommend="
 			+ isRecommend + ", recommendOrderCode=" + recommendOrderCode + ", distance=" + distance + ", picPath="
 			+ picPath + "]";

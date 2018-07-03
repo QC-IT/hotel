@@ -36,7 +36,7 @@ public class HotelController {
  *        latitude 纬度
  * @return
  */
-	@RequestMapping(value = "searchHotel.json",produces = "application/json;charset=utf8")
+	@RequestMapping(value = "searchHotel.json",method=RequestMethod.POST,produces = "application/json;charset=utf8")
 	public @ResponseBody String searchHotel(@RequestBody Map<String, String> map) {
 		String name = map.get("name");
 		String longitude = map.get("longitude");
@@ -73,7 +73,7 @@ public class HotelController {
  *        socketId
  * @return
  */
-	@RequestMapping(value = "socketContent.json",produces = "application/json;charset=utf8")
+	@RequestMapping(value = "socketContent.json",method=RequestMethod.POST,produces = "application/json;charset=utf8")
 	public @ResponseBody String getSocketContent(HttpSession session, @RequestBody Map<String, String> map) {
 		String socketId = map.get("socketId");
 		if(socketId!=null){
@@ -93,13 +93,13 @@ public class HotelController {
  *        cityName longitude latitude
  * @return
  */
-	@RequestMapping(value = "getRecomHotelListByCityName.json", produces = "application/json;charset=utf8")
+	@RequestMapping(value = "getRecomHotelListByCityName.json", method=RequestMethod.POST,produces = "application/json;charset=utf8")
 	public @ResponseBody String getRecomHotelListByCityName(@RequestBody Map<String, String> map) {
 		String cityName = map.get("cityName");
 		String longitude = map.get("longitude");
 		String latitude = map.get("latitude");
 		String page=map.get("page");
-		String count=map.get("count");
+		String count=map.get("rows");
 		List<Hotel> list = null;
 		try {
 			list = hotelService.getRecomHotelListByCityName(cityName,page,count);
@@ -127,13 +127,13 @@ public class HotelController {
 	 *        cityCode longitude latitude
 	 * @return
 	 */
-	@RequestMapping(value = "getRecomHotelListByCityCode.json",produces = "application/json;charset=utf8")
+	@RequestMapping(value = "getRecomHotelListByCityCode.json",method=RequestMethod.POST,produces = "application/json;charset=utf8")
 	public @ResponseBody String getRecomHotelListByCityCode(@RequestBody Map<String, String> map) {
 		String cityCode = map.get("cityCode");
 		String longitude = map.get("longitude");
 		String latitude = map.get("latitude");
 		String page=map.get("page");
-		String count=map.get("count");
+		String count=map.get("rows");
 		List<Hotel> list;
 		try {
 			list = hotelService.getRecomHotelListByCityCode(cityCode,page,count);
@@ -186,7 +186,7 @@ public class HotelController {
  * @return
  */
 	//在写酒店方小程序时候这里要做权限判断 state 402
-	@RequestMapping(value = "updateHotelInfo.json", produces = "application/json;charset=utf8")
+	@RequestMapping(value = "updateHotelInfo.json", method=RequestMethod.POST,produces = "application/json;charset=utf8")
 	public @ResponseBody String updateHotelInfo(@RequestBody Hotel hotel) {
 		try {
 			boolean flag = hotelService.updateHotelBaseInfo(hotel);
@@ -209,7 +209,7 @@ public class HotelController {
  * @return
  */
 	//在写酒店方小程序时候这里要做权限判断 state 402
-	@RequestMapping(value = "addHotelInfo.json", produces = "application/json;charset=utf8")
+	@RequestMapping(value = "addHotelInfo.json", method=RequestMethod.POST,produces = "application/json;charset=utf8")
 	public @ResponseBody String insertHotelBaseInfo(@RequestBody Hotel hotel) {
 		try {
 			boolean flag = hotelService.insertHotelBaseInfo(hotel);
@@ -230,15 +230,15 @@ public class HotelController {
  * 分页获取最近酒店信息
  * @param session
  * @param map
- *      latitude longitude index amount
+ *      latitude longitude page rows
  * @return
  */
-	@RequestMapping(value="getNearHotelLimit.json",produces="application/json;charset=utf8")
+	@RequestMapping(value="getNearHotelLimit.json",method=RequestMethod.POST,produces="application/json;charset=utf8")
 	public @ResponseBody 
 	String getNearHotelLimit(HttpSession session,@RequestBody Map<String,String> map){
 
 		try {
-			List<Hotel> list=hotelService.getNearHotelLimit(map.get("latitude"), map.get("longitude"), map.get("index"), map.get("amount"), session);
+			List<Hotel> list=hotelService.getNearHotelLimit(map.get("latitude"), map.get("longitude"), map.get("page"), map.get("rows"), session);
 			JSONObject json=new JSONObject();
 			json.put("code", 200);
 			Map<String,Object> data=new HashMap<String,Object>();

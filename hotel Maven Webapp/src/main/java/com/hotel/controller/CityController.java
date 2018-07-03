@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
@@ -44,7 +45,7 @@ public class CityController {
 	 *            经纬度
 	 * @return
 	 */
-	@RequestMapping(value = "getLocationCity.json", produces = "application/json;charset=utf8")
+	@RequestMapping(value = "getLocationCity.json", method=RequestMethod.POST,produces = "application/json;charset=utf8")
 	public @ResponseBody String getLocationCity(@RequestBody Map<String, String> map) {
 		String latitude = map.get("latitude");
 		String longitude = map.get("longitude");
@@ -335,7 +336,7 @@ public class CityController {
 	 * @param city
 	 * @return
 	 */
-	@RequestMapping(value = "addCity.json", produces = "application/json;charset=utf8")
+	@RequestMapping(value = "addCity.json",method=RequestMethod.POST,produces = "application/json;charset=utf8")
 	public @ResponseBody String addCityList(@RequestBody City city) {
 		try {
 			cityService.insertCity(city);
@@ -353,7 +354,7 @@ public class CityController {
 	 * @param map
 	 * @return
 	 */
-	@RequestMapping(value = "deleteCity.json", produces = "application/json;charset=utf8")
+	@RequestMapping(value = "deleteCity.json", method=RequestMethod.POST,produces = "application/json;charset=utf8")
 	public @ResponseBody String deleteCityList(@RequestBody Map<String, String> map) {
 		try {
 			cityService.deleteCity(map.get("id"));

@@ -65,14 +65,14 @@ classpath:applicationContext-servlet.xml;
   <url-pattern>*.json</url-pattern>
   </servlet-mapping>
 
-<!--   <listener>
+  <listener>
      <listener-class>com.hotel.listener.SessionListener</listener-class>
-  </listener> -->
+  </listener> 
   
 
   
   <!-- 字符集过滤器 -->
-  <filter id="Filter_1528195288555">
+  <filter>
   <filter-name>characterEncodingFilter</filter-name>
   <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
   <init-param>

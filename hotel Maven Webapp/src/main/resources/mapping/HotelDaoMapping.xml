@@ -30,8 +30,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="phoneNumber!=null">
 			phoneNumber,
 		</if>
-		<if test="startLevel!=null">
-			startLevel,
+		<if test="starLevel!=null">
+			starLevel,
 		</if>
 		<if test="officialURL!=null">
 			officialURL,
@@ -75,8 +75,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="phoneNumber!=null">
 			#{phoneNumber},
 		</if>
-		<if test="startLevel!=null">
-			#{startLevel},
+		<if test="starLevel!=null">
+			#{starLevel},
 		</if>
 		<if test="officialURL!=null">
 			#{officialURL},
@@ -137,8 +137,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="phoneNumber!=null">
 			phoneNumber=#{phoneNumber},
 		</if>
-		<if test="startLevel!=null">
-			startLevel=#{startLevel},
+		<if test="starLevel!=null">
+			starLevel=#{starLevel},
 		</if>
 		<if test="officialURL!=null">
 			officialURL=#{officialURL},
@@ -176,7 +176,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="latitude" property="latitude" />
 		<result column="administrator" property="administrator" />
 		<result column="phoneNumber" property="phoneNumber" />
-		<result column="startLevel" property="startLevel" />
+		<result column="starLevel" property="starLevel" />
 		<result column="officialURL" property="officialURL" />
 		<result column="headPicURL" property="headPicURL" />
 		<result column="type" property="type" />
