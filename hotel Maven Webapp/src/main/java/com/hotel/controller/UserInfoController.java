@@ -35,7 +35,6 @@ private UserService userService;
 	
 	@RequestMapping(value="uploadUserHeadPic.json",method=RequestMethod.POST,produces="application/json;charset=utf-8")
 public @ResponseBody String uploadUserHeadPic(MultipartFile file,HttpSession session){
-		session.setAttribute("openId", "asda12342");
 		String openId=(String) session.getAttribute("openId");
 		if(openId==null){
 			return  "{\"code\":400,\"msg\":\"用户未登录\"}";
