@@ -29,4 +29,54 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</set>
 		where openID=#{openId}
 	</update>
+	<update id="updateUser" parameterType="User">
+	update user <set>
+	<if test="userName!=null">
+	userName=#{userName},
+	</if>
+		<if test="password!=null">
+	password=#{password},
+	</if>
+		<if test="nickName!=null">
+	nickName=#{nickName},
+	</if>
+		<if test="headPic!=null">
+	headPic=#{headPic},
+	</if>
+		<if test="gender!=null">
+	gender=#{gender},
+	</if>
+	
+		<if test="age!=null">
+	age=#{age},
+	</if>
+		<if test="phoneNumber!=null">
+	phoneNumber=#{phoneNumber},
+	</if>
+		<if test="email!=null">
+	email=#{email},
+	</if>
+		<if test="salt!=null">
+	salt=#{salt},
+	</if>
+		<if test="latitude!=null">
+	latitude=#{latitude},
+	</if>
+		<if test="longitude!=null">
+	longitude=#{longitude},
+	</if>
+		<if test="state!=null">
+	state=#{state},
+	</if>
+		<if test="level!=null">
+	level=#{level},
+	</if>
+		<if test="integral!=null">
+	integral=#{integral},
+	</if>
+	</set>
+	<where>
+	openID=#{openID}
+	</where>
+	</update>
 </mapper> 

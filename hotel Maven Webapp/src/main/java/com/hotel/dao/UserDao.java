@@ -21,4 +21,6 @@ public interface UserDao {
 			@Param("longitude") String longitude);
 
 	public void updateUserStateByOpenId(@Param("openId") String openId, @Param("state") String state);
+	
+	public void updateUser(User user);
 }

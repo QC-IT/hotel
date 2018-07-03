@@ -71,7 +71,7 @@ public String getGender() {
 public void setGender(String gender) {
 	this.gender = gender;
 }
-public int getAge() {
+public Integer getAge() {
 	return age;
 }
 public void setAge(int age) {
