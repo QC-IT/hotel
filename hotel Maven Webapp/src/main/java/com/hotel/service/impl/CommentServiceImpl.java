@@ -79,7 +79,7 @@ private CommentDao commentDao;
     }
 
     @Override
-    public PageInfo<Comment> getCommectByUid(String uid,int page,int rows) {
+    public PageInfo<Comment> getCommentByUid(String uid,int page,int rows) {
         String key = REDIS_COMMENT_PRE+":"+uid+","+page+","+rows;
         String json = (String) redisService.get(key);
         if (StringUtil.isNotEmpty(json)){
@@ -94,7 +94,7 @@ private CommentDao commentDao;
     }
 
     @Override
-    public PageInfo<Comment> getCommectBySid(Integer sid,int page,int rows) {
+    public PageInfo<Comment> getCommentBySid(Integer sid,int page,int rows) {
         String key = REDIS_COMMENT_PRE+":"+sid+","+page+","+rows;
         String json = (String) redisService.get(key);
         if (StringUtil.isNotEmpty(json)){
