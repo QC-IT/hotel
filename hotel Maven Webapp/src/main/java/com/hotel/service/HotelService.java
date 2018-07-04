@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.hotel.models.Hotel;
 
 public interface HotelService {
@@ -123,4 +125,20 @@ public interface HotelService {
 	 * @return
 	 */
 	public Hotel getHotelById(String id);
+	
+	/**
+	 * 修改上传酒店主页图片
+	 * @param file
+	 * @param hid
+	 * @return
+	 */
+	public boolean updateOfficialPic(MultipartFile file,String hid);
+	
+	/**
+	 * 修改酒店头像图片
+	 * @param file
+	 * @param hid
+	 * @return
+	 */
+	public boolean updateHeadPic(MultipartFile file,String hid);
 }

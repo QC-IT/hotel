@@ -1,8 +1,10 @@
 package com.hotel.service.impl;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
@@ -10,8 +12,10 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.hotel.api.service.BaiduMapService;
 import com.hotel.dao.HotelDao;
@@ -35,7 +39,14 @@ public class HotelServiceImpl implements HotelService {
 	private RedisService redisService;
 	@Autowired
 	private HotelItemsDao hotelItemsDao;
-	
+	@Value("${hotel_official_pic}")
+	private String hotel_official_pic;
+	@Value("${hotel_official_pic_filepath}")
+	private String hotel_official_pic_filepath;
+	@Value("${hotel_head_pic}")
+	private String hotel_head_pic;
+	@Value("${hotel_head_pic_filepath}")
+	private String hotel_head_pic_filepath;
 	private final static Logger logger = LoggerFactory.getLogger(HotelServiceImpl.class);
 
 	@Transactional
@@ -247,6 +258,51 @@ if(id!=null&&!id.trim().equals("")){
 	return hotelDao.getHotelById(id);
 	}else {
 		return null;
+	}
+}
+
+@Override
+@Transactional
+public boolean updateOfficialPic(MultipartFile file,String hid) {
+	if(file!=null&&hid!=null&&!hid.trim().equals("")){
+		try{
+		String orgFileName =file.getOriginalFilename();
+		String newFileName=UUID.randomUUID()+orgFileName.substring(orgFileName.lastIndexOf("."));
+	Hotel hotel=new Hotel();
+	hotel.setId(hid);
+	hotel.setOfficialURL(hotel_official_pic_filepath+newFileName);
+	hotelDao.updateHotelBaseInfo(hotel);
+	file.transferTo(new File(hotel_official_pic+hotel_official_pic_filepath+newFileName));
+	return true;
+	}catch(Exception e){
+		e.printStackTrace();
+		return false;
+	}
+	}else{
+		return false;	
+	}
+
+}
+
+@Override
+@Transactional
+public boolean updateHeadPic(MultipartFile file, String hid) {
+	if(file!=null&&hid!=null&&!hid.trim().equals("")){
+		try{
+		String orgFileName =file.getOriginalFilename();
+		String newFileName=UUID.randomUUID()+orgFileName.substring(orgFileName.lastIndexOf("."));
+	Hotel hotel=new Hotel();
+	hotel.setId(hid);
+	hotel.setHeadPicURL(hotel_head_pic_filepath+newFileName);
+	hotelDao.updateHotelBaseInfo(hotel);
+	file.transferTo(new File(hotel_head_pic+hotel_head_pic_filepath+newFileName));
+	return true;
+	}catch(Exception e){
+		e.printStackTrace();
+		return false;
+	}
+	}else{
+		return false;	
 	}
 }
 }
