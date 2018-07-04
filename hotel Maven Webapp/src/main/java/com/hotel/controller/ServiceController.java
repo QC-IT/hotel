@@ -58,7 +58,7 @@ public class ServiceController {
      * 根据服务项目查询服务
      * @return
      */
-    @RequestMapping(value = "getItemsById.json",produces="application/json;charset=utf8")
+    @RequestMapping(value = "getItemsByHotelIdAndItem.json",produces="application/json;charset=utf8")
     @ResponseBody
     public Result getItemsByHotelIdAndItem(@RequestBody HashMap<String,Object> map){
         String hid = (String)map.get("hid");
@@ -97,7 +97,7 @@ public class ServiceController {
      * 根据需要的VIP等级查询服务
      * @return
      */
-    @RequestMapping(value = "getItemsByHotelIdAndState.json",produces="application/json;charset=utf8")
+    @RequestMapping(value = "getItemsByHotelIdAndNeedLevel.json",produces="application/json;charset=utf8")
     @ResponseBody
     public Result getItemsByHotelIdAndNeedLevel(@RequestBody HashMap<String,Object> map){
         String hid = (String)map.get("hid");

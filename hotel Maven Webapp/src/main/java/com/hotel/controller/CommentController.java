@@ -9,11 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.HashMap;
 
 @Controller
-@RequestMapping("comtroller")
+@RequestMapping("comment")
 public class CommentController {
 
     @Autowired
@@ -43,7 +44,7 @@ public class CommentController {
             return Result.fail("传递参数错误");
         }
     }
-    @RequestMapping(value = "addComment.json",produces="application/json;charset=utf8")
+    @RequestMapping(value = "addComment.json",produces="application/json;charset=utf8",method=RequestMethod.POST)
     public Result addComment(@RequestBody Comment comment){
         if (comment != null){
             commentService.addComment(comment);
