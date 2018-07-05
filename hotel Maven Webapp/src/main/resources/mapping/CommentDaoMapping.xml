@@ -28,29 +28,30 @@
 	</insert>
 
 	<select id="getAllCommentByHotelId" parameterType="java.lang.String"
-		resultType="Comment">
-		select comment.* from comment,hotel,service
-		where comment.sid = service.id
-		and service.id = hotel.id
-		and hotel.id = '${hotelId}'
+		resultMap="commentAndPic">
+		select comment.*,comment_pic.id as pid,comment_pic.cid,comment_pic.picUrl,comment_pic.state as pstate from hotel
+		left join service on hotel.id = service.hid
+		left join comment on service.id = comment.sid
+		left join comment_pic on comment.id = comment_pic.cid
+		where hotel.id = #{hotelId}
 	</select>
 
 	<select id="getCommentByHotelIdAndScore" parameterType="map"
-		resultType="Comment">
-		select comment.* from comment,hotel,service
-		where comment.sid = service.id
-		and service.id = hotel.id
-		and hotel.id = '${hotelId}'
-		and comment.score = #{score}
+		resultMap="commentAndPic">
+		select comment.*,comment_pic.id as pid,comment_pic.cid,comment_pic.picUrl,comment_pic.state as pstate from hotel
+		left join service on hotel.id = service.hid
+		left join comment on service.id = comment.sid
+		left join comment_pic on comment.id = comment_pic.cid
+		where hotel.id = #{hotelId} and comment.score = #{score}
 	</select>
 
 	<select id="getCommentByHotelIdAndState" parameterType="map"
-		resultType="Comment">
-		select comment.* from comment,hotel,service
-		where comment.sid = service.id
-		and service.id = hotel.id
-		and hotel.id = #{hotelId}
-		and comment.state = #{state}
+		resultMap="commentAndPic">
+		select comment.*,comment_pic.id as pid,comment_pic.cid,comment_pic.picUrl,comment_pic.state as pstate from hotel
+		left join service on hotel.id = service.hid
+		left join comment on service.id = comment.sid
+		left join comment_pic on comment.id = comment_pic.cid
+		where hotel.id = #{hotelId} and comment.state = #{state}
 	</select>
 
 	<select id="getCommentByUid" parameterType="java.lang.String"
