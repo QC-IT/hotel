@@ -16,7 +16,7 @@ private static AtomicInteger activeUser;
 	public void sessionDestroyed(HttpSessionEvent se) {
 	activeUser.getAndDecrement();
 	}
-public int getActiveUserNum(){
+public static int getActiveUserNum(){
 	return activeUser.intValue();
 }
 

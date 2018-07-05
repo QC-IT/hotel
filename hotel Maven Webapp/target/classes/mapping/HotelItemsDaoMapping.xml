@@ -29,6 +29,9 @@ where id=#{id}
 </update>
 
 	<insert id="insertItems" parameterType="Items">
+	 <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+          SELECT LAST_INSERT_ID() id
+      </selectKey>
 		insert into service(
 		<if test="hid!=null">hid,</if>
 		<if test="item!=null">item,</if>

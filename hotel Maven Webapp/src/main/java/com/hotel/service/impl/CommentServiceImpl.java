@@ -38,7 +38,7 @@ private CommentDao commentDao;
         String key = REDIS_COMMENT_PRE+":"+hotelId+","+page+","+rows;
         String json = (String) redisService.get(key);
         if (StringUtil.isNotEmpty(json)){
-            PageInfo pageInfo = JSON.parseObject(json, PageInfo.class);
+            PageInfo<Comment> pageInfo = JSON.parseObject(json, PageInfo.class);
             return pageInfo;
         }
         PageHelper.startPage(page,rows);

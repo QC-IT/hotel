@@ -1,15 +1,20 @@
 package com.hotel.service.impl;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.hotel.dao.HotelItemsDao;
 import com.hotel.models.Items;
 import com.hotel.redis.RedisService;
 import com.hotel.service.HotelItemsService;
+import com.hotel.util.PicUtil;
 
 @Service
 public class HotelItemsServiceImpl implements HotelItemsService {
@@ -17,7 +22,11 @@ public class HotelItemsServiceImpl implements HotelItemsService {
 	private HotelItemsDao hotelItemsDao;
 	@Autowired
 	private RedisService redisService;
-
+@Value("${hotel_service_pic}")
+private String hotel_service_pic;
+@Value("hotel_service_pic_filepath")
+private String hotel_service_pic_filepath;
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
@@ -89,4 +98,24 @@ public class HotelItemsServiceImpl implements HotelItemsService {
 
 	}
 
+	@Override
+	public boolean updateServicePic(MultipartFile file, String sid) {
+try{
+	if(file==null||sid==null||sid.trim().equals("")||!PicUtil.isPic(file.getOriginalFilename())){
+		return false;
+	}else{
+		String orgName=file.getOriginalFilename();
+		String newFile=hotel_service_pic_filepath+UUID.randomUUID()+orgName.substring(orgName.lastIndexOf("."));
+		Items item=new Items();
+		item.setId(Integer.valueOf(sid));
+		item.setPicUrl(newFile);
+		file.transferTo(new File(hotel_service_pic+orgName));
+		return true;
+	}
+}catch(Exception e){
+		return false;
+		}
+	}
+
+	
 }

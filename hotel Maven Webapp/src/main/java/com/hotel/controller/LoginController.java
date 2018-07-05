@@ -63,6 +63,9 @@ public class LoginController {
 		String latitude = map.get("latitude");
 		String longitude = map.get("longitude");
 		String nickName = map.get("nickName");
+		if(nickName==null){
+			nickName="未知用户";
+		}
 		HttpSession session = request.getSession();
 		String openId = loginService.getWeChatOpenIdByCode(code);
 		logger.debug("openId:" + openId + " 用户登录 longitude:" + longitude + " latitude:" + latitude);
@@ -73,7 +76,7 @@ public class LoginController {
 			json.put("code", "200");
 			data.put("user", user);
 		} else if (user.getState() == 3) {
-			json.put("code", 202);
+			json.put("code", "202");
 			data.put("msg", "用户违规禁止登录");
 		}
 		json.put("data", data);

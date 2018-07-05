@@ -23,7 +23,6 @@ public class EmailServiceImpl implements EmailService {
 	private String myEmailSMTPHost;
 	@Value("${email_charset}")
 	private String charset;
-
 	@Value("${email_sendername}")
 	private String sendername;
 
@@ -47,7 +46,6 @@ public class EmailServiceImpl implements EmailService {
 			 * props.setProperty("mail.smtp.socketFactory.fallback", "false");
 			 * props.setProperty("mail.smtp.socketFactory.port", smtpPort);
 			 */
-
 			Session session = Session.getInstance(props);
 			session.setDebug(true);
 

@@ -42,8 +42,9 @@ public class CityController {
 	 * 
 	 * @author yuanhaohe
 	 * @param map
-	 *            经纬度
-	 * @return
+	 *           latitude 纬度
+	 *           longitude 经度
+	 * @return json串
 	 */
 	@RequestMapping(value = "getLocationCity.json", method=RequestMethod.POST,produces = "application/json;charset=utf8")
 	public @ResponseBody String getLocationCity(@RequestBody Map<String, String> map) {

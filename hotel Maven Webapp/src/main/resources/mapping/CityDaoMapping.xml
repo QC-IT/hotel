@@ -44,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getCityIdByName" parameterType="java.lang.String"
 		resultType="java.lang.Integer">
 		
-			select id from city where name=#{name}
+			select id from city where name =#{name}
 		
 	</select>
 	<select id="getCodeByCityName" parameterType="java.lang.String"

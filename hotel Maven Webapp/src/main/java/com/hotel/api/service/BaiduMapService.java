@@ -32,4 +32,6 @@ public interface BaiduMapService {
 	 * @throws BaiduMapLocationFormatException 格式错误抛出此异常
 	 */
 	public String getCityByLongitudeAndLatitude(double longitude,double latitude) throws BaiduMapLocationFormatException;
+
+	public String getCityByLongitudeAndLatitude(String longitude,String latitude) throws BaiduMapLocationFormatException;
 }
