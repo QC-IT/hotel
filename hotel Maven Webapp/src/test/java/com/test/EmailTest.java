@@ -7,8 +7,10 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.hotel.api.service.BaiduMapService;
+import com.hotel.controller.HotelItemsController;
 import com.hotel.models.ServiceJoin;
 import com.hotel.service.CityService;
+import com.hotel.service.HotelItemsService;
 import com.hotel.service.UserJoinService;
 
 public class EmailTest {
@@ -16,7 +18,11 @@ public class EmailTest {
 
 	public static void main(String[] args) throws Exception{
 		 BeanFactory factory	=new ClassPathXmlApplicationContext("classpath:applicationContext-beans.xml");
-CityService service=factory.getBean(CityService.class);
+HotelItemsController service=factory.getBean(HotelItemsController.class);
+Map<String,String> param=new HashMap<String, String>();
+param.put("hid", "00033d92a65a49d0ad3a230d80d4b8df");
+param.put("type", "0");
+System.out.println(service.getItemsByHidAndType(param));
 
 	}
 }

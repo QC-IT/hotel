@@ -117,5 +117,12 @@ try{
 		}
 	}
 
+	@Override
+	@Transactional
+	public List<Items> getItemsByHidAndType(String hid, Integer type) {
+		
+		return hotelItemsDao.getHotelItemsListByHotelIdAndType(hid, String.valueOf(type));
+	}
+
 	
 }

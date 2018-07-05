@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,15 +29,39 @@ public class HotelItemsController {
 	@Value("${system_dataformat}")
 	private String dataFormat;
 	private final Logger logger=LoggerFactory.getLogger(HotelItemsController.class);
+	
+	/**
+	 * 通过酒店ID和服务种类得到服务列表
+	 * @param param
+	 * @return
+	 */
+	@RequestMapping(value="/getItemsByHidAndType.json",method=RequestMethod.POST,produces="application/json;charset=utf-8")
+	public@ResponseBody String getItemsByHidAndType(@RequestBody Map<String,String> param){
+		try{
+		String hid=param.get("hid");
+		String type=param.get("type");
+		List<Items> list=hotelItemsService.getItemsByHidAndType(hid, Integer.valueOf(type));
+		JSONObject json=new JSONObject();
+		json.put("code", "200");
+		Map<String,Object> map=new HashMap<String, Object>();
+		json.put("data", map);
+		map.put("services", list);
+		return json.toJSONString();
+		}catch(Exception e){
+			e.printStackTrace();
+			return "{\"code\":\"500\",\"msg\":\"系统异常，操作失败!\"}";
+		}
+		
+	}
 	/**
 	 * 获取当前酒店的全部服务
 	 * @param map
 	 * @return
 	 */
-	@RequestMapping(value="getItemsThisHotel.json",produces="application/json;charset=utf8")
+	@RequestMapping(value="/getItemsThisHotel.json",method=RequestMethod.POST,produces="application/json;charset=utf8")
 	public @ResponseBody
 	String getItemsThisHotel(@RequestBody Map<String,String> map){
-		String hotelId=map.get("hotelId"); 
+		String hotelId=map.get("hid"); 
 		List<Items> list;
 		try {
 			list = hotelItemsService.getHotelItems(hotelId);
@@ -68,10 +93,12 @@ public class HotelItemsController {
 			String endTime,
 			String hid,
 			String items,
-			String detailContent){
+			String detailContent,
+			@RequestParam(defaultValue="0")String type){
 		SimpleDateFormat format=new SimpleDateFormat(dataFormat);
 		Items item=new Items();
 		item.setHid(hid);
+		item.setType(Integer.valueOf(type));
 		try {
 			item.setBeginTime(format.parse(beginTime));
 		} catch (ParseException e) {

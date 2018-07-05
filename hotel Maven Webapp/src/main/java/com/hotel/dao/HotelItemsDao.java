@@ -43,4 +43,11 @@ public interface HotelItemsDao {
 	 */
 	public Items getItemsByItemsId(String id);
 	
+	/**
+	 * 通过酒店ID以及种类得到服务列表
+	 * @param hid
+	 * @param type
+	 * @return
+	 */
+	public List<Items> getHotelItemsListByHotelIdAndType(@Param("hid")String hid,@Param("type")String type);
 }
