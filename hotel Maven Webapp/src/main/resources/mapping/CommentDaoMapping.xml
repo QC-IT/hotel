@@ -28,7 +28,7 @@
 	</insert>
 
 	<select id="getAllCommentByHotelId" parameterType="java.lang.String"
-		resultType="commentAndPic">
+		resultMap="commentAndPic">
 		select comment.*,comment_pic.id as pid,comment_pic.cid,comment_pic.picUrl,comment_pic.state as pstate from hotel
 		left join service on hotel.id = service.hid
 		left join comment on service.id = comment.sid
@@ -37,7 +37,7 @@
 	</select>
 
 	<select id="getCommentByHotelIdAndScore" parameterType="map"
-		resultType="commentAndPic">
+		resultMap="commentAndPic">
 		select comment.*,comment_pic.id as pid,comment_pic.cid,comment_pic.picUrl,comment_pic.state as pstate from hotel
 		left join service on hotel.id = service.hid
 		left join comment on service.id = comment.sid
@@ -46,7 +46,7 @@
 	</select>
 
 	<select id="getCommentByHotelIdAndState" parameterType="map"
-		resultType="commentAndPic">
+		resultMap="commentAndPic">
 		select comment.*,comment_pic.id as pid,comment_pic.cid,comment_pic.picUrl,comment_pic.state as pstate from hotel
 		left join service on hotel.id = service.hid
 		left join comment on service.id = comment.sid
