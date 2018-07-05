@@ -1,25 +1,22 @@
 package com.test;
 
-import org.junit.Before;
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.hotel.models.User;
-import com.hotel.service.UserService;
+import com.hotel.models.ServiceJoin;
+import com.hotel.service.UserJoinService;
 
 public class EmailTest {
-private BeanFactory factory;
-@Before
-public void before(){
-	factory=new ClassPathXmlApplicationContext("classpath:applicationContext-beans.xml");
-}
-	@Test
-	public void test(){
-		UserService us=factory.getBean(UserService.class);
-		User user =new User();
-		user.setOpenID("asda12342");
-		user.setHeadPic("user_head_pic/sadasdada-dadsw1sdas-dasdwqeds-22.jpg");
-		us.updateUserInfo(user);
+
+
+	public static void main(String[] args) throws Exception{
+		 BeanFactory factory	=new ClassPathXmlApplicationContext("classpath:applicationContext-beans.xml");
+UserJoinService ujs=factory.getBean(UserJoinService.class);
+
+boolean flag=ujs.unapprovedService("3");
+System.out.println(flag);
 	}
 }

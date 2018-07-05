@@ -1,5 +1,7 @@
 package com.hotel.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.hotel.models.User;
@@ -23,4 +25,6 @@ public interface UserDao {
 	public void updateUserStateByOpenId(@Param("openId") String openId, @Param("state") String state);
 	
 	public void updateUser(User user);
+	
+	public List<String> getUserOpenId();
 }

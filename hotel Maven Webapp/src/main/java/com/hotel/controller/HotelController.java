@@ -43,6 +43,7 @@ public class HotelController {
 		String name = map.get("name");
 		String longitude = map.get("longitude");
 		String latitude = map.get("latitude");
+		if(name!=null&&!name.trim().equals("")){
 		List<Hotel> list = null;
 		try {
 			list = hotelService.getSearchResult(name, longitude, latitude);
@@ -61,9 +62,14 @@ public class HotelController {
 			json.put("data", data);
 			logger.debug(json.toJSONString());
 			return json.toJSONString();
+			
 		} catch (Exception e) {
 			logger.debug("{\"code\":500,\"msg\":\"服务器出现未知异常\"}");
 			return "{\"code\":500,\"msg\":\"服务器出现未知异常\"}";
+		}
+		}else{
+			logger.debug("{\"code\":500,\"msg\":\"搜索酒店名称不能为空\"}");
+			return "{\"code\":500,\"msg\":\"搜索酒店名称不能为空\"}";
 		}
 
 	}
