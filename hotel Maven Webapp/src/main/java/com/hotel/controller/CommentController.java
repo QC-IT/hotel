@@ -52,7 +52,8 @@ public class CommentController {
         }
     }
 
-    public Result getCommentByHotelI(@RequestBody Map<String,Object> map){
+    @RequestMapping(value = "/getCommentByHotelIdAndState.json", produces = "application/json;charset=utf8")
+    public Result getCommentByHotelIdAndState(@RequestBody Map<String,Object> map){
         String hotelId = (String)map.get("hotelId");
         Integer state = (Integer)map.get("state");
         Integer page = (Integer)map.get("page");

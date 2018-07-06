@@ -26,7 +26,7 @@ public class ServiceController {
     @RequestMapping(value = "getItemsByHotelId.json",produces="application/json;charset=utf8")
     @ResponseBody
     public Result getItemsByHotelId(@RequestBody HashMap<String,Object> map){
-        String hid = (String) map.get("hid");
+        String hid = (String) map.get("hotel");
         Integer page = (Integer)map.get("page");
         Integer rows = (Integer)map.get("rows");
 
@@ -61,7 +61,7 @@ public class ServiceController {
     @RequestMapping(value = "getItemsByHotelIdAndItem.json",produces="application/json;charset=utf8")
     @ResponseBody
     public Result getItemsByHotelIdAndItem(@RequestBody HashMap<String,Object> map){
-        String hid = (String)map.get("hid");
+        String hid = (String)map.get("hotelId");
         String item = (String)map.get("item");
         Integer page = (Integer)map.get("page");
         Integer rows = (Integer)map.get("rows");
@@ -81,7 +81,7 @@ public class ServiceController {
     @RequestMapping(value = "getItemsByHotelIdAndState.json",produces="application/json;charset=utf8")
     @ResponseBody
     public Result getItemsByHotelIdAndState(@RequestBody HashMap<String,Object> map){
-        String hid = (String)map.get("hid");
+        String hid = (String)map.get("hotelId");
         Integer state = (Integer)map.get("state");
         Integer page = (Integer) map.get("page");
         Integer rows = (Integer) map.get("rows");
@@ -100,7 +100,7 @@ public class ServiceController {
     @RequestMapping(value = "getItemsByHotelIdAndNeedLevel.json",produces="application/json;charset=utf8")
     @ResponseBody
     public Result getItemsByHotelIdAndNeedLevel(@RequestBody HashMap<String,Object> map){
-        String hid = (String)map.get("hid");
+        String hid = (String)map.get("hotelId");
         Integer needLevel = (Integer)map.get("needLevel");
         Integer page = (Integer) map.get("page");
         Integer rows = (Integer) map.get("rows");
