@@ -1,12 +1,25 @@
 package com.hotel.email.service.impl;
 
+import java.io.UnsupportedEncodingException;
+import java.net.Authenticator;
 import java.util.Date;
 import java.util.Properties;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.BodyPart;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.MimeUtility;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -25,7 +38,8 @@ public class EmailServiceImpl implements EmailService {
 	private String charset;
 	@Value("${email_sendername}")
 	private String sendername;
-
+@Value("${log_path}")
+private String log_path;
 	@Override
 	public boolean sendSimpleTextEmailTo(String to, String content, String subject) {
 		try {
@@ -99,4 +113,79 @@ public class EmailServiceImpl implements EmailService {
 
 		return message;
 	}
+
+	@Override
+	public boolean sendLogAttachments(String to, String content, String subject) {
+		try {
+			Properties props = new Properties(); // 参数配置
+			props.setProperty("mail.transport.protocol", "smtp"); // 使用的协议（JavaMail规范要求）
+			props.setProperty("mail.smtp.host", myEmailSMTPHost); // 发件人的邮箱的
+			props.setProperty("mail.smtp.auth", "true"); // 需要请求认证
+			// PS: 某些邮箱服务器要求 SMTP 连接需要使用 SSL 安全认证 (为了提高安全性, 邮箱支持SSL连接, 也可以自己开启),
+			// 如果无法连接邮件服务器, 仔细查看控制台打印的 log, 如果有有类似 “连接失败, 要求 SSL 安全连接” 等错误,
+			// 打开下面 /* ... */ 之间的注释代码, 开启 SSL 安全连接。
+			/*
+			 * // SMTP 服务器的端口 (非 SSL 连接的端口一般默认为 25, 可以不添加, 如果开启了 SSL 连接, //
+			 * 需要改为对应邮箱的 SMTP 服务器的端口, 具体可查看对应邮箱服务的帮助, //
+			 * QQ邮箱的SMTP(SLL)端口为465或587, 其他邮箱自行去查看) final String smtpPort =
+			 * "465"; props.setProperty("mail.smtp.port", smtpPort);
+			 * props.setProperty("mail.smtp.socketFactory.class",
+			 * "javax.net.ssl.SSLSocketFactory");
+			 * props.setProperty("mail.smtp.socketFactory.fallback", "false");
+			 * props.setProperty("mail.smtp.socketFactory.port", smtpPort);
+			 */
+			Session session = Session.getDefaultInstance(props); 
+				  
+				
+				   // 创建默认的 MimeMessage 对象 
+				   MimeMessage message = new MimeMessage(session); 
+				  
+				   // Set From: 头部头字段 
+				   message.setFrom(new InternetAddress(myEmailAccount)); 
+				  
+				   // Set To: 头部头字段 
+				   message.addRecipient(Message.RecipientType.TO, new InternetAddress(to)); 
+				  
+				   // Set Subject: 主题文字 
+				   message.setSubject(subject); 
+				  
+				    // 创建消息部分 
+				    BodyPart messageBodyPart = new MimeBodyPart(); 
+				   
+				    // 消息 
+				    messageBodyPart.setText(content); 
+				  
+				    // 创建多重消息 
+				    Multipart multipart = new MimeMultipart(); 
+				   
+				    // 设置文本消息部分 
+				    multipart.addBodyPart(messageBodyPart); 
+				   
+				    // 附件部分 
+				    messageBodyPart = new MimeBodyPart(); 
+				    //设置要发送附件的文件路径 
+				    DataSource source = new FileDataSource(log_path); 
+				    messageBodyPart.setDataHandler(new DataHandler(source)); 
+				     
+				    //messageBodyPart.setFileName(filename); 
+				    //处理附件名称中文（附带文件路径）乱码问题 
+				    messageBodyPart.setFileName(MimeUtility.encodeText(log_path)); 
+				    multipart.addBodyPart(messageBodyPart); 
+				   
+				    // 发送完整消息 
+				    message.setContent(multipart); 
+				   
+				    // 发送消息 
+				    Transport.send(message,myEmailAccount,myEmailPassword); 
+				    return true;
+				   }catch (MessagingException | UnsupportedEncodingException mex) { 
+				    mex.printStackTrace(); 
+					return false; 
+				   }
+
+		}
+		
+				
+	
+
 }
