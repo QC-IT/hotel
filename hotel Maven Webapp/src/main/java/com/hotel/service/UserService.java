@@ -1,5 +1,7 @@
 package com.hotel.service;
 
+import java.util.List;
+
 import com.hotel.models.User;
 
 public interface UserService {
@@ -23,5 +25,7 @@ public interface UserService {
 	 * @return 绝对路径
 	 */
 	public String getHeadFilePath();
+	
+	public List<String> getAllUserOpenId();
 
 }

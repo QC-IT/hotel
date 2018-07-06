@@ -2,6 +2,8 @@ package com.hotel.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.hotel.models.Items;
 /**
  * 酒店方服务处理service接口
@@ -37,4 +39,19 @@ public void openItemsByItemsId(String id)throws Exception;
  */
 public void updataItems(Items items)throws Exception;
 
+/**
+ * 更新酒店服务图片
+ * @param file
+ * @param sid
+ * @return
+ */
+public boolean updateServicePic(MultipartFile file,String sid);
+
+/**
+ * 通过酒店ID和种类得到服务列表
+ * @param hid
+ * @param type
+ * @return
+ */
+public List<Items> getItemsByHidAndType(String hid,Integer type);
 }

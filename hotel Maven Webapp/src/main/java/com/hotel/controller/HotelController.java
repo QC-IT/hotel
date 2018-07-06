@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONObject;
+import com.hotel.api.service.BaiduMapService;
 import com.hotel.models.Hotel;
+import com.hotel.service.CityService;
 import com.hotel.service.HotelService;
 import com.hotel.util.DistanceUtil;
 import com.hotel.util.PicUtil;
@@ -30,7 +32,10 @@ public class HotelController {
 	private static final Logger logger = LoggerFactory.getLogger(HotelController.class);
 	@Autowired
 	private HotelService hotelService;
-
+@Autowired
+private CityService cityService;
+@Autowired
+private BaiduMapService mapService;
 	/**
 	 * 通过查询名称模糊搜索酒店信息
 	 * 
@@ -43,6 +48,7 @@ public class HotelController {
 		String name = map.get("name");
 		String longitude = map.get("longitude");
 		String latitude = map.get("latitude");
+		if(name!=null&&!name.trim().equals("")){
 		List<Hotel> list = null;
 		try {
 			list = hotelService.getSearchResult(name, longitude, latitude);
@@ -61,9 +67,14 @@ public class HotelController {
 			json.put("data", data);
 			logger.debug(json.toJSONString());
 			return json.toJSONString();
+			
 		} catch (Exception e) {
 			logger.debug("{\"code\":500,\"msg\":\"服务器出现未知异常\"}");
 			return "{\"code\":500,\"msg\":\"服务器出现未知异常\"}";
+		}
+		}else{
+			logger.debug("{\"code\":500,\"msg\":\"搜索酒店名称不能为空\"}");
+			return "{\"code\":500,\"msg\":\"搜索酒店名称不能为空\"}";
 		}
 
 	}
@@ -220,7 +231,15 @@ public class HotelController {
 	@RequestMapping(value = "addHotelInfo.json", method = RequestMethod.POST, produces = "application/json;charset=utf8")
 	public @ResponseBody String insertHotelBaseInfo(@RequestBody Hotel hotel) {
 		try {
-			boolean flag = hotelService.insertHotelBaseInfo(hotel);
+String cityName=mapService.getCityByLongitudeAndLatitude(hotel.getLongitude(), hotel.getLatitude());
+String cityCode=null;
+if(cityName.endsWith("市")||(cityName.length()>=3&&cityName.endsWith("县"))||cityName.endsWith("区")){
+		 cityCode=cityService.getCodeByCityName(cityName.substring(0,cityName.length()-1));
+		}else{
+			cityCode=cityService.getCodeByCityName(cityName);
+		}
+		hotel.setCityCode(cityCode);
+boolean flag = hotelService.insertHotelBaseInfo(hotel);
 			if (flag) {
 				logger.debug("{\"code\":200,\"msg\":\"success\"}");
 				return "{\"code\":200,\"msg\":\"success\"}";

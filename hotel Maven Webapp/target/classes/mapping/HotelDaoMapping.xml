@@ -12,6 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="insertHotelBaseInfo" parameterType="Hotel">
 		insert into hotel (
+		id,
 		<if test="name!=null">
 			name,
 		</if>
@@ -57,6 +58,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 		recommendOrderCode
 		)values (
+		#{id},
 		<if test="name!=null">
 			#{name},
 		</if>
@@ -195,5 +197,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	<select id="getHotelById" parameterType="java.lang.String" resultType="Hotel">
 	select * from hotel where id=#{id}
+	</select>
+	<select id="getAllHotel" resultType="Hotel">
+	select * from hotel
+	</select>
+	
+	<select id="getHotelLimit" parameterType="map" resultType="Hotel">
+	select * from hotel limit #{index},#{count}
 	</select>
 </mapper> 

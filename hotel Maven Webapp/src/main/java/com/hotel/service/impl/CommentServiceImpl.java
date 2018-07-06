@@ -3,19 +3,19 @@ package com.hotel.service.impl;
 import java.util.Date;
 import java.util.List;
 
-import com.alibaba.fastjson.JSON;
-import com.github.pagehelper.StringUtil;
-import com.hotel.dao.CommentDao;
-import com.hotel.models.Items;
-import com.hotel.redis.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.StringUtil;
+import com.hotel.dao.CommentDao;
 import com.hotel.dao.ServiceDao;
 import com.hotel.models.Comment;
+import com.hotel.models.Items;
+import com.hotel.redis.RedisService;
 import com.hotel.service.CommentService;
 
 @Service
@@ -38,7 +38,7 @@ private CommentDao commentDao;
         String key = REDIS_COMMENT_PRE+":"+hotelId+","+page+","+rows;
         String json = (String) redisService.get(key);
         if (StringUtil.isNotEmpty(json)){
-            PageInfo pageInfo = JSON.parseObject(json, PageInfo.class);
+            PageInfo<Comment> pageInfo = JSON.parseObject(json, PageInfo.class);
             return pageInfo;
         }
         PageHelper.startPage(page,rows);

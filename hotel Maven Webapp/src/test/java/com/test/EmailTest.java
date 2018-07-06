@@ -1,25 +1,28 @@
 package com.test;
 
-import org.junit.Before;
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.hotel.models.User;
-import com.hotel.service.UserService;
+import com.hotel.api.service.BaiduMapService;
+import com.hotel.controller.HotelItemsController;
+import com.hotel.models.ServiceJoin;
+import com.hotel.service.CityService;
+import com.hotel.service.HotelItemsService;
+import com.hotel.service.UserJoinService;
 
 public class EmailTest {
-private BeanFactory factory;
-@Before
-public void before(){
-	factory=new ClassPathXmlApplicationContext("classpath:applicationContext-beans.xml");
-}
-	@Test
-	public void test(){
-		UserService us=factory.getBean(UserService.class);
-		User user =new User();
-		user.setOpenID("asda12342");
-		user.setHeadPic("user_head_pic/sadasdada-dadsw1sdas-dasdwqeds-22.jpg");
-		us.updateUserInfo(user);
+
+
+	public static void main(String[] args) throws Exception{
+		 BeanFactory factory	=new ClassPathXmlApplicationContext("classpath:applicationContext-beans.xml");
+HotelItemsController service=factory.getBean(HotelItemsController.class);
+Map<String,String> param=new HashMap<String, String>();
+param.put("hid", "00033d92a65a49d0ad3a230d80d4b8df");
+param.put("type", "0");
+System.out.println(service.getItemsByHidAndType(param));
+
 	}
 }

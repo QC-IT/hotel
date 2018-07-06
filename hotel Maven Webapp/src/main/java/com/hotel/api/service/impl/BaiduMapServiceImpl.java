@@ -63,5 +63,11 @@ private String baidu_ak;
 		// TODO 自动生成的方法存根
 		return getCityByLocation(latitude+","+longitude);
 	}
+	@Override
+	public String getCityByLongitudeAndLatitude(String longitude, String latitude)
+			throws BaiduMapLocationFormatException {
+	
+		return getCityByLongitudeAndLatitude(Double.parseDouble(longitude), Double.parseDouble(latitude));
+	}
 
 }

@@ -79,4 +79,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	openID=#{openID}
 	</where>
 	</update>
+	<select id="getUserOpenId" resultType="String" >
+	select openID from user
+	</select>
 </mapper> 

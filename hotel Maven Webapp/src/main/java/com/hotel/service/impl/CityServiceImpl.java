@@ -58,7 +58,7 @@ public class CityServiceImpl implements CityService {
 			if (redisService.exists(name + "-id")) {
 				result = (Integer) redisService.get(name + "-id");
 			} else {
-				result = cityDao.getCityIdByName(name);
+				result = cityDao.getCityIdByName("'"+name+"%'");
 				redisService.set(name + "-id", result, 7 * 24 * 60 * 60l);
 			}
 			if (result == null) {

@@ -3,106 +3,115 @@ package com.hotel.models;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Service implements Serializable{
+public class Service implements Serializable {
 	private static final long serialVersionUID = 6843866045759500159L;
 
 	private Integer id;
 
-    private String hid;
+	private String hid;
 
-    private String item;
+	private String item;
 
-    private Integer needlevel;
+	private Integer needlevel;
 
-    private String picurl;
+	private String picurl;
 
-    private Date begintime;
+	private Date begintime;
 
-    private Date endtime;
+	private Date endtime;
 
-    private Date createtime;
+	private Date createtime;
 
-    private Boolean state;
+	private Boolean state;
 
-    private String detailcontent;
+	private String detailcontent;
+	private Integer type;
 
-    public Integer getId() {
-        return id;
-    }
+	public Integer getType() {
+		return type;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setType(Integer type) {
+		this.type = type;
+	}
 
-    public String getHid() {
-        return hid;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setHid(String hid) {
-        this.hid = hid == null ? null : hid.trim();
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getItem() {
-        return item;
-    }
+	public String getHid() {
+		return hid;
+	}
 
-    public void setItem(String item) {
-        this.item = item == null ? null : item.trim();
-    }
+	public void setHid(String hid) {
+		this.hid = hid == null ? null : hid.trim();
+	}
 
-    public Integer getNeedlevel() {
-        return needlevel;
-    }
+	public String getItem() {
+		return item;
+	}
 
-    public void setNeedlevel(Integer needlevel) {
-        this.needlevel = needlevel;
-    }
+	public void setItem(String item) {
+		this.item = item == null ? null : item.trim();
+	}
 
-    public String getPicurl() {
-        return picurl;
-    }
+	public Integer getNeedlevel() {
+		return needlevel;
+	}
 
-    public void setPicurl(String picurl) {
-        this.picurl = picurl == null ? null : picurl.trim();
-    }
+	public void setNeedlevel(Integer needlevel) {
+		this.needlevel = needlevel;
+	}
 
-    public Date getBegintime() {
-        return begintime;
-    }
+	public String getPicurl() {
+		return picurl;
+	}
 
-    public void setBegintime(Date begintime) {
-        this.begintime = begintime;
-    }
+	public void setPicurl(String picurl) {
+		this.picurl = picurl == null ? null : picurl.trim();
+	}
 
-    public Date getEndtime() {
-        return endtime;
-    }
+	public Date getBegintime() {
+		return begintime;
+	}
 
-    public void setEndtime(Date endtime) {
-        this.endtime = endtime;
-    }
+	public void setBegintime(Date begintime) {
+		this.begintime = begintime;
+	}
 
-    public Date getCreatetime() {
-        return createtime;
-    }
+	public Date getEndtime() {
+		return endtime;
+	}
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
-    }
+	public void setEndtime(Date endtime) {
+		this.endtime = endtime;
+	}
 
-    public Boolean getState() {
-        return state;
-    }
+	public Date getCreatetime() {
+		return createtime;
+	}
 
-    public void setState(Boolean state) {
-        this.state = state;
-    }
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
+	}
 
-    public String getDetailcontent() {
-        return detailcontent;
-    }
+	public Boolean getState() {
+		return state;
+	}
 
-    public void setDetailcontent(String detailcontent) {
-        this.detailcontent = detailcontent == null ? null : detailcontent.trim();
-    }
+	public void setState(Boolean state) {
+		this.state = state;
+	}
+
+	public String getDetailcontent() {
+		return detailcontent;
+	}
+
+	public void setDetailcontent(String detailcontent) {
+		this.detailcontent = detailcontent == null ? null : detailcontent.trim();
+	}
 }

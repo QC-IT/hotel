@@ -16,6 +16,13 @@ private Date beginTime;
 private Date endTime;
 private Date createTime;
 private String state;
+private Integer type;
+public void setType(Integer type){
+	this.type=type;
+}
+public Integer getType(){
+	return type;
+}
 public String getState() {
 	return state;
 }
@@ -80,7 +87,7 @@ public void setCreateTime(Date createTime) {
 public String toString() {
 	return "Items [id=" + id + ", hid=" + hid + ", item=" + item + ", needLevel=" + needLevel + ", detailContent="
 			+ detailContent + ", picUrl=" + picUrl + ", beginTime=" + beginTime + ", endTime=" + endTime
-			+ ", createTime=" + createTime + ", state=" + state + "]";
+			+ ", createTime=" + createTime + ", state=" + state + ", type=" + type + "]";
 }
 
 }

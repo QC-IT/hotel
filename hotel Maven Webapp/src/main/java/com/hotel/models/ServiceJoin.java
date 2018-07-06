@@ -86,4 +86,10 @@ public class ServiceJoin implements Serializable{
     public void setIscomment(Integer iscomment) {
         this.iscomment = iscomment;
     }
+
+	@Override
+	public String toString() {
+		return "ServiceJoin [id=" + id + ", hid=" + hid + ", sid=" + sid + ", uid=" + uid + ", applytime=" + applytime
+				+ ", audittime=" + audittime + ", state=" + state + ", iscomment=" + iscomment + "]";
+	}
 }

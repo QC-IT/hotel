@@ -1,5 +1,6 @@
 package com.hotel.service.impl;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -45,6 +46,11 @@ private String userHeadPicPath;
 	@Override
 	public String getHeadFilePath() {
 		return userHeadPic;
+	}
+	@Override
+	public List<String> getAllUserOpenId() {
+	
+		return userDao.getUserOpenId();
 	}
 
 

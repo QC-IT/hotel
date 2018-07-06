@@ -8,7 +8,7 @@ package com.hotel.util;
  */
 public final class DistanceUtil	 {
 
-	private static double EARTH_RADIUS = 6378.137;
+	private final static double EARTH_RADIUS = 6378.137;
 
 	/**
 	 * 根据两个位置的经纬度，来计算两地的距离（单位为KM） 参数为String类型

@@ -76,4 +76,18 @@ public interface HotelDao {
 	 * @return
 	 */
 	public Hotel getHotelById(String id);
+	
+	/**
+	 * 获取全部酒店信息
+	 * @return
+	 */
+	public List<Hotel> getAllHotel();
+	
+	/**
+	 * 分页查询酒店信息
+	 * @param index
+	 * @param count
+	 * @return
+	 */
+	public List<Hotel> getHotelLimit(@Param("index")int index,@Param("count")int count);
 }

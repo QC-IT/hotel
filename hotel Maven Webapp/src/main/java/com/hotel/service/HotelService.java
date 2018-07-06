@@ -141,4 +141,18 @@ public interface HotelService {
 	 * @return
 	 */
 	public boolean updateHeadPic(MultipartFile file,String hid);
+	
+	/**
+	 * 获取全部酒店信息(慎用)
+	 * @return
+	 */
+public List<Hotel> getAllHotel();
+
+/**
+ * 分页获取酒店信息
+ * @param page
+ * @param rows
+ * @return
+ */
+public List<Hotel> getHotelLimit(int page,int rows);
 }
