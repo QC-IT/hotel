@@ -6,12 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.hotel.api.service.BaiduMapService;
 import com.hotel.controller.HotelItemsController;
-import com.hotel.models.ServiceJoin;
-import com.hotel.service.CityService;
-import com.hotel.service.HotelItemsService;
-import com.hotel.service.UserJoinService;
 
 public class EmailTest {
 

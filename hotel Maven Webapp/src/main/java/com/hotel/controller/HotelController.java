@@ -267,6 +267,7 @@ boolean flag = hotelService.insertHotelBaseInfo(hotel);
 		try {
 			List<Hotel> list = hotelService.getNearHotelLimit(map.get("latitude"), map.get("longitude"),
 					map.get("page"), map.get("rows"), session);
+		
 			JSONObject json = new JSONObject();
 			json.put("code", 200);
 			Map<String, Object> data = new HashMap<String, Object>();
@@ -275,6 +276,7 @@ boolean flag = hotelService.insertHotelBaseInfo(hotel);
 			logger.debug(json.toJSONString());
 			return json.toJSONString();
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.debug("{\"code\":500,\"msg\":\"未知错误\"}");
 			return "{\"code\":500,\"msg\":\"未知错误\"}";
 		}

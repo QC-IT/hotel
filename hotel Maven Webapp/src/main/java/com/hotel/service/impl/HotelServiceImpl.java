@@ -226,7 +226,7 @@ public class HotelServiceImpl implements HotelService {
 		List<Hotel> hotels = (List<Hotel>) session.getAttribute("nearHotel");
 		if (hotels == null) {
 			String city = baiduMapService.getCityByLocation(lat + "," + lng);
-			String cityCode = cityService.getCodeByCityName(city.replace("市", ""));
+			String cityCode = cityService.getCodeByCityName(city.replace("市", "").replace("县", ""));
 			List<Hotel> list = hotelDao.selectHotelByCityCode(cityCode);
 			list.forEach(s -> {
 				s.setDistance(DistanceUtil.getDistance(s.getLatitude(), s.getLongitude(), lat, lng));
@@ -244,13 +244,13 @@ public class HotelServiceImpl implements HotelService {
 			}).collect(Collectors.toList());
 			session.setAttribute("nearHotel", hotels);
 			List<Hotel> result = new ArrayList<Hotel>();
-			for (int i = Integer.parseInt(index); i < Integer.parseInt(index) + Integer.parseInt(amount); i++) {
+			for (int i = Integer.parseInt(index)-1; i < Integer.parseInt(index) + Integer.parseInt(amount)&&i<list.size(); i++) {
 				result.add(list.get(i));
 			}
 			return result;
 		} else {
 			List<Hotel> result = new ArrayList<Hotel>();
-			for (int i = Integer.parseInt(index); i < Integer.parseInt(index) + Integer.parseInt(amount); i++) {
+			for (int i = Integer.parseInt(index)-1; i < Integer.parseInt(index) + Integer.parseInt(amount)&&i<hotels.size(); i++) {
 				result.add(hotels.get(i));
 			}
 			return result;

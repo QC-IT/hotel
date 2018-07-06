@@ -53,7 +53,7 @@ private CommentDao commentDao;
         String key = REDIS_COMMENT_PRE+":"+hotelId+","+score+","+page+","+rows;
         String json = (String) redisService.get(key);
         if (StringUtil.isNotEmpty(json)){
-            PageInfo pageInfo = JSON.parseObject(json, PageInfo.class);
+            PageInfo<Comment> pageInfo = JSON.parseObject(json, PageInfo.class);
             return pageInfo;
         }
         PageHelper.startPage(page,rows);
@@ -68,7 +68,7 @@ private CommentDao commentDao;
         String key = REDIS_COMMENT_PRE+":"+hotelId+","+state+","+page+","+rows;
         String json = (String) redisService.get(key);
         if (StringUtil.isNotEmpty(json)){
-            PageInfo pageInfo = JSON.parseObject(json, PageInfo.class);
+            PageInfo<Comment> pageInfo = JSON.parseObject(json, PageInfo.class);
             return pageInfo;
         }
         PageHelper.startPage(page,rows);
@@ -83,7 +83,7 @@ private CommentDao commentDao;
         String key = REDIS_COMMENT_PRE+":"+uid+","+page+","+rows;
         String json = (String) redisService.get(key);
         if (StringUtil.isNotEmpty(json)){
-            PageInfo pageInfo = JSON.parseObject(json, PageInfo.class);
+            PageInfo<Comment> pageInfo = JSON.parseObject(json, PageInfo.class);
             return pageInfo;
         }
         PageHelper.startPage(page,rows);
@@ -98,7 +98,7 @@ private CommentDao commentDao;
         String key = REDIS_COMMENT_PRE+":"+sid+","+page+","+rows;
         String json = (String) redisService.get(key);
         if (StringUtil.isNotEmpty(json)){
-            PageInfo pageInfo = JSON.parseObject(json, PageInfo.class);
+            PageInfo<Comment> pageInfo = JSON.parseObject(json, PageInfo.class);
             return pageInfo;
         }
         PageHelper.startPage(page,rows);
