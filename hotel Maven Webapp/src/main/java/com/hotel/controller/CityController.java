@@ -42,11 +42,10 @@ public class CityController {
 	 * 
 	 * @author yuanhaohe
 	 * @param map
-	 *           latitude 纬度
-	 *           longitude 经度
+	 *            latitude 纬度 longitude 经度
 	 * @return json串
 	 */
-	@RequestMapping(value = "getLocationCity.json", method=RequestMethod.POST,produces = "application/json;charset=utf8")
+	@RequestMapping(value = "getLocationCity.json", method = RequestMethod.POST, produces = "application/json;charset=utf8")
 	public @ResponseBody String getLocationCity(@RequestBody Map<String, String> map) {
 		String latitude = map.get("latitude");
 		String longitude = map.get("longitude");
@@ -58,17 +57,20 @@ public class CityController {
 						Double.parseDouble(latitude));
 				logger.debug("getLocationcity:" + city);
 			} catch (NumberFormatException e) {
-				logger.debug("日期格式转换异常!longitude:" + longitude + " latitude" + latitude);
+				e.printStackTrace();
+				logger.debug("日期格式转换异常!longitude:" + longitude + " latitude" + latitude+"  "+e.getMessage());
 
 			} catch (BaiduMapLocationFormatException e) {
-				logger.debug("百度地图格式转换异常!");
+				e.printStackTrace();
+				logger.debug("百度地图格式转换异常!"+e.getMessage());
 			}
 			if (city != null) {
 				String code = null;
 				try {
 					code = cityService.getCodeByCityName(city.substring(0, city.length() - 1));
 				} catch (Exception e) {
-					logger.debug("查询城市code异常! city:" + city);
+					e.printStackTrace();
+					logger.debug("查询城市code异常! city:" + city+"  "+e.getMessage());
 				}
 				JSONObject json = new JSONObject();
 				json.put("code", "200");
@@ -79,6 +81,7 @@ public class CityController {
 				logger.debug(json.toJSONString());
 				return json.toJSONString();
 			} else {
+
 				logger.debug("{\"code\":500,\"msg\":\"获取城市失败\"}");
 				return "{\"code\":500,\"msg\":\"获取城市失败\"}";
 			}
@@ -109,7 +112,8 @@ public class CityController {
 			logger.debug(json.toJSONString());
 			return json.toJSONString();
 		} catch (Exception e) {
-			logger.debug("{\"code\":500,\"msg\":\"服务器未知错误\"}");
+			e.printStackTrace();
+			logger.debug("{\"code\":500,\"msg\":\"服务器未知错误\"}"+e.getMessage());
 			return "{\"code\":500,\"msg\":\"服务器未知错误\"}";
 		}
 
@@ -325,7 +329,8 @@ public class CityController {
 				return "{\"code\":500,\"msg\":\"获取城市列表失败\"}";
 			}
 		} catch (Exception e) {
-			logger.debug("{\"code\":500,\"msg\":\"获取城市列表失败\"}");
+			e.printStackTrace();
+			logger.debug("{\"code\":500,\"msg\":\"获取城市列表失败\"}"+e.getMessage());
 			return "{\"code\":500,\"msg\"\"获取城市列表失败\"}";
 		}
 
@@ -337,12 +342,13 @@ public class CityController {
 	 * @param city
 	 * @return
 	 */
-	@RequestMapping(value = "addCity.json",method=RequestMethod.POST,produces = "application/json;charset=utf8")
+	@RequestMapping(value = "addCity.json", method = RequestMethod.POST, produces = "application/json;charset=utf8")
 	public @ResponseBody String addCityList(@RequestBody City city) {
 		try {
 			cityService.insertCity(city);
 		} catch (Exception e) {
-			logger.debug("{\"code\":500,\"msg\":\"服务器异常\"}");
+			e.printStackTrace();
+			logger.debug("{\"code\":500,\"msg\":\"服务器异常\"}"+e.getMessage());
 			return "{\"code\":500,\"msg\":\"服务器异常\"}";
 		}
 		logger.debug("{\"code\":200,\"msg\":\"success\"}");
@@ -355,12 +361,13 @@ public class CityController {
 	 * @param map
 	 * @return
 	 */
-	@RequestMapping(value = "deleteCity.json", method=RequestMethod.POST,produces = "application/json;charset=utf8")
+	@RequestMapping(value = "deleteCity.json", method = RequestMethod.POST, produces = "application/json;charset=utf8")
 	public @ResponseBody String deleteCityList(@RequestBody Map<String, String> map) {
 		try {
 			cityService.deleteCity(map.get("id"));
 		} catch (Exception e) {
-			logger.debug("{\"code\":500,\"msg\":\"服务器异常\"}");
+			e.printStackTrace();
+			logger.debug("{\"code\":500,\"msg\":\"服务器异常\"}"+e.getMessage());
 			return "{\"code\":500,\"msg\":\"服务器异常\"}";
 		}
 		logger.debug("{\"code\":200,\"msg\":\"success\"}");

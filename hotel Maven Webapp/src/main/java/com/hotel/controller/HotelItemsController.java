@@ -49,6 +49,7 @@ public class HotelItemsController {
 		return json.toJSONString();
 		}catch(Exception e){
 			e.printStackTrace();
+			logger.debug("{\"code\":\"500\",\"msg\":\"系统异常，操作失败!\"}"+e.getMessage());
 			return "{\"code\":\"500\",\"msg\":\"系统异常，操作失败!\"}";
 		}
 		
@@ -74,7 +75,8 @@ public class HotelItemsController {
 			logger.debug(json.toJSONString());
 			return json.toJSONString();
 		} catch (Exception e) {
-			logger.debug("{\"code\":\"500\",\"msg\":\"未知错误\"}");
+			e.printStackTrace();
+			logger.debug("{\"code\":\"500\",\"msg\":\"未知错误\"}"+e.getMessage());
 			return "{\"code\":\"500\",\"msg\":\"未知错误\"}";
 		}
 	}
@@ -102,20 +104,23 @@ public class HotelItemsController {
 		try {
 			item.setBeginTime(format.parse(beginTime));
 		} catch (ParseException e) {
-			logger.debug( "{\"code\":501,\"msg\":\"日期格式有误\"}");
+			e.printStackTrace();
+			logger.debug( "{\"code\":501,\"msg\":\"日期格式有误\"}"+e.getMessage());
 			return "{\"code\":501,\"msg\":\"日期格式有误\"}";
 		}
 		try {
 			item.setCreateTime(format.parse(createTime));
 		} catch (ParseException e) {
-			logger.debug("{\"code\":501,\"msg\":\"日期格式有误\"}");
+			e.printStackTrace();
+			logger.debug("{\"code\":501,\"msg\":\"日期格式有误\"}"+e.getMessage());
 			return "{\"code\":501,\"msg\":\"日期格式有误\"}";
 		}
 		item.setDetailContent(detailContent);
 		try {
 			item.setEndTime(format.parse(endTime));
 		} catch (ParseException e) {
-			logger.debug("{\"code\":501,\"msg\":\"日期格式有误\"}");
+			e.printStackTrace();
+			logger.debug("{\"code\":501,\"msg\":\"日期格式有误\"}"+e.getMessage());
 			return "{\"code\":501,\"msg\":\"日期格式有误\"}";
 		}
 		item.setItem(items);
@@ -127,7 +132,8 @@ public class HotelItemsController {
 			logger.debug("{\"code\":200,\"msg\":\"success\"}");
 			return "{\"code\":200,\"msg\":\"success\"}";
 		} catch (Exception e) {
-			logger.debug("{\"code\":500,\"msg\":\"图片上传失败\"}");
+			e.printStackTrace();
+			logger.debug("{\"code\":500,\"msg\":\"图片上传失败\"}"+e.getMessage());
 	return "{\"code\":500,\"msg\":\"图片上传失败\"}";
 		}
 

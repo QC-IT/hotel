@@ -4,6 +4,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +24,7 @@ public class UserJoinServiceController {
 	private ServiceService serviceService;
 	@Autowired
 	private UserJoinService userJoinService;
-	
+	private final static Logger logger=LoggerFactory.getLogger(UserJoinServiceController.class);
 /**
  * 用户申请加入服务项目
  * @param param
@@ -37,11 +39,14 @@ public class UserJoinServiceController {
 		if (items != null) {
 			String id = userJoinService.userJoinService(items.getId(), openId, items.getHid());
 			if (id != null) {
+				logger.debug("{\"code\":200,\"msg\":\"申请成功!\",\"id\":" + id + "}");
 				return "{\"code\":200,\"msg\":\"申请成功!\",\"id\":" + id + "}";
 			} else {
+				logger.debug("{\"code\":500,\"msg\":\"申请失败成功!\"}");
 				return "{\"code\":500,\"msg\":\"申请失败成功!\"}";
 			}
 		} else {
+			logger.debug( "{\"code\":500,\"msg\":\"未找到对应服务!\"}");
 			return "{\"code\":500,\"msg\":\"未找到对应服务!\"}";
 		}
 	}
@@ -56,8 +61,10 @@ public class UserJoinServiceController {
 		String id = param.get("id");
 		boolean flag = userJoinService.approvedService(id);
 		if (flag) {
+			logger.debug("{\"code\":200,\"msg\":\"操作成功!\"}");
 			return "{\"code\":200,\"msg\":\"操作成功!\"}";
 		}
+		logger.debug("{\"code\":500,\"msg\":\"系统出现异常!\"}");
 		return "{\"code\":500,\"msg\":\"系统出现异常!\"}";
 	}
 	
@@ -71,8 +78,10 @@ public class UserJoinServiceController {
 		String id = param.get("id");
 		boolean flag = userJoinService.unapprovedService(id);
 		if (flag) {
+			logger.debug("{\"code\":200,\"msg\":\"操作成功!\"}");
 			return "{\"code\":200,\"msg\":\"操作成功!\"}";
 		}
+		logger.debug("{\"code\":500,\"msg\":\"系统出现异常!\"}");
 		return "{\"code\":500,\"msg\":\"系统出现异常!\"}";
 	}
 

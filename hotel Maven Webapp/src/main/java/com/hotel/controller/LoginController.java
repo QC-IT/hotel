@@ -37,6 +37,7 @@ public class LoginController {
 	 */
 	@RequestMapping(value = "getOpenId.json", method=RequestMethod.POST,produces = "appication/json;charset=utf8")
 	public @ResponseBody String getOpenId(HttpSession session, @RequestBody Map<String, String> map) {
+	try{
 		String code = map.get("code");
 		String openId = loginService.getWeChatOpenIdByCode(code);
 		Map<String,Object> data=new HashMap<String,Object>();
@@ -47,6 +48,11 @@ public class LoginController {
 		json.put("data", data);
 		logger.debug(json.toJSONString());
 		return json.toJSONString();
+	}catch(Exception e){
+		e.printStackTrace();
+		logger.debug("{\"code\":\"500\",\"msg\":\"获取openId失败\"}"+e.getMessage());
+		return "{\"code\":\"500\",\"msg\":\"获取openId失败\"}";
+	}
 	}
 
 	/**
@@ -59,29 +65,35 @@ public class LoginController {
 	 */
 	@RequestMapping(value = "login.json", method = RequestMethod.POST, produces = "application/json;charset=utf8")
 	public @ResponseBody String login(HttpServletRequest request, @RequestBody Map<String, String> map) {
-		String code = map.get("code");
-		String latitude = map.get("latitude");
-		String longitude = map.get("longitude");
-		String nickName = map.get("nickName");
-		if(nickName==null){
-			nickName="未知用户";
-		}
-		HttpSession session = request.getSession();
-		String openId = loginService.getWeChatOpenIdByCode(code);
-		logger.debug("openId:" + openId + " 用户登录 longitude:" + longitude + " latitude:" + latitude);
-		User user = loginService.loginUser(openId, latitude, longitude,nickName,session);
-		Map<String,Object> data=new HashMap<String, Object>();
-		JSONObject json = new JSONObject();
-		if (user.getState() == 1) {
-			json.put("code", "200");
-			data.put("user", user);
-		} else if (user.getState() == 3) {
-			json.put("code", "202");
-			data.put("msg", "用户违规禁止登录");
-		}
-		json.put("data", data);
-		logger.debug(json.toJSONString());
-		return json.toJSONString();
+try{
+	String code = map.get("code");
+	String latitude = map.get("latitude");
+	String longitude = map.get("longitude");
+	String nickName = map.get("nickName");
+	if(nickName==null){
+		nickName="未知用户";
+	}
+	HttpSession session = request.getSession();
+	String openId = loginService.getWeChatOpenIdByCode(code);
+	logger.debug("openId:" + openId + " 用户登录 longitude:" + longitude + " latitude:" + latitude);
+	User user = loginService.loginUser(openId, latitude, longitude,nickName,session);
+	Map<String,Object> data=new HashMap<String, Object>();
+	JSONObject json = new JSONObject();
+	if (user.getState() == 1) {
+		json.put("code", "200");
+		data.put("user", user);
+	} else if (user.getState() == 3) {
+		json.put("code", "202");
+		data.put("msg", "用户违规禁止登录");
+	}
+	json.put("data", data);
+	logger.debug(json.toJSONString());
+	return json.toJSONString();
+}catch(Exception e){
+	e.printStackTrace();
+	logger.debug("{\"code\":500,\"msg\":\"登录失败\"}"+e.getMessage());
+	return "{\"code\":500,\"msg\":\"登录失败\"}";
+}
 	}
 
 }

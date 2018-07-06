@@ -69,7 +69,8 @@ private BaiduMapService mapService;
 			return json.toJSONString();
 			
 		} catch (Exception e) {
-			logger.debug("{\"code\":500,\"msg\":\"服务器出现未知异常\"}");
+			e.printStackTrace();
+			logger.debug("{\"code\":500,\"msg\":\"服务器出现未知异常\"}"+e.getMessage());
 			return "{\"code\":500,\"msg\":\"服务器出现未知异常\"}";
 		}
 		}else{
@@ -129,7 +130,8 @@ private BaiduMapService mapService;
 			logger.debug(json.toJSONString());
 			return json.toJSONString();
 		} catch (Exception e) {
-			logger.debug("{\"code\":500,\"msg\":\"服务器出现未知异常\"}");
+			e.printStackTrace();
+			logger.debug("{\"code\":500,\"msg\":\"服务器出现未知异常\"}"+e.getMessage());
 			return "{\"code\":500,\"msg\":\"服务器出现未知异常\"}";
 		}
 
@@ -163,7 +165,8 @@ private BaiduMapService mapService;
 			logger.debug(json.toJSONString());
 			return json.toJSONString();
 		} catch (Exception e) {
-			logger.debug("{\"code\":500,\"msg\":\"服务器出现未知异常\"}");
+			e.printStackTrace();
+			logger.debug("{\"code\":500,\"msg\":\"服务器出现未知异常\"}"+e.getMessage());
 			return "{\"code\":500,\"msg\":\"服务器出现未知异常\"}";
 		}
 
@@ -192,7 +195,8 @@ private BaiduMapService mapService;
 			logger.debug("{\"code\":200,\"msg\":\"success\"}");
 			return "{\"code\":200,\"msg\":\"success\"}";
 		} catch (Exception e) {
-			logger.debug("{\"code\":500,\"msg\":\"服务器出现未知异常\"}");
+			e.printStackTrace();
+			logger.debug("{\"code\":500,\"msg\":\"服务器出现未知异常\"}"+e.getMessage());
 			return "{\"code\":500,\"msg\":\"服务器出现未知异常\"}";
 		}
 	}
@@ -216,7 +220,8 @@ private BaiduMapService mapService;
 				return "{\"code\":500,\"msg\":\"未知原因更新失败\"}";
 			}
 		} catch (Exception e) {
-			logger.debug("{\"code\":500,\"msg\":\"未知原因更新失败\"}");
+			e.printStackTrace();
+			logger.debug("{\"code\":500,\"msg\":\"未知原因更新失败\"}"+e.getMessage());
 			return "{\"code\":500,\"msg\":\"未知原因更新失败\"}";
 		}
 	}
@@ -248,7 +253,8 @@ boolean flag = hotelService.insertHotelBaseInfo(hotel);
 				return "{\"code\":500,\"msg\":\"未知原因添加失败\"}";
 			}
 		} catch (Exception e) {
-			logger.debug("{\"code\":500,\"msg\":\"未知原因添加失败\"}");
+			e.printStackTrace();
+			logger.debug("{\"code\":500,\"msg\":\"未知原因添加失败\"}"+e.getMessage());
 			return "{\"code\":500,\"msg\":\"未知原因添加失败\"}";
 		}
 	}
@@ -277,7 +283,7 @@ boolean flag = hotelService.insertHotelBaseInfo(hotel);
 			return json.toJSONString();
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.debug("{\"code\":500,\"msg\":\"未知错误\"}");
+			logger.debug("{\"code\":500,\"msg\":\"未知错误\"}"+e.getMessage());
 			return "{\"code\":500,\"msg\":\"未知错误\"}";
 		}
 	}
@@ -288,16 +294,20 @@ boolean flag = hotelService.insertHotelBaseInfo(hotel);
 			try {
 				if (PicUtil.isPic(file.getOriginalFilename())) {
 					hotelService.updateOfficialPic(file, hid);
+					logger.debug("{\"code\":200,\"msg\":\"头像上传成功\"}");
 					return "{\"code\":200,\"msg\":\"头像上传成功\"}";
 				} else {
+					logger.debug("{\"code\":500,\"msg\":\"格式不支持\"}");
 					return "{\"code\":500,\"msg\":\"格式不支持\"}";
 				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
+				logger.debug("{\"code\":500,\"msg\":\"未知错误\"}"+e.getMessage());
 				return "{\"code\":500,\"msg\":\"未知错误\"}";
 			}
 		} else {
+			logger.debug("{\"code\":500,\"msg\":\"文件为空\"}");
 			return "{\"code\":500,\"msg\":\"文件为空\"}";
 		}
 	}
@@ -308,13 +318,16 @@ boolean flag = hotelService.insertHotelBaseInfo(hotel);
 			try {
 				if (PicUtil.isPic(file.getOriginalFilename())) {
 					hotelService.updateHeadPic(file, hid);
+					logger.debug("{\"code\":200,\"msg\":\"头像上传成功\"}");
 					return "{\"code\":200,\"msg\":\"头像上传成功\"}";
 				} else {
+					logger.debug("{\"code\":500,\"msg\":\"格式不支持\"}");
 					return "{\"code\":500,\"msg\":\"格式不支持\"}";
 				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
+				logger.debug("{\"code\":500,\"msg\":\"未知错误\"}"+e.getMessage());
 				return "{\"code\":500,\"msg\":\"未知错误\"}";
 			}
 		} else {
