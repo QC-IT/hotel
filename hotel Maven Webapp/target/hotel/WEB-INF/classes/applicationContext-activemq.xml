@@ -12,8 +12,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
  <!-- ActiveMQ 连接工厂 --> 
     <!-- 真正可以产生Connection的ConnectionFactory，由对应的 JMS服务厂商提供-->
     <!-- 如果连接网络：tcp://ip:61616；未连接网络：tcp://localhost:61616 以及用户名，密码-->
-    <amq:connectionFactory id="amqConnectionFactory"
-        brokerURL="${activemq_url}" userName="${activemq_userName}" password="${activemq_password}"  />
+    <amq:connectionFactory id="amqConnectionFactory"  brokerURL="${activemq_url}" userName="${activemq_userName}" password="${activemq_password}"  />
 
     <!-- Spring Caching连接工厂 --> 
     <!-- Spring用于管理真正的ConnectionFactory的ConnectionFactory -->  
@@ -48,7 +47,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
     
      <!-- 消息消费者 start-->
 <bean name="topicReceiver1" class="com.hotel.jms.consumer.ScanConsumer"></bean>
-    <!-- 定义Queue监听器 -->
+    <!-- 定义Queue监听器 --> 
    <jms:listener-container destination-type="queue" container-type="default" connection-factory="connectionFactory" acknowledge="auto" >
  <jms:listener destination="scan-queue" ref="topicReceiver1" method="onMessage"/>
     </jms:listener-container>

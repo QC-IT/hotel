@@ -3,6 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hotel.dao.HotelDao">
+<cache/>
 <select id="selectHotelByCityCode" parameterType="java.lang.String" resultMap="HotelResultMap">
 	select h.*,hp.id pid,hp.picUrl picUrl,hp.state pstate,hp.hid
 		hid from hotel as h left join hotel_pic as hp on h.id=hp.hid
@@ -11,6 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="insertHotelBaseInfo" parameterType="Hotel">
 		insert into hotel (
+		id,
 		<if test="name!=null">
 			name,
 		</if>
@@ -29,8 +31,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="phoneNumber!=null">
 			phoneNumber,
 		</if>
-		<if test="startLevel!=null">
-			startLevel,
+		<if test="starLevel!=null">
+			starLevel,
 		</if>
 		<if test="officialURL!=null">
 			officialURL,
@@ -56,6 +58,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 		recommendOrderCode
 		)values (
+		#{id},
 		<if test="name!=null">
 			#{name},
 		</if>
@@ -74,8 +77,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="phoneNumber!=null">
 			#{phoneNumber},
 		</if>
-		<if test="startLevel!=null">
-			#{startLevel},
+		<if test="starLevel!=null">
+			#{starLevel},
 		</if>
 		<if test="officialURL!=null">
 			#{officialURL},
@@ -102,12 +105,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		name like ${name} limit 0,10
 	</select>
 
-	<select id="getRecommendHotelByCity" parameterType="java.lang.String"
+	<select id="getRecommendHotelByCity" parameterType="map"
 		resultMap="HotelResultMap">
 		select h.*,hp.id pid,hp.picUrl picUrl,hp.state pstate,hp.hid hid from hotel
 		as h left join hotel_pic as hp on h.id=hp.hid
 		where
-		cityCode=#{cityCode} and h.state=1 and h.isRecommend=1
+		cityCode=#{cityCode} and h.state=1 and h.isRecommend=1 limit #{index},#{count}
 	</select>
 
 	<update id="changeHotelStateById" parameterType="map">
@@ -136,8 +139,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="phoneNumber!=null">
 			phoneNumber=#{phoneNumber},
 		</if>
-		<if test="startLevel!=null">
-			startLevel=#{startLevel},
+		<if test="starLevel!=null">
+			starLevel=#{starLevel},
 		</if>
 		<if test="officialURL!=null">
 			officialURL=#{officialURL},
@@ -175,7 +178,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="latitude" property="latitude" />
 		<result column="administrator" property="administrator" />
 		<result column="phoneNumber" property="phoneNumber" />
-		<result column="startLevel" property="startLevel" />
+		<result column="starLevel" property="starLevel" />
 		<result column="officialURL" property="officialURL" />
 		<result column="headPicURL" property="headPicURL" />
 		<result column="type" property="type" />
@@ -194,5 +197,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	<select id="getHotelById" parameterType="java.lang.String" resultType="Hotel">
 	select * from hotel where id=#{id}
+	</select>
+	<select id="getAllHotel" resultType="Hotel">
+	select * from hotel
+	</select>
+	
+	<select id="getHotelLimit" parameterType="map" resultType="Hotel">
+	select * from hotel limit #{index},#{count}
 	</select>
 </mapper> 

@@ -5,6 +5,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 <mapper namespace="com.hotel.dao.CityDao">
+<!-- 开启二级缓存 -->
+<cache/>
 	<insert id="addCityList" parameterType="list">
 		<if test="list !=null">
 	insert into city(pinyin,name,abbr,code,ishot) values
@@ -42,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getCityIdByName" parameterType="java.lang.String"
 		resultType="java.lang.Integer">
 		
-			select id from city where name=#{name}
+			select id from city where name =#{name}
 		
 	</select>
 	<select id="getCodeByCityName" parameterType="java.lang.String"

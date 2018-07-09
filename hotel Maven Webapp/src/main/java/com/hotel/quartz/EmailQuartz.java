@@ -3,18 +3,19 @@ package com.hotel.quartz;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.WebApplicationContext;
 
 import com.hotel.service.QuartzService;
 
 public class EmailQuartz implements Job {
+	@Autowired
 	private QuartzService quartzService;
 	{
-		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
-		quartzService = wac.getBean(QuartzService.class);
+		BeanFactory beanFactory=ContextLoader.getCurrentWebApplicationContext();
+		System.out.println(beanFactory);
 	}
-
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 	quartzService.autoSendLogEmail();
 	}

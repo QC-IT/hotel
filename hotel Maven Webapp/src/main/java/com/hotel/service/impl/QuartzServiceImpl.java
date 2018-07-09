@@ -1,7 +1,5 @@
 package com.hotel.service.impl;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +28,7 @@ private CommentDao commentDao;
 	private String log_admin;
 	@Override
 	public boolean autoComment() {
+		
 		try{
 	List<Map<String,String>> list=serviceDao.selectSericeIdAllNoComment();
 	for(Map<String,String> map:list){

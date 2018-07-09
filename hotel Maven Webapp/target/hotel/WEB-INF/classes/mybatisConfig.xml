@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE configuration
-  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
   <configuration>
   <settings>
   <!-- 用积极加载/不使用懒加载-->
         <setting name="lazyLoadingEnabled" value="false" />  
         <setting name="aggressiveLazyLoading" value="true"/> 
-        <!-- 开启二级缓存(在mapping中使用</cache>标签开启，目前缓存在本机)-->
+        <!-- 开启二级缓存(在mapping中使用</cache>标签开启)-->
         <setting name="cacheEnabled" value="true"/>
   </settings>
   <typeAliases>

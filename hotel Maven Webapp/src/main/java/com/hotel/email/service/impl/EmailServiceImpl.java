@@ -1,7 +1,6 @@
 package com.hotel.email.service.impl;
 
 import java.io.UnsupportedEncodingException;
-import java.net.Authenticator;
 import java.util.Date;
 import java.util.Properties;
 
@@ -12,7 +11,6 @@ import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
-import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -64,7 +62,7 @@ private String log_path;
 			session.setDebug(true);
 
 			// 3. 创建一封邮件
-			MimeMessage message = createMimeMessage(session, myEmailAccount, to, subject, content);
+			MimeMessage message = createMimeMessage(session, "1+超级会员", to, subject, content);
 
 			// 4. 根据 Session 获取邮件传输对象
 			Transport transport = session.getTransport();
