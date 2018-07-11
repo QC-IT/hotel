@@ -19,10 +19,13 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeUtility;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.hotel.email.service.EmailService;
+import com.hotel.util.DateUtil;
 
 @Service
 public class EmailServiceImpl implements EmailService {
@@ -38,6 +41,7 @@ public class EmailServiceImpl implements EmailService {
 	private String sendername;
 @Value("${log_path}")
 private String log_path;
+private static final Logger logger=LoggerFactory.getLogger(EmailServiceImpl.class);
 	@Override
 	public boolean sendSimpleTextEmailTo(String to, String content, String subject) {
 		try {
@@ -73,10 +77,12 @@ private String log_path;
 			// 获取到的是在创建邮件对象时添加的所有收件人, 抄送人, 密送人
 			transport.sendMessage(message, message.getAllRecipients());
 			// 7. 关闭连接
+			logger.debug("邮箱发送(to:"+to+"):主题-"+subject+"内容-"+content);
 			transport.close();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.debug("邮件发送失败!");
 			return false;
 		}
 	}
@@ -175,9 +181,11 @@ private String log_path;
 				   
 				    // 发送消息 
 				    Transport.send(message,myEmailAccount,myEmailPassword); 
+				    logger.debug(DateUtil.dateFormatToString(new Date())+"日志发送成功!");
 				    return true;
 				   }catch (MessagingException | UnsupportedEncodingException mex) { 
 				    mex.printStackTrace(); 
+				    logger.debug(DateUtil.dateFormatToString(new Date())+"日志失败!");
 					return false; 
 				   }
 

@@ -1,5 +1,6 @@
 /Users/yuanhaohe/MyEclipse/workspace1/hotel Maven Webapp/src/main/java/com/hotel/service/impl/QuartzServiceImpl.java
 /Users/yuanhaohe/MyEclipse/workspace1/hotel Maven Webapp/src/main/java/com/hotel/service/impl/HotelItemsServiceImpl.java
+/Users/yuanhaohe/MyEclipse/workspace1/hotel Maven Webapp/src/main/java/com/hotel/util/DateUtil.java
 /Users/yuanhaohe/MyEclipse/workspace1/hotel Maven Webapp/src/main/java/com/hotel/service/impl/LoginServiceImpl.java
 /Users/yuanhaohe/MyEclipse/workspace1/hotel Maven Webapp/src/main/java/com/hotel/exceptions/BaiduMapLocationFormatException.java
 /Users/yuanhaohe/MyEclipse/workspace1/hotel Maven Webapp/src/main/java/com/hotel/quartz/EmailQuartz.java
