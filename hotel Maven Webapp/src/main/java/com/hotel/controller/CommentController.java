@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("comment")
+@RequestMapping("/comment")
 public class CommentController {
 
     @Autowired
@@ -53,6 +53,7 @@ public class CommentController {
     }
 
     @RequestMapping(value = "/getCommentByHotelIdAndState.json", produces = "application/json;charset=utf8")
+    @ResponseBody
     public Result getCommentByHotelIdAndState(@RequestBody Map<String,Object> map){
         String hotelId = (String)map.get("hotelId");
         Integer state = (Integer)map.get("state");
@@ -65,7 +66,9 @@ public class CommentController {
             return Result.fail("参数传递错误");
         }
     }
+
     @RequestMapping(value = "/getCommentByUid.json",produces="application/json;charset=utf8")
+    @ResponseBody
     public Result getCommentByUid(@RequestBody HashMap<String ,Object> map){
         String uid = (String) map.get("uid");
         Integer page = (Integer)map.get("page");
@@ -79,10 +82,8 @@ public class CommentController {
     }
 
     @RequestMapping(value = "/getCommentBySid.json",produces="application/json;charset=utf8")
-    public Result getCommentBySid(@RequestBody HashMap<String,Integer> map){
-        Integer sid = (Integer)map.get("sid");
-        Integer page = (Integer)map.get("page");
-        Integer rows = (Integer)map.get("rows");
+    @ResponseBody
+    public Result getCommentBySid(Integer sid,Integer page,Integer rows){
         if (sid>=0&&page>=0&&rows>0){
             PageInfo<Comment> pageInfo = commentService.getCommentBySid(sid, page, rows);
             return Result.success("查询成功",pageInfo.getList());
@@ -92,6 +93,7 @@ public class CommentController {
     }
 
     @RequestMapping(value = "/addComment.json",produces="application/json;charset=utf8",method=RequestMethod.POST)
+    @ResponseBody
     public Result addComment(@RequestBody Comment comment){
         if (comment != null){
             commentService.addComment(comment);
@@ -102,6 +104,7 @@ public class CommentController {
     }
 
     @RequestMapping(value = "/deleteCommentByIds.json",produces="application/json;charset=utf8")
+    @ResponseBody
     public Result deleteCommentByIds(@RequestBody Integer[] ids){
         if (ids!=null){
             commentService.deleteCommentByIds(ids);
@@ -112,7 +115,8 @@ public class CommentController {
     }
 
     @RequestMapping(value = "/getCommentById.json",produces="application/json;charset=utf8")
-    public Result getCommentById(@RequestBody Integer id){
+    @ResponseBody
+    public Result getCommentById(Integer id){
         if (id > 0){
             Comment comment = commentService.getCommentById(id);
             return Result.success("查询成功",comment);
