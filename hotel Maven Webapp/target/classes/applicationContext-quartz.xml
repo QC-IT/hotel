@@ -10,7 +10,7 @@
 
 	<!-- Spring整合Quartz进行配置遵循下面的步骤： 1：定义工作任务的Job 2：定义触发器Trigger，并将触发器与工作任务绑定 
 		3：定义调度器，并将Trigger注册到Scheduler -->
-	<bean id="jobFactory" class="com.hotel.quartz.JobFactory"></bean>
+<!-- 	<bean id="jobFactory" class="com.hotel.quartz.JobFactory"></bean> -->
 
 	<!-- 1：定义任务的bean ，这里使用JobDetailFactoryBean,也可以使用MethodInvokingJobDetailFactoryBean 
 		，配置类似 -->
@@ -22,6 +22,20 @@
 		<property name="group" value="redis_group" />
 		<!-- 指定具体的job类 -->
 		<property name="jobClass" value="com.hotel.quartz.AutoQuartz" />
+		<!-- 必须设置为true，如果为false，当没有活动的触发器与之关联时会在调度器中会删除该任务 -->
+		<property name="durability" value="true" />
+		<!-- 指定spring容器的key，如果不设定在job中的jobmap中是获取不到spring容器的 -->
+		<property name="applicationContextJobDataKey" value="applicationContext" />
+	</bean>
+	
+		<bean name="emailJob"
+		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<!-- 指定job的名称 -->
+		<property name="name" value="email_job" />
+		<!-- 指定job的分组 -->
+		<property name="group" value="email_group" />
+		<!-- 指定具体的job类 -->
+		<property name="jobClass" value="com.hotel.quartz.EmailQuartz" />
 		<!-- 必须设置为true，如果为false，当没有活动的触发器与之关联时会在调度器中会删除该任务 -->
 		<property name="durability" value="true" />
 		<!-- 指定spring容器的key，如果不设定在job中的jobmap中是获取不到spring容器的 -->
@@ -43,17 +57,31 @@
 		<property name="group" value="redis_trigger_group" />
 		<!-- 指定Tirgger绑定的Job -->
 		<property name="jobDetail" ref="redisJob" />
-		<!-- 指定Cron 的表达式 ，当前是每隔1s运行一次 -->
+		<!-- 指定Cron 的表达式 ，当前是每隔10s运行一次 -->
 		<property name="cronExpression" value="0/10000 * * * * ?" />
 	</bean>
+	
+	<bean id="emailTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<!-- 指定Trigger的名称 -->
+		<property name="name" value="email_trigger" />
+		<!-- 指定Trigger的名称 -->
+		<property name="group" value="email_trigger_group" />
+		<!-- 指定Tirgger绑定的Job -->
+		<property name="jobDetail" ref="emailJob" />
+		<!-- 指定Cron 的表达式 ，当前是每隔1s运行一次 -->
+		<property name="cronExpression" value="0 0 1 * * ?" />
+	</bean>
+	
 	<!-- 3.定义调度器，并将Trigger注册到调度器中 -->
 	<bean id="scheduler"
 		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-				<property name="jobFactory" ref="jobFactory"></property>
+		<!-- 		<property name="jobFactory" ref="jobFactory"></property> -->
 		<property name="triggers">
 			<list>
 				<!-- <ref bean="simpleTrigger"/> -->
 				<ref bean="redisTrigger" />
+							<ref bean="emailTrigger" />
 			</list>
 		</property>
 		<!-- <property name="autoStartup" value="true" /> -->
