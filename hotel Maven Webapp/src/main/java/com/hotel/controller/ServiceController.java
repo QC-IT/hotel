@@ -26,10 +26,10 @@ public class ServiceController {
     @RequestMapping(value = "getItemsByHotelId.json",produces="application/json;charset=utf8")
     @ResponseBody
     public Result getItemsByHotelId(@RequestBody HashMap<String,Object> map){
-        String hid = (String) map.get("hotel");
+        String hid = (String) map.get("hotelId");
         Integer page = (Integer)map.get("page");
         Integer rows = (Integer)map.get("rows");
-
+        System.out.println("hid:" + hid +"page :" +page +" rows:"+rows);
         if (StringUtil.isNotEmpty(hid)&&page >= 0 && rows >0){
             PageInfo<Items> pageInfo = serviceService.getItemsByHotelId(hid, page, rows);
             return Result.success("查询成功",pageInfo.getList());
