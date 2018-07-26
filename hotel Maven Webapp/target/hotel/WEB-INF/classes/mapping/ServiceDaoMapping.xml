@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hotel.dao.ServiceDao">
+
+
+	
+	<select id="selectSericeIdByUserIdAndNoComment" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select sid from service_join where uid=#{uid} and
+		<![CDATA[auditTime<=curdate()-14]]> and iscomment =0 and state = 2
+	</select>
+
+	<select id="selectSericeIdAllNoComment" resultType="Map">
+		select
+		sid,uid from service_join where
+		<![CDATA[auditTime<=curdate()-14]]> and iscomment =0 and state = 2 
+		
+	</select>
+	
+	<select id="getItemsById" parameterType="java.lang.Integer"
+		resultType="items">
+		select * from service where id = #{id}
+	</select>
+
+	<select id="getItemsByHotelIdAndItem" parameterType="java.lang.String"
+		resultType="Items">
+		select * from service where hid = #{hid} and item = #{item}
+	</select>
+
+	<select id="getItemsByHotelIdAndState" parameterType="java.lang.String"
+		resultType="Items">
+		select * from service where hid = #{hid} and state = #{state}
+	</select>
+
+	<select id="getItemsByHotelIdAndNeedLevel" parameterType="java.lang.Integer"
+		resultType="Items">
+		select * from service where hid = #{hid} and needLevel = #{needLevel}
+	</select>
+
+	<insert id="addItems" parameterType="Items">
+		insert into
+		service(hid,item,needLevel,detailContent,picUrl,beginTime,endTime,createTime,state)
+		values(#{hid},#{item},#{needLevel},#{detailContent},#{picUrl},#{beginTime},#{endTime},#{createTime},#{state})
+	</insert>
+
+	<insert id="updateItems" parameterType="Items">
+		update service
+		<set>
+			<if test="item!=null">
+				item = #{item},
+			</if>
+			<if test="needLevel!=null">
+				needLevel = #{needLevel},
+			</if>
+			<if test="detailContent!=null">
+				detailContent = #{detailContent},
+			</if>
+			<if test="picUrl!=null">
+				picUrl = #{picUrl},
+			</if>
+			<if test="beginTime!=null">
+				beginTime = #{beginTime},
+			</if>
+			<if test="endTime!=null">
+				endTime = #{endTime},
+			</if>
+			<if test="createTime!=null">
+				createTime = #{createTime},
+			</if>
+			<if test="state!=null">
+				state = #{state},
+			</if>
+		</set>
+		where id = #{id}
+	</insert>
+	<select id="getItemsByHotelId" parameterType="java.lang.String"
+		resultType="Items">
+		select * from service where hid = #{hid}
+	</select>
+	<delete id="deleteItems" parameterType="java.lang.Integer">
+		delete from service where
+		id = #{id}
+	</delete>
+</mapper>

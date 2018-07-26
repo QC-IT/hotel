@@ -41,7 +41,6 @@
         
   <bean id="redisService" class="com.hotel.redis.impl.RedisServiceImpl">
         <property name="redisTemplate" ref="redisTemplate" />
-    
     </bean>
 
 

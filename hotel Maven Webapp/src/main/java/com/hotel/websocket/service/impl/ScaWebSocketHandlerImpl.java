@@ -23,16 +23,16 @@ public class ScaWebSocketHandlerImpl extends TextWebSocketHandler implements Sca
   }
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        String cityid = getClientId(session);
-        logger.debug("websocket请求连接! cityid="+cityid);
-        if (cityid != null) {
-        	String[] tmp=cityid.split("_");
-        	String city_id=tmp[0];
+        String id = getClientId(session);
+        logger.debug("websocket请求连接! id="+id);
+        if (id != null) {
+        	String[] tmp=id.split("_");
+        	String hotel_id=tmp[0];
         	String userid=tmp[1];
-        	 Map<String,WebSocketSession> map=users.get(city_id);
+        	 Map<String,WebSocketSession> map=users.get(hotel_id);
         	 if(map==null){
         		 Map<String,WebSocketSession> userMap=new ConcurrentHashMap<String,WebSocketSession>();
-        		 users.put(city_id, userMap);
+        		 users.put(hotel_id, userMap);
         		 userMap.put(userid,session);
         	 }else{
         		 map.put(userid,session);
@@ -56,16 +56,16 @@ logger.debug("向客户端发送信息:"+message.toString());
 
     /**
      * 发送信息给指定用户
-     * @param clientId 包括城市id_酒店id
+     * @param clientId  包括酒店ID_用户ID
      * @param message
      * @return 成功true 失败 false
      */
     public boolean sendMessageToUser(String clientId, TextMessage message) {
     	String[] tmp=clientId.split("_");
-    	String cityid=tmp[0];
+    	String hotelid=tmp[0];
     	String userid=tmp[1];
-        if (users.get(cityid) == null||users.get(cityid).get(userid)==null) return false;
-        WebSocketSession session = users.get(cityid).get(userid);
+        if (users.get(hotelid) == null||users.get(hotelid).get(userid)==null) return false;
+        WebSocketSession session = users.get(hotelid).get(userid);
        logger.debug("sendMessage to " + session);
         if (!session.isOpen()) return false;
         try {

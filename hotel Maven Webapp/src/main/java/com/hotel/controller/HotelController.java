@@ -38,9 +38,7 @@ private CityService cityService;
 private BaiduMapService mapService;
 	/**
 	 * 通过查询名称模糊搜索酒店信息
-	 * 
-	 * @param map
-	 *            name 查询酒店名称 longitude 经度 latitude 纬度
+	 * @param map   name 查询酒店名称 longitude 经度 latitude 纬度
 	 * @return
 	 */
 	@RequestMapping(value = "searchHotel.json", method = RequestMethod.POST, produces = "application/json;charset=utf8")
@@ -81,17 +79,17 @@ private BaiduMapService mapService;
 	}
 
 	/**
-	 * websocket连接会话的id 城市code_用户ID
-	 * 
+	 * websocket连接会话的id 酒店id
 	 * @param session
-	 * @param map
-	 *            socketId
+	 * @param map hotelId
 	 * @return
 	 */
 	@RequestMapping(value = "socketContent.json", method = RequestMethod.POST, produces = "application/json;charset=utf8")
 	public @ResponseBody String getSocketContent(HttpSession session, @RequestBody Map<String, String> map) {
-		String socketId = map.get("socketId");
-		if (socketId != null) {
+		String hotelId = map.get("hotelId");
+		String openId=(String) session.getAttribute("openId");
+		String socketId=hotelId+"-"+openId;
+		if (!socketId.contains("null")) {
 			session.setAttribute("sca_connectionid", socketId);
 			logger.debug("{\"code\":200,\"msg\":\"success\"}");
 			return "{\"code\":200,\"msg\":\"success\"}";
@@ -140,8 +138,7 @@ private BaiduMapService mapService;
 	/**
 	 * 通过cityCode获取推荐酒店
 	 * 
-	 * @param map
-	 *            cityCode longitude latitude
+	 * @param map  cityCode longitude latitude
 	 * @return
 	 */
 	@RequestMapping(value = "getRecomHotelListByCityCode.json", method = RequestMethod.POST, produces = "application/json;charset=utf8")
@@ -175,8 +172,7 @@ private BaiduMapService mapService;
 	/**
 	 * 改变酒店状态 1营业 0关闭 2未营业
 	 * 
-	 * @param map
-	 *            state id
+	 * @param map  state id
 	 * @return
 	 */
 	// 在写酒店方小程序时候这里要做权限判断 state 402
@@ -228,7 +224,6 @@ private BaiduMapService mapService;
 
 	/**
 	 * 增加酒店信息
-	 * 
 	 * @param hotel
 	 * @return
 	 */
@@ -261,7 +256,6 @@ boolean flag = hotelService.insertHotelBaseInfo(hotel);
 
 	/**
 	 * 分页获取最近酒店信息
-	 * 
 	 * @param session
 	 * @param map
 	 *            latitude longitude page rows

@@ -51,7 +51,12 @@ public class HotelServiceImpl implements HotelService {
 
 	@Transactional
 	public List<Hotel> getSearchResult(String name, String longitude, String latitude) throws Exception {
-		List<Hotel> list = hotelDao.getHotelInfoByCityCodeAndName("'%" + name + "%'");
+		@SuppressWarnings("unchecked")
+		List<Hotel> list = (List<Hotel>) redisService.get("serach-"+name);
+		if(list==null){
+		list = hotelDao.getHotelInfoByCityCodeAndName("'%" + name + "%'");
+		redisService.set("search-"+name, list);
+		}
 		list.forEach((hotel) -> {
 			hotel.setDistance(DistanceUtil.getDistance(hotel.getLatitude(), hotel.getLongitude(), latitude, longitude));
 		});

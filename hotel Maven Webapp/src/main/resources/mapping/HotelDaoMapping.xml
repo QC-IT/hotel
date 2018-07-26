@@ -102,7 +102,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getHotelInfoByCityCodeAndName" parameterType="map"
 		resultType="Hotel">
 		select id,latitude,longitude,address,name from hotel where
-		name like ${name} limit 0,10
+		name like ${name}
 	</select>
 
 	<select id="getRecommendHotelByCity" parameterType="map"
